@@ -1,0 +1,66 @@
+version: '3.1'
+services:
+    # server:
+    #     build: 
+    #         context: ../.
+    #         dockerfile: docker/server/dev.Dockerfile
+    #     image: wendy-server
+    #     ports:
+    #         - '3003:3003' #Connect localhost 3003 to container port 3003
+    #     links: # Link services to access http://app and http:api inside container
+    #         - api:api
+    #         - app:app
+    app:
+        build: 
+            context: ../.
+            dockerfile: docker/frontend/dev.Dockerfile
+        image: wendy-frontend
+        environment:
+            - NODE_ENV=development
+            - CHOKIDAR_USEPOLLING=true
+        volumes: # For webpack dev server to use local files
+            - ./../app:/app
+            - ./../app/node_modules
+        ports:
+            - 3000:3000 # For docker to now where to redirect Hot module replacement (HMR) queries
+    # api:
+    #     build: 
+    #         context: ../.
+    #         dockerfile: docker/api/dev.Dockerfile
+    #     image: wendy-api
+    #     environment: 
+    #         - DB_NAME=${APP_MONGO_DB}
+    #         - DB_USER=${APP_MONGO_USER}
+    #         - DB_PASSWORD=${APP_MONGO_PASS}
+    #         - DB_HOST=${MONGO_HOST}
+    #         - DB_PORT=${MONGO_PORT}
+    #         - NODE_ENV=development
+    #     links:
+    #         - mongodb:mongodb
+    #     volumes: 
+    #         - ./../api:/usr/src/api
+    #     ports:
+    #         - 3001:3001
+    #     depends_on: 
+    #        - mongodb
+    # mongodb:
+    #     image: wendy-database
+    #     build: 
+    #         context: ../.
+    #         dockerfile: docker/database/dev.Dockerfile
+    #     env_file: database/.env
+    #     environment:
+    #         - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+    #         - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+    #         - APP_MONGO_HOST=${MONGO_HOST}
+    #         - MONGO_PORT=${MONGO_PORT}
+    #         - MONGO_ROOT_USER=${MONGO_ROOT_USERNAME}
+    #         - MONGO_ROOT_PASS=${MONGO_ROOT_PASSWORD}
+    #         - APP_MONGO_USER=${APP_MONGO_USER}
+    #         - APP_MONGO_PASS=${APP_MONGO_PASS}
+    #         - APP_MONGO_DB=${APP_MONGO_DB}
+    #     volumes:
+    #         - ./data/db:/data/db
+    #         - "./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh"
+    #     ports:
+    #         - 3002:3002
