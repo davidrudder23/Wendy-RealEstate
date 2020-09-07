@@ -1,12 +1,14 @@
-
 #!/usr/bin/env bash
+set -eu
+mongo -- "$APP_MONGO_DB" << EOF
+    var rootUser = '$MONGO_INITDB_ROOT_USERNAME';
+    var rootPassword = '$MONGO_INITDB_ROOT_PASSWORD';
+    var admin = db.getSiblingDB('admin');
+    admin.auth(rootUser, rootPassword);
 
-echo 'Creating application user and db'
-
-mongo ${APP_MONGO_DB} \
-        --host localhost \
-        --port ${MONGO_PORT} \
-        -u ${MONGO_ROOT_USER} \
-        -p ${MONGO_ROOT_PASS} \
-        --authenticationDatabase admin \
-        --eval "db.createUser({user: '${APP_MONGO_USER}', pwd: '${APP_MONGO_PASS}', roles:[{role:'dbOwner', db: '${APP_MONGO_DB}'}]});"
+    var user = '$MONGO_INITDB_USERNAME';
+    var passwd = '$MONGO_INITDB_ROOT_PASSWORD;
+    db.createUser({user: user, pwd: passwd, roles: ["readWrite"]});
+    var db = db.getSiblingDB("test-database");
+    db.email.insert({"email":"gcolon021@gmail.com"});
+EOF
