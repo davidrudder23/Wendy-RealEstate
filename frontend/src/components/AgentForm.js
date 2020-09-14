@@ -124,7 +124,25 @@ const AgentForm = () => {
                     </div>
                     : null }
                 </S.FieldWrapper>
-                
+                <S.FieldWrapper>
+                    <S.FieldTitle>Deposit Information</S.FieldTitle>   
+                    <div style={{ display: "flex", flexDirection: "row"}}>
+                        <InputField 
+                        name="firstDeposit" 
+                        label="First Deposit Amount?" 
+                        errors={errors.firstDeposit}
+                        register={register}
+                        required={false}
+                        />
+                        <InputField 
+                        name="secondDeposit" 
+                        label="Second Deposit Amount?" 
+                        errors={errors.concessions}
+                        register={register}
+                        required={true}
+                        />
+                    </div>
+                </S.FieldWrapper>
 
 
                 <br />
