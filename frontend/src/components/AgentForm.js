@@ -6,6 +6,7 @@ import FormHeader from "./Form/FormHeader";
 import DropDownList from "./Form/DropDownList"
 import MultipleBuyers from './Form/MultipleBuyers';
 import Slider from "./Form/Slider";
+import PropertyInfo from "./Form/PropertyInfo";
 
 const mortgageTypes = ["Conventional", "FHA", "VA", "Cash"];
 const propertyTypes = ["Single Family","Multi Family", "Condo"];
@@ -19,44 +20,12 @@ const AgentForm = () => {
 
     console.log("Watch: " + watch("typeOfMortgage")); // watch input value by passing the name of it
 
-    const propertyInformation =
-    errors.propertyAddress &&
-    errors.mlsNumber &&
-    errors.deedReference;
-
-
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <S.FieldWrapper error={propertyInformation}>
-                    <S.FieldTitle>Property Information</S.FieldTitle>
-                    <div>
-                        <InputField 
-                        name="propertyAddress" 
-                        label="Property Address" 
-                        errors={errors.propertyAddress} 
-                        register={register} 
-                        required={true}/>
-                    </div>
-                    <div>
-                        <InputField 
-                        name="mlsNumber" 
-                        label="MLS Number" 
-                        errors={errors.mlsNumber} 
-                        register={register} 
-                        required={true}/>
-                    </div>
-                    <div>
-                        <InputField 
-                        name="deedReference" 
-                        label="Deed Reference (Book)" 
-                        errors={errors.deedReference} 
-                        register={register} 
-                        required={true}/>
-                    </div>
-                </S.FieldWrapper>
+                <PropertyInfo errors={errors} register={register}/>
                 <MultipleBuyers errors={errors} register={register} />
                 <S.FieldWrapper>
                     <S.FieldTitle>Property Type</S.FieldTitle>
@@ -143,6 +112,39 @@ const AgentForm = () => {
                         />
                     </div>
                 </S.FieldWrapper>
+                <S.FieldWrapper>
+                        {/* TODO: Need date field for year built */}
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                    <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
+                    {/* TODO: Radio Button Field */}
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                    <S.FieldTitle>Public or Town Water</S.FieldTitle>
+                    {/* TODO: Radio Button Field */}
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                    <S.FieldTitle>Inspection Deadline</S.FieldTitle>
+                    {/* TODO: Date Field */}
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                        <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                    <S.FieldTitle>Closing Date</S.FieldTitle>
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                    <S.FieldTitle>Has The buyer Submitted an offer for another property? <Slider /></S.FieldTitle>
+                </S.FieldWrapper>
+
+{/* 
+// <<Year Built>>
+// <<Is there a Title V or Town Sewer?>>
+// <<Public or Town Water>>
+// <<Inspection Deadline>>
+// <<Mortgage Commitment Deadline>>
+// <<Closing Date>>
+// <<Has buyer submitted an offer for another property?>> */}
 
 
                 <br />
@@ -155,15 +157,11 @@ const AgentForm = () => {
 export default AgentForm
 
 // List of fields needed:
-// <<1st Deposit Amount>>
-// <<2nd Deposit Amount>>
-// <<Year Built>>
-// <<Is there a Title V or Town Sewer?>>
-// <<Public or Town Water>>
-// <<Inspection Deadline>>
-// <<Mortgage Commitment Deadline>>
-// <<Closing Date>>
-// <<Has buyer submitted an offer for another property?>>
+
+
+
+
+
 // <<Buyers Agent First Name>>
 // <<Buyers Agent MLS Number>>
 // <<Buyers Agent License Number>>
