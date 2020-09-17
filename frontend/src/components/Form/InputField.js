@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from "./InputFieldStyled";
 
-const InputField = ({ name, label, register, errors, required, className, style }) => {
+const InputField = React.memo(({ name, label, register, errors, required, className, style }) => {
     const classVal = required ? `${className} required-field`: className;
     const [isEmpty, setIsEmpty] = React.useState(false);
     const isFieldEmpty = (value) => {
@@ -21,6 +21,6 @@ const InputField = ({ name, label, register, errors, required, className, style 
             {required && errors && <span>Required Field</span>}
         </S.InputField>
     )
-}
+})
 
 export default InputField

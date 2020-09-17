@@ -71,5 +71,9 @@ export const InputField = styled.div`
         right: 0;
     }
 
+    .react-datepicker-popper {
+        z-index: 4;
+    }
+
 `;
 

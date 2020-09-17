@@ -13,6 +13,7 @@ export const Input = styled.input`
     opacity: 0;
     width: 0;
     height: 0;
+    display: none;
 `;
 
 export const Span = styled.span`

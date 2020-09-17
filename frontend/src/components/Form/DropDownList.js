@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from "./DropDownListStyled"
 
-const DropDownList = ({ placeholder, options, register, setValue, isValue, ...rest }) => {
+const DropDownList = React.memo(({ placeholder, options, register, setValue, isValue, ...rest }) => {
     
     const handleChange = (event) => {
         event.preventDefault();
@@ -18,6 +18,6 @@ const DropDownList = ({ placeholder, options, register, setValue, isValue, ...re
             ))}
         </S.Select>
     )
-}
+})
 
 export default DropDownList

@@ -7,18 +7,21 @@ import DropDownList from "./Form/DropDownList"
 import MultipleBuyers from './Form/MultipleBuyers';
 import Slider from "./Form/Slider";
 import PropertyInfo from "./Form/PropertyInfo";
+import CustomDatePicker from './Form/DatePicker';
+
 
 const mortgageTypes = ["Conventional", "FHA", "VA", "Cash"];
 const propertyTypes = ["Single Family","Multi Family", "Condo"];
 
 const AgentForm = () => {
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, watch, errors, control } = useForm();
     const onSubmit = data => console.log(data);
 
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [isConcessions, setIsConcessions] = React.useState(false);
+    const [additionalOffer, setAdditionalOffer] = React.useState(false);
 
-    console.log("Watch: " + watch("typeOfMortgage")); // watch input value by passing the name of it
+    console.log("Watch: " + watch("buyerHasSubmittedAnotherOffer")); // watch input value by passing the name of it
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
@@ -79,7 +82,8 @@ const AgentForm = () => {
                     </div>
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                    <S.FieldTitle>Are there concessions? <Slider isChecked={isConcessions} setIsChecked={setIsConcessions} /></S.FieldTitle>
+                    <S.FieldTitle>Are there concessions? 
+                    <Slider isChecked={isConcessions} setIsChecked={setIsConcessions} name="areConcessions" required={false} register={register} /></S.FieldTitle>
                     {/* TODO: Make a text area field instead for this section. Concessions can be lengthy */}
                     { isConcessions ?
                     <div>
@@ -113,7 +117,8 @@ const AgentForm = () => {
                     </div>
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                        {/* TODO: Need date field for year built */}
+                        <S.FieldTitle>Date Built</S.FieldTitle>
+                        <CustomDatePicker control={control} name="dateHouseBuilt" label="Select Date Built" required={true} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
@@ -125,16 +130,20 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Inspection Deadline</S.FieldTitle>
-                    {/* TODO: Date Field */}
+                    <CustomDatePicker control={control} name="inspectionDeadline" label="Select Inspection Deadline" required={true} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                         <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Closing Date</S.FieldTitle>
+                    <CustomDatePicker control={control} name="houseClosingDate" label="Select Closing Date" required={true} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                    <S.FieldTitle>Has The buyer Submitted an offer for another property? <Slider /></S.FieldTitle>
+                {/* Slider blow needs correct function passed to it to handle condition */}
+                    <S.FieldTitle>Has The buyer Submitted an offer for another property? 
+                    <Slider isChecked={additionalOffer} setIsChecked={setAdditionalOffer} name="buyerHasSubmittedAnotherOffer" register={register} required={false}  />
+                    </S.FieldTitle>
                 </S.FieldWrapper>
 
 {/* 
