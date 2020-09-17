@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useForm } from "react-hook-form";
 import * as S from "./Form/FormStyled"
 import InputField from "./Form/InputField";
@@ -8,6 +8,7 @@ import MultipleBuyers from './Form/MultipleBuyers';
 import Slider from "./Form/Slider";
 import PropertyInfo from "./Form/PropertyInfo";
 import CustomDatePicker from './Form/DatePicker';
+import RadioSelector from "./Form/RadioSelector";
 
 
 const mortgageTypes = ["Conventional", "FHA", "VA", "Cash"];
@@ -22,7 +23,7 @@ const AgentForm = () => {
     const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
 
-    console.log("Watch: " + watch("buyerHasSubmittedAnotherOffer")); // watch input value by passing the name of it
+    console.log("Watch: " + watch("titleOrTownSewer")); // watch input value by passing the name of it
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
@@ -123,11 +124,11 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
-                    {/* TODO: Radio Button Field */}
+                    <RadioSelector  register={register} name="titleOrTownSewer" required={true} array={["Title V","Public Sewer"]} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Public or Town Water</S.FieldTitle>
-                    {/* TODO: Radio Button Field */}
+                    <RadioSelector  register={register} name="publicOrTownWater" required={true} array={["Town Water","Private Water"]} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Inspection Deadline</S.FieldTitle>
@@ -141,22 +142,12 @@ const AgentForm = () => {
                     <CustomDatePicker control={control} name="houseClosingDate" label="Select Closing Date" required={true} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                {/* Slider blow needs correct function passed to it to handle condition */}
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
                     <Slider isChecked={additionalOffer} setIsChecked={setAdditionalOffer} name="buyerHasSubmittedAnotherOffer" register={register} required={false}  />
                     </S.FieldTitle>
                 </S.FieldWrapper>
 
-{/* 
-// <<Year Built>>
-// <<Is there a Title V or Town Sewer?>>
-// <<Public or Town Water>>
-// <<Inspection Deadline>>
-// <<Mortgage Commitment Deadline>>
-// <<Closing Date>>
-// <<Has buyer submitted an offer for another property?>> */}
-
-
+                {/* Need to create multi step form */}
                 <br />
                 <input type="submit" />
             </form>
