@@ -10,7 +10,6 @@ import PropertyInfo from "./Form/PropertyInfo";
 import CustomDatePicker from './Form/DatePicker';
 import RadioSelector from "./Form/RadioSelector";
 
-
 const mortgageTypes = ["Conventional", "FHA", "VA", "Cash"];
 const propertyTypes = ["Single Family","Multi Family", "Condo"];
 
@@ -23,7 +22,7 @@ const AgentForm = () => {
     const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
 
-    console.log("Watch: " + watch("titleOrTownSewer")); // watch input value by passing the name of it
+    console.log("Watch: " + watch("")); // watch input value by passing the name of it
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
@@ -85,8 +84,8 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Are there concessions? 
-                    <Slider isChecked={isConcessions} setIsChecked={setIsConcessions} name="areConcessions" required={false} register={register} /></S.FieldTitle>
-                    {/* TODO: Make a text area field instead for this section. Concessions can be lengthy */}
+                        <Slider isChecked={isConcessions} setIsChecked={setIsConcessions} name="areConcessions" required={false} register={register} />
+                    </S.FieldTitle>
                     { isConcessions ?
                     <div>
                         <InputField 
@@ -100,7 +99,7 @@ const AgentForm = () => {
                     : null }
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                    <S.FieldTitle>Deposit Information</S.FieldTitle>   
+                    <S.FieldTitle>Deposit Information</S.FieldTitle>
                     <div style={{ display: "flex", flexDirection: "row"}}>
                         <InputField 
                         name="firstDeposit" 
@@ -122,13 +121,13 @@ const AgentForm = () => {
                         <S.FieldTitle>Date Built</S.FieldTitle>
                         <CustomDatePicker control={control} name="dateHouseBuilt" label="Select Date Built" required={true} />
                 </S.FieldWrapper>
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors.titleOrTownSewer} >
                     <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
-                    <RadioSelector  register={register} name="titleOrTownSewer" required={true} array={["Title V","Public Sewer"]} />
+                    <RadioSelector register={register} name="titleOrTownSewer" required={true} array={["Title V","Public Sewer"]} />
                 </S.FieldWrapper>
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors.publicOrTownWater} >
                     <S.FieldTitle>Public or Town Water</S.FieldTitle>
-                    <RadioSelector  register={register} name="publicOrTownWater" required={true} array={["Town Water","Private Water"]} />
+                    <RadioSelector register={register} name="publicOrTownWater" required={true} array={["Town Water","Private Water"]} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Inspection Deadline</S.FieldTitle>
@@ -136,6 +135,7 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                         <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
+                        <CustomDatePicker control={control} name="mortgageCommitmentDeadline" label="Select Mortgage Commitment Date" required={true} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Closing Date</S.FieldTitle>
@@ -158,10 +158,6 @@ const AgentForm = () => {
 export default AgentForm
 
 // List of fields needed:
-
-
-
-
 
 // <<Buyers Agent First Name>>
 // <<Buyers Agent MLS Number>>

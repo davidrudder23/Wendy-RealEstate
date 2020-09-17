@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import * as S from "./RadioSelectorStyled";
 
 const RadioSelector = React.memo(({ register, required, name, array }) => {
 
@@ -8,14 +9,16 @@ const RadioSelector = React.memo(({ register, required, name, array }) => {
     // Documentation: https://reactjs.org/docs/uncontrolled-components.html
 
     return (
-        <div style={{ display: "flex", flexDirection: "column"}}>
+        <S.Container>
             {array.map((value) => (
-                <label key={value}>
-                    <input key={value} name={name} type="radio" value={value} defaultChecked={selectedVal === "test2"} ref={register({ required: required })} />
-                    {value}
-                </label>
+                <div key={`input-${value}`}>
+                    <input name={name} type="radio" value={value} defaultChecked={selectedVal === "test2"} ref={register({ required: required })} />
+                    <label>
+                        {value}
+                    </label>
+                </div>
             ))}
-        </div>
+        </S.Container>
     )
 })
 

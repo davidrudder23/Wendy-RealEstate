@@ -1,12 +1,19 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+    position: relative;
+    display: inline-block;
+    margin-left: 1rem;
+    top: .25rem;
+`;
+
 export const Label = styled.label`
     position: relative;
     display: inline-block;
     width: 2.625rem;
     height: 1.25rem;
-    margin-left: .25rem;
-    line-height: 1.5rem;
+    /* line-height: 1.5rem; */
+
 `;
 
 export const Input = styled.input`
