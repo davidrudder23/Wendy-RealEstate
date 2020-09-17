@@ -18,6 +18,7 @@ const AgentForm = () => {
     const onSubmit = data => console.log(data);
 
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
+    const [currMortgageType, setCurrMortgageType] = React.useState("");
     const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
 
@@ -66,8 +67,8 @@ const AgentForm = () => {
                     errors={errors.typeOfMortgage} 
                     options={mortgageTypes} 
                     register={register}
-                    isValue={currPropertyType}
-                    setValue={setCurrentPropertyType} />
+                    isValue={currMortgageType}
+                    setValue={setCurrMortgageType} />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Purchase Price</S.FieldTitle>
