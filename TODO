@@ -1,0 +1,8 @@
+Add verification to all fields to ensure data integrity
+Remove additional buyer if all fields are empty
+Add persisted state
+If buyer >= 2nd and doesn't contain needed information remove from state? or make the fields required?
+Complete remaining buyers fields
+add switch for seller or agent
+add call to database
+Fix multi buyers validation for multiple dynamic emails

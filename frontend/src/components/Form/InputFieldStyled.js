@@ -12,13 +12,27 @@ export const InputField = styled.div`
         Start-block
     */
     padding-left: 1rem;
+
+    @media only screen and (max-device-width : 425px) {
+        padding-left: 0;
+    }
+
     :last-child label {
         padding-left: 1rem;
+        
+        @media only screen and (max-device-width : 425px) {
+            padding-left: 0;
+        }
     }
 
     :first-child {
         padding-left: 0;
         label {
+            padding-left: 0;
+        
+        }
+
+        @media only screen and (max-device-width : 425px) {
             padding-left: 0;
         }
     }

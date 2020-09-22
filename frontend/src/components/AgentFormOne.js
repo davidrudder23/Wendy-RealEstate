@@ -9,13 +9,23 @@ import Slider from "./Form/Slider";
 import PropertyInfo from "./Form/PropertyInfo";
 import CustomDatePicker from './Form/DatePicker';
 import RadioSelector from "./Form/RadioSelector";
+import { useStateMachine } from 'little-state-machine';
+import updateAction from '../state/updateState';
+import { useHistory } from "react-router-dom";
 
 const mortgageTypes = ["Conventional", "FHA", "VA", "Cash"];
 const propertyTypes = ["Single Family","Multi Family", "Condo"];
 
 const AgentForm = () => {
-    const { register, handleSubmit, watch, errors, control } = useForm();
-    const onSubmit = data => console.log(data);
+    const { state, action } = useStateMachine(updateAction);
+    const { push } = useHistory();
+    const { register, handleSubmit, watch, errors, control } = useForm({
+        defaultValues: state.details
+    });
+    const onSubmit = data => {
+        action({details: data});
+        push("/result");
+    }
 
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [currMortgageType, setCurrMortgageType] = React.useState("");
@@ -100,7 +110,7 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Deposit Information</S.FieldTitle>
-                    <div style={{ display: "flex", flexDirection: "row"}}>
+                    <S.MultiContainer>
                         <InputField 
                         name="firstDeposit" 
                         label="First Deposit Amount?" 
@@ -115,7 +125,7 @@ const AgentForm = () => {
                         register={register}
                         required={true}
                         />
-                    </div>
+                    </S.MultiContainer>
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                         <S.FieldTitle>Date Built</S.FieldTitle>
@@ -146,10 +156,7 @@ const AgentForm = () => {
                     <Slider isChecked={additionalOffer} setIsChecked={setAdditionalOffer} name="buyerHasSubmittedAnotherOffer" register={register} required={false}  />
                     </S.FieldTitle>
                 </S.FieldWrapper>
-
-                {/* Need to create multi step form */}
-                <br />
-                <input type="submit" />
+                <S.Input type="submit" value="Next" />
             </form>
         </S.Container>
     );

@@ -15,7 +15,7 @@ const PropertyInfo = ({ register, errors }) => {
     return (
         <S.FieldWrapper error={propertyInformation}>
                     <S.FieldTitle>Property Information</S.FieldTitle>
-                    <div style={{ display: "flex", flexDirection: "row"}}>
+                    <S.MultiContainer>
                         <InputField
                         name="address" 
                         label="Address" 
@@ -28,8 +28,8 @@ const PropertyInfo = ({ register, errors }) => {
                         errors={errors.city} 
                         register={register} 
                         required={true} />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row"}}>
+                    </S.MultiContainer>
+                    <S.MultiContainer>
                         <InputField
                         name="state" 
                         label="State" 
@@ -42,8 +42,8 @@ const PropertyInfo = ({ register, errors }) => {
                         errors={errors.zipCode} 
                         register={register} 
                         required={true} />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row"}} >
+                    </S.MultiContainer>
+                    <S.MultiContainer>
                         <InputField 
                         name="mlsNumber" 
                         label="MLS Number" 
@@ -56,7 +56,7 @@ const PropertyInfo = ({ register, errors }) => {
                         errors={errors.deedReference} 
                         register={register} 
                         required={true}/>
-                    </div>
+                    </S.MultiContainer>
                 </S.FieldWrapper>
     )
 }

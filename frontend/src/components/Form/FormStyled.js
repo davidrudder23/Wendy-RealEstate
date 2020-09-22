@@ -36,12 +36,42 @@ export const FieldWrapper = styled.div`
 
 export const Button = styled.div`
     display: inline-block;
+    position: relative;
+    font-size: 12pt;
+    font-weight: 500;
     font-family: Helvetica, Arial, sans-serif;
     background: #fff;
-    padding: 1rem;
+    padding: .75rem;
     border: 1px solid #d3d3d3;
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+`;
+
+export const Input = styled.input`
+    display: inline-block;
+    position: relative;
+    font-size: 12pt;
+    font-weight: 500;
+    font-family: Helvetica, Arial, sans-serif;
+    background: #fff;
+    padding: .75rem;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+`;
+
+export const MultiContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    
+    @media only screen and (max-device-width : 425px) {
+        flex-direction: column;
+    }
+    
 `;

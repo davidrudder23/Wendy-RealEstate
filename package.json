@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "create-react-app": "^3.4.1"
+    "create-react-app": "^3.4.1",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "dev:install": "./script/00-install-dev.sh",

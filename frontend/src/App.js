@@ -1,9 +1,24 @@
 import React from 'react';
-import AgentForm from "./components/AgentForm";
+import AgentFormOne from "./components/AgentFormOne";
+// import AgentFormTwo from "./components/AgentFormTwo";
+import Result from "./components/Result";
+import { BrowserRouter as Router, Route } from "react-router-dom"; 
+import { StateMachineProvider, createStore } from "little-state-machine";
+import { DevTool } from "little-state-machine-devtools";
+
+createStore({
+  details: {}
+});
 
 function App() {
   return (
-    <AgentForm />
+    <StateMachineProvider>
+      <DevTool />
+      <Router>
+        <Route exact path="/" component={AgentFormOne} />
+        <Route path="/result" component={Result} />
+      </Router>
+    </StateMachineProvider>
   );
 }
 

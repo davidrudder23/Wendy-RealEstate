@@ -35,14 +35,14 @@ const MultipleBuyers = ({errors, register, required }) => {
         <>
             <S.FieldWrapper error={firstBuyerError}>
                         <S.FieldTitle>First Buyer</S.FieldTitle>
-                        <div style={{ display: "flex", flexDirection: "row"}}>
+                        <S.MultiContainer>
                             <InputField name="firstBuyersFirstName" label="First Name" errors={errors.firstBuyersFirstName} register={register} required={true}/>
                             <InputField name="firstBuyersLastName" label="Last Name" errors={errors.firstBuyersLastName} register={register} required={true}/>
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "row"}}>
+                        </S.MultiContainer>
+                        <S.MultiContainer>
                             <InputField name="firstBuyersPhoneNumber" label="Phone Number" errors={errors.firstBuyersPhoneNumber} register={register} required={true}/>
                             <InputField name="firstBuyersEmailAddress" label="Email Address" errors={errors.firstBuyersEmailAddress} register={register} required={true}/>
-                        </div>
+                        </S.MultiContainer>
                         <div>
                             <InputField name="firstBuyersFullAddress" label="Full Address" errors={errors.firstBuyersFullAddress} register={register} required={true}/>
                         </div>
@@ -50,14 +50,14 @@ const MultipleBuyers = ({errors, register, required }) => {
             {buyers.map(value => (
                 <S.FieldWrapper error={false} key={value}>
                         <S.FieldTitle>{value} Buyer</S.FieldTitle>
-                        <div style={{ display: "flex", flexDirection: "row"}}>
+                        <S.MultiContainer>
                             <InputField name={`${value}BuyersFirstName`} label="First Name" errors={false} register={register} required={false}/>
                             <InputField name={`${value}BuyersLastName`} label="Last Name" errors={false} register={register} required={false}/>
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "row"}}>
+                        </S.MultiContainer>
+                        <S.MultiContainer>
                             <InputField name={`${value}BuyersPhoneNumber`} label="Phone Number" errors={false} register={register} required={false}/>
                             <InputField name={`${value}BuyersEmailAddress`} label="Email Address" errors={false} register={register} required={false}/>
-                        </div>
+                        </S.MultiContainer>
                         <div>
                             <InputField name={`${value}BuyersFullAddress`} label="Full Address" errors={errors.firstBuyersFullAddress} register={register} required={false}/>
                         </div>
