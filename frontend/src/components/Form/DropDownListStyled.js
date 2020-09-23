@@ -9,3 +9,16 @@ export const Select = styled.select`
     margin: 1rem 0 0 0;
     padding: 0;
 `;
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    
+    span {
+        position: relative;
+        color: red;
+        /* line-height: 10em; */
+        font-size: 8pt;
+        right: 0;
+    }
+`;

@@ -17,7 +17,7 @@ const PropertyInfo = ({ register, errors }) => {
                     <S.FieldTitle>Property Information</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
-                        name="address" 
+                        name="address"
                         label="Address" 
                         errors={errors.address} 
                         register={register} 
@@ -51,7 +51,7 @@ const PropertyInfo = ({ register, errors }) => {
                         register={register} 
                         required={true}/>
                         <InputField 
-                        name="deedReference" 
+                        name="deedReference"
                         label="Deed Reference (Book)" 
                         errors={errors.deedReference} 
                         register={register} 

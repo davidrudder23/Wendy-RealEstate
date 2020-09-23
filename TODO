@@ -6,3 +6,10 @@ Complete remaining buyers fields
 add switch for seller or agent
 add call to database
 Fix multi buyers validation for multiple dynamic emails
+Add auto complete for Address, state, zipcode, city
+Add improved validation for address, state, zipcode, city
+Add improved validation for mls
+Add improved validation for deed reference number
+Change all address fields to State, City, ZipCode
+Merge all deadline fields into single block
+Validate deadlines against each other

@@ -12,16 +12,20 @@ import RadioSelector from "./Form/RadioSelector";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../state/updateState';
 import { useHistory } from "react-router-dom";
-
-const mortgageTypes = ["Conventional", "FHA", "VA", "Cash"];
-const propertyTypes = ["Single Family","Multi Family", "Condo"];
+import { yupResolver } from "@hookform/resolvers";
+import {FormValidation} from "../validation";
+import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../shared";
 
 const AgentForm = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
     const { register, handleSubmit, watch, errors, control } = useForm({
-        defaultValues: state.details
+        defaultValues: state.details,
+        resolver: yupResolver(FormValidation),
+        mode: 'onSubmit',
+        reValidateMode: "onChange"
     });
+
     const onSubmit = data => {
         action({details: data});
         push("/result");
@@ -32,7 +36,7 @@ const AgentForm = () => {
     const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
 
-    console.log("Watch: " + watch("")); // watch input value by passing the name of it
+    // console.log("Watch: " + watch("")); // watch input value by passing the name of it
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
@@ -41,14 +45,14 @@ const AgentForm = () => {
                 <FormHeader />
                 <PropertyInfo errors={errors} register={register}/>
                 <MultipleBuyers errors={errors} register={register} />
-                <S.FieldWrapper>
+                <S.FieldWrapper errors={errors.propertyType}>
                     <S.FieldTitle>Property Type</S.FieldTitle>
                     <DropDownList
                     placeholder="Property Types"
                     name="propertyType" 
                     label="Select a Property Type" 
                     errors={errors.propertyType} 
-                    options={propertyTypes} 
+                    options={PROPERTY_TYPES} 
                     register={register}
                     isValue={currPropertyType}
                     setValue={setCurrentPropertyType} />
@@ -57,7 +61,7 @@ const AgentForm = () => {
                 <S.FieldWrapper error={errors.condoManagementCompany}>
                     <S.FieldTitle>Who is the Condo Management Company</S.FieldTitle>
                     <div>
-                        <InputField 
+                        <InputField
                         name="condoManagementCompany" 
                         label="Management Company" 
                         errors={errors.condoManagementCompany}
@@ -75,12 +79,12 @@ const AgentForm = () => {
                     name="typeOfMortgage"
                     label="Select a Mortgage Type" 
                     errors={errors.typeOfMortgage} 
-                    options={mortgageTypes} 
+                    options={MORTGAGE_TYPES}
                     register={register}
                     isValue={currMortgageType}
                     setValue={setCurrMortgageType} />
                 </S.FieldWrapper>
-                <S.FieldWrapper>
+                <S.FieldWrapper errors={errors.purchasePrice}>
                     <S.FieldTitle>Purchase Price</S.FieldTitle>
                     <div>
                         <InputField 
@@ -121,7 +125,7 @@ const AgentForm = () => {
                         <InputField 
                         name="secondDeposit" 
                         label="Second Deposit Amount?" 
-                        errors={errors.concessions}
+                        errors={errors.secondDeposit}
                         register={register}
                         required={true}
                         />
@@ -153,7 +157,7 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
-                    <Slider isChecked={additionalOffer} setIsChecked={setAdditionalOffer} name="buyerHasSubmittedAnotherOffer" register={register} required={false}  />
+                    <Slider isChecked={additionalOffer} setIsChecked={setAdditionalOffer} name="buyerHasSubmittedAdditionalOffer" register={register} required={false}  />
                     </S.FieldTitle>
                 </S.FieldWrapper>
                 <S.Input type="submit" value="Next" />
