@@ -5,7 +5,7 @@ import * as S from "./FormStyled"
 const buyerCountToText = ["Second", "Third","Fourth","Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
 let buyers = [];
 
-const MultipleBuyers = ({errors, register, required }) => {
+const MultipleBuyers = ({errors, register, required, getValues }) => {
     const [buyerCount, setBuyerCount] = React.useState(0);
     const MAX_BUYERS = 9;
     const addBuyerRef = React.createRef();
@@ -36,31 +36,31 @@ const MultipleBuyers = ({errors, register, required }) => {
             <S.FieldWrapper error={firstBuyerError}>
                         <S.FieldTitle>First Buyer</S.FieldTitle>
                         <S.MultiContainer>
-                            <InputField name="firstBuyerFirstName" label="First Name" errors={errors.firstBuyerFirstName} register={register} required={true}/>
-                            <InputField name="firstBuyerLastName" label="Last Name" errors={errors.firstBuyerLastName} register={register} required={true}/>
+                            <InputField name="firstBuyerFirstName" label="First Name" errors={errors.firstBuyerFirstName} register={register} required={true} getValues={getValues}/>
+                            <InputField name="firstBuyerLastName" label="Last Name" errors={errors.firstBuyerLastName} register={register} required={true} getValues={getValues}/>
                         </S.MultiContainer>
                         <S.MultiContainer>
-                            <InputField name="firstBuyerEmail" label="Email Address" errors={errors.firstBuyerEmail} register={register} required={true}/>
-                            <InputField name="firstBuyerEmailVerification" label="Email Address Verification" errors={errors.firstBuyerEmailVerification} register={register} required={true} />
+                            <InputField name="firstBuyerEmail" label="Email Address" errors={errors.firstBuyerEmail} register={register} required={true} getValues={getValues}/>
+                            <InputField name="firstBuyerEmailVerification" label="Email Address Verification" errors={errors.firstBuyerEmailVerification} register={register} required={true} getValues={getValues}/>
                         </S.MultiContainer>
                         <S.MultiContainer>
-                            <InputField name="firstBuyerPhoneNumber" label="Phone Number" errors={errors.firstBuyerPhoneNumber} register={register} required={true}/>
-                            <InputField name="firstBuyerFullAddress" label="Full Address" errors={errors.firstBuyerFullAddress} register={register} required={true}/>
+                            <InputField name="firstBuyerPhoneNumber" label="Phone Number" errors={errors.firstBuyerPhoneNumber} register={register} required={true} getValues={getValues}/>
+                            <InputField name="firstBuyerFullAddress" label="Full Address" errors={errors.firstBuyerFullAddress} register={register} required={true} getValues={getValues}/>
                         </S.MultiContainer>
             </S.FieldWrapper>
             {buyers.map(value => (
                 <S.FieldWrapper error={false} key={value}>
                         <S.FieldTitle>{value} Buyer</S.FieldTitle>
                         <S.MultiContainer>
-                            <InputField name={`${value}BuyerFirstName`} label="First Name" errors={false} register={register} required={false}/>
-                            <InputField name={`${value}BuyerLastName`} label="Last Name" errors={false} register={register} required={false}/>
+                            <InputField name={`${value}BuyerFirstName`} label="First Name" errors={false} register={register} required={false} getValues={getValues} />
+                            <InputField name={`${value}BuyerLastName`} label="Last Name" errors={false} register={register} required={false} getValues={getValues} />
                         </S.MultiContainer>
                         <S.MultiContainer>
-                            <InputField name={`${value}BuyerPhoneNumber`} label="Phone Number" errors={false} register={register} required={false}/>
-                            <InputField name={`${value}BuyerEmailAddress`} label="Email Address" errors={false} register={register} required={false}/>
+                            <InputField name={`${value}BuyerPhoneNumber`} label="Phone Number" errors={false} register={register} required={false} getValues={getValues} />
+                            <InputField name={`${value}BuyerEmailAddress`} label="Email Address" errors={false} register={register} required={false} getValues={getValues} />
                         </S.MultiContainer>
                         <div>
-                            <InputField name={`${value}BuyerFullAddress`} label="Full Address" errors={false} register={register} required={false}/>
+                            <InputField name={`${value}BuyerFullAddress`} label="Full Address" errors={false} register={register} required={false} getValues={getValues} />
                         </div>
             </S.FieldWrapper>
             ))}

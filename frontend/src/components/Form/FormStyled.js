@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     background-color: #e7ecee;
     padding-top: .5rem;
+    height: 99vh;
 
     form {
         width: 40rem;

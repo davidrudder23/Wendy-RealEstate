@@ -2,7 +2,7 @@ import React from 'react'
 import * as S from "./FormStyled"
 import InputField from "./InputField";
 
-const PropertyInfo = ({ register, errors }) => {
+const PropertyInfo = ({ register, errors, getValues }) => {
 
     const propertyInformation =
     errors.mlsNumber &&
@@ -17,12 +17,14 @@ const PropertyInfo = ({ register, errors }) => {
                     <S.FieldTitle>Property Information</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
+                        getValues={getValues}
                         name="address"
                         label="Address" 
                         errors={errors.address} 
                         register={register} 
                         required={true} />
                         <InputField
+                        getValues={getValues}
                         name="city" 
                         label="City" 
                         errors={errors.city} 
@@ -31,12 +33,14 @@ const PropertyInfo = ({ register, errors }) => {
                     </S.MultiContainer>
                     <S.MultiContainer>
                         <InputField
+                        getValues={getValues}
                         name="state" 
                         label="State" 
                         errors={errors.state} 
                         register={register} 
                         required={true} />
                         <InputField
+                        getValues={getValues}
                         name="zipCode" 
                         label="Zip Code" 
                         errors={errors.zipCode} 
@@ -44,13 +48,15 @@ const PropertyInfo = ({ register, errors }) => {
                         required={true} />
                     </S.MultiContainer>
                     <S.MultiContainer>
-                        <InputField 
+                        <InputField
+                        getValues={getValues}
                         name="mlsNumber" 
                         label="MLS Number" 
                         errors={errors.mlsNumber} 
                         register={register} 
                         required={true}/>
-                        <InputField 
+                        <InputField
+                        getValues={getValues}
                         name="deedReference"
                         label="Deed Reference (Book)" 
                         errors={errors.deedReference} 

@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomDatePicker = ({ control, name, label, errors, required, className }) => {
+const CustomDatePicker = ({ control, name, label, errors, required, className, showYearPicker, ...rest }) => {
     const classVal = required ? `${className} required-field`: className;
     
     const [isEmpty, setIsEmpty] = React.useState(false);
@@ -16,8 +16,10 @@ const CustomDatePicker = ({ control, name, label, errors, required, className })
                 name={name}
                 rules={{ required: required }}
                 defaultValue=""
+                {...rest}
                 render={(props) => (
                 <DatePicker
+                    showYearPicker={showYearPicker}
                     defaultValue=""
                     placeholderText=""
                     className="input"

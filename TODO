@@ -13,3 +13,5 @@ Add improved validation for deed reference number
 Change all address fields to State, City, ZipCode
 Merge all deadline fields into single block
 Validate deadlines against each other
+Change Date Built to Year built
+Figure out how to properly handle YUP validation with dynamic property names
