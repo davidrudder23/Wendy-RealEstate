@@ -1,14 +1,14 @@
 import React from 'react';
-import Property from "./components/BuyersForm/Property";
-import BuyerAgent from "./components/BuyersForm/Agent";
+import Property from "./components/Forms/Property";
+import BuyerAgent from "./components/Forms/Agent";
 import Result from "./components/Result";
-import ListingBroker from "./components/BuyersForm/ListingBroker";
-import Lenders from "./components/BuyersForm/Lenders";
+import ListingBroker from "./components/Forms/ListingBroker";
+import Lenders from "./components/Forms/Lenders";
 import { BrowserRouter as Router, Route } from "react-router-dom"; 
 import { StateMachineProvider, createStore } from "little-state-machine";
 import { DevTool } from "little-state-machine-devtools";
-import Attorney from './components/BuyersForm/Attorney';
-import ForSaleByOwner from './components/BuyersForm/ForSaleByOwner';
+import Attorney from './components/Forms/Attorney';
+import ForSaleByOwner from './components/Forms/ForSaleByOwner';
 
 createStore({
   details: {}
