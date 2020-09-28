@@ -1,5 +1,5 @@
 import React from 'react';
-import General from "./components/BuyersForm/General";
+import Property from "./components/BuyersForm/Property";
 import BuyerAgent from "./components/BuyersForm/Agent";
 import Result from "./components/Result";
 import ListingBroker from "./components/BuyersForm/ListingBroker";
@@ -19,7 +19,7 @@ function App() {
     <StateMachineProvider>
       <DevTool />
       <Router>
-        <Route exact path="/" component={General} />
+        <Route exact path="/Property" component={Property} />
         <Route path="/BuyerAgent" component={BuyerAgent} />
         <Route path="/BuyerAttorney" component={Attorney} />
         <Route path="/FSBO" component={ForSaleByOwner} />

@@ -7,7 +7,7 @@ import updateAction from '../../state/updateState';
 import * as S from "../Form/FormStyled";
 import InputField from "../Form/InputField";
 import { yupResolver } from '@hookform/resolvers';
-import { TransactionCoordinatorValidation } from "../../validation";
+import { AdditionalInformationValidation } from "../../validation";
 
 const AdditionalInformation = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -16,7 +16,7 @@ const AdditionalInformation = () => {
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(ListingBrokerValidation),
+        resolver: yupResolver(AdditionalInformationValidation),
     });
 
     const onSubmit = data => {

@@ -12,11 +12,11 @@ import { yupResolver } from '@hookform/resolvers';
 const Attorney = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
-    const { register, handleSubmit, errors, watch, getValues } = useForm({
+    const { register, handleSubmit, errors, getValues } = useForm({
         defaultValues: state.details.buyerAttorney,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        // resolver: yupResolver(BuyerAgentInfoValidation),
+        resolver: yupResolver(BuyerAgentInfoValidation),
     });
 
     const onSubmit = data => {

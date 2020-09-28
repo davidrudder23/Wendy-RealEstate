@@ -1,5 +1,4 @@
 import React from 'react'
-import { useForm } from 'react-hook-form';
 import * as S from "./InputFieldStyled";
 
 const InputField = React.memo(({ name, label, register, errors, required, className, style, getValues }) => {
@@ -17,7 +16,7 @@ const InputField = React.memo(({ name, label, register, errors, required, classN
         if(getValues && getValues(`${name}`)) {
             setIsEmpty(true)
         }
-    }, [name])
+    }, [name, getValues]);
 
     return (
         <S.InputField style={style} isEmpty={isEmpty}>

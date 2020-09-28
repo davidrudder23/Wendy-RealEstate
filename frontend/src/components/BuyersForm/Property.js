@@ -16,12 +16,12 @@ import { yupResolver } from "@hookform/resolvers";
 import { BuyerFormOneValidation } from "../../validation";
 import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../../shared";
 
-const General = () => {
+const Property = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
     const { register, handleSubmit, errors, control, getValues } = useForm({
         defaultValues: state.details.general,
-        // resolver: yupResolver(BuyerFormOneValidation),
+        resolver: yupResolver(BuyerFormOneValidation),
         mode: 'onSubmit',
         reValidateMode: "onChange"
     });
@@ -35,6 +35,7 @@ const General = () => {
     const [currMortgageType, setCurrMortgageType] = React.useState("");
     const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
+    const [inspectionWaved, setInspectionWaved] = React.useState(false);
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
@@ -140,7 +141,6 @@ const General = () => {
                     </S.MultiContainer>
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                {/* Year should only display year no month or day */}
                         <S.FieldTitle>Year Built</S.FieldTitle>
                         <CustomDatePicker
                         getValues={getValues}
@@ -171,15 +171,23 @@ const General = () => {
                         />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                {/* TODO: Is waved or not */}
-                        <S.FieldTitle>Inspection Deadline</S.FieldTitle>
-                        <CustomDatePicker
-                        getValues={getValues}
-                        control={control} 
-                        name="inspectionDeadline" 
-                        label="Select Inspection Deadline" 
-                        required={true}
-                        />
+                        <S.FieldTitle>Inspection Waved
+                            <Slider 
+                            isChecked={inspectionWaved}
+                            setIsChecked={setInspectionWaved}
+                            name="isInspectionWaved" 
+                            register={register}
+                            required={false}
+                            />
+                        </S.FieldTitle>
+                            { inspectionWaved ? null :
+                            <CustomDatePicker
+                            getValues={getValues}
+                            control={control} 
+                            name="inspectionDeadline" 
+                            label="Select Inspection Deadline" 
+                            required={true}
+                            />}
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                 {/* If cash no commitment deadline. Add conditional */}
@@ -219,4 +227,4 @@ const General = () => {
     );
 }
 
-export default General
+export default Property

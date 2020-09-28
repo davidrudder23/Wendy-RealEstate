@@ -12,7 +12,7 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
         if(getValues && getValues(`${name}`)) {
             setIsEmpty(true)
         }
-    }, [name])
+    }, [name, getValues]);
     
     return (
         <S.InputField isEmpty={isEmpty}>
