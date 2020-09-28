@@ -1,11 +1,11 @@
 import React from 'react'
-import FormHeader from "../Form/FormHeader";
+import FormHeader from "../FormFields/FormHeader";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
-import * as S from "../Form/FormStyled";
-import InputField from "../Form/InputField";
+import * as S from "../FormFields/FormStyled";
+import InputField from "../FormFields/InputField";
 import { yupResolver } from '@hookform/resolvers';
 import { LendersValidation } from "../../validation";
 

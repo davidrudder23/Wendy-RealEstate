@@ -1,14 +1,14 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import * as S from "../Form/FormStyled";
-import InputField from "../Form/InputField";
-import FormHeader from "../Form/FormHeader";
-import DropDownList from "../Form/DropDownList"
-import MultipleBuyers from '../Form/MultipleBuyers';
-import Slider from "../Form/Slider";
-import PropertyInfo from "../Form/PropertyInfo";
-import CustomDatePicker from '../Form/DatePicker';
-import RadioSelector from "../Form/RadioSelector";
+import * as S from "../FormFields/FormStyled";
+import InputField from "../FormFields/InputField";
+import FormHeader from "../FormFields/FormHeader";
+import DropDownList from "../FormFields/DropDownList";
+import MultipleBuyers from '../FormFields/MultipleBuyers';
+import Slider from "../FormFields/Slider";
+import PropertyInfo from "../FormFields/PropertyInfo";
+import CustomDatePicker from '../FormFields/DatePicker';
+import RadioSelector from "../FormFields/RadioSelector";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import { useHistory } from "react-router-dom";
@@ -189,17 +189,18 @@ const Property = () => {
                             required={true}
                             />}
                 </S.FieldWrapper>
+                { getValues(`typeOfMortgage`) !== 'Cash' ?
                 <S.FieldWrapper>
-                {/* If cash no commitment deadline. Add conditional */}
-                        <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
-                        <CustomDatePicker 
-                        control={control}
-                        getValues={getValues}
-                        name="mortgageCommitmentDeadline" 
-                        label="Select Mortgage Commitment Date" 
-                        required={true}
-                        />
+                    <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
+                    <CustomDatePicker 
+                    control={control}
+                    getValues={getValues}
+                    name="mortgageCommitmentDeadline" 
+                    label="Select Mortgage Commitment Date" 
+                    required={true}
+                    />
                 </S.FieldWrapper>
+                : null }
                 <S.FieldWrapper>
                         <S.FieldTitle>Closing Date</S.FieldTitle>
                         <CustomDatePicker 

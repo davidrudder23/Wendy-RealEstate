@@ -1,11 +1,11 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import InputField from "../Form/InputField";
+import InputField from "../FormFields/InputField";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
-import * as S from "../Form/FormStyled";
-import FormHeader from "../Form/FormHeader";
+import * as S from "../FormFields/FormStyled";
+import FormHeader from "../FormFields/FormHeader";
 import { BuyerAgentInfoValidation } from "../../validation";
 import { yupResolver } from '@hookform/resolvers';
 
