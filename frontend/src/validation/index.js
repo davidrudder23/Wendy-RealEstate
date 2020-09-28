@@ -79,4 +79,19 @@ export const ListingBrokerValidation = yup.object().shape({
         emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
         phoneNumber: yup.string().required(REQUIRED)
     }),
+});
+
+export const LendersValidation = yup.object().shape({
+    lender: yup.object().shape({
+        firstName: yup.string().required(REQUIRED),
+        lastName: yup.string().required(REQUIRED),
+        companyName: yup.string().notRequired(REQUIRED),
+        phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
+        email: yup.string().email(VALID_EMAIL).required(REQUIRED),
+        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"), 
+    }),
+});
+
+export const TransactionCoordinatorValidation = yup.object().shape({
+    
 })

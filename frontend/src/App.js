@@ -3,6 +3,7 @@ import General from "./components/BuyersForm/General";
 import BuyerAgent from "./components/BuyersForm/Agent";
 import Result from "./components/Result";
 import ListingBroker from "./components/BuyersForm/ListingBroker";
+import Lenders from "./components/BuyersForm/Lenders";
 import { BrowserRouter as Router, Route } from "react-router-dom"; 
 import { StateMachineProvider, createStore } from "little-state-machine";
 import { DevTool } from "little-state-machine-devtools";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/BuyerAttorney" component={Attorney} />
         <Route path="/FSBO" component={ForSaleByOwner} />
         <Route path="/ListingBroker" component={ListingBroker} />
+        <Route path="/Lenders" component={Lenders} />
         <Route path="/result" component={Result} />
       </Router>
     </StateMachineProvider>
