@@ -66,3 +66,17 @@ export const FSBOValidation = yup.object().shape({
     attorneyEmailVerification: yup.string().notRequired().oneOf([yup.ref('attorneyEmail'), null], "Email Addresses Must Match"),
     attorneyPhoneNumber: yup.string().notRequired(),
 });
+
+export const ListingBrokerValidation = yup.object().shape({
+    listingBroker: yup.object().shape({
+        company: yup.string().required(REQUIRED),
+        address: yup.string().notRequired(),
+    }),
+    listingAgent: yup.object().shape({
+        firstName: yup.string().required(REQUIRED),
+        lastName: yup.string().required(REQUIRED),
+        email: yup.string().email(VALID_EMAIL).required(REQUIRED),
+        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
+        phoneNumber: yup.string().required(REQUIRED)
+    }),
+})
