@@ -15,3 +15,5 @@ Merge all deadline fields into single block
 Validate deadlines against each other
 Change Date Built to Year built
 Figure out how to properly handle YUP validation with dynamic property names
+Fixed Date Field Label when data already exist in field on back press
+Limit number of buyers in general page

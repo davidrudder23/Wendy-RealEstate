@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
     background-color: #e7ecee;
     padding-top: .5rem;
-    height: 99vh;
+    min-height: 99vh;
+    height: 100%;
 
     form {
         width: 40rem;

@@ -16,19 +16,19 @@ import { yupResolver } from "@hookform/resolvers";
 import { BuyerFormOneValidation } from "../../validation";
 import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../../shared";
 
-const AgentForm = () => {
+const General = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
-    const { register, handleSubmit, watch, errors, control, getValues } = useForm({
-        defaultValues: state.details,
-        resolver: yupResolver(BuyerFormOneValidation),
+    const { register, handleSubmit, errors, control, getValues } = useForm({
+        defaultValues: state.details.general,
+        // resolver: yupResolver(BuyerFormOneValidation),
         mode: 'onSubmit',
         reValidateMode: "onChange"
     });
 
     const onSubmit = data => {
-        action(data);
-        push("/BT2");
+        action({ general: data});
+        push("/BuyerAgent");
     }
 
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
@@ -36,7 +36,6 @@ const AgentForm = () => {
     const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
 
-    // console.log("Watch: " + watch("")); // watch input value by passing the name of it
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
         <S.Container>
@@ -45,16 +44,16 @@ const AgentForm = () => {
                 <PropertyInfo getValues={getValues} errors={errors} register={register}/>
                 <MultipleBuyers getValues={getValues} errors={errors} register={register} />
                 <S.FieldWrapper errors={errors.propertyType}>
-                    <S.FieldTitle>Property Type</S.FieldTitle>
-                    <DropDownList
-                    placeholder="Property Types"
-                    name="propertyType" 
-                    label="Select a Property Type" 
-                    errors={errors.propertyType} 
-                    options={PROPERTY_TYPES} 
-                    register={register}
-                    isValue={currPropertyType}
-                    setValue={setCurrentPropertyType} />
+                        <S.FieldTitle>Property Type</S.FieldTitle>
+                        <DropDownList
+                        placeholder="Property Types"
+                        name="propertyType" 
+                        label="Select a Property Type" 
+                        errors={errors.propertyType} 
+                        options={PROPERTY_TYPES} 
+                        register={register}
+                        isValue={currPropertyType}
+                        setValue={setCurrentPropertyType} />
                 </S.FieldWrapper>
                 { currPropertyType === "Condo" ?
                 <S.FieldWrapper error={errors.condoManagementCompany}>
@@ -73,16 +72,16 @@ const AgentForm = () => {
                 : null
                 }
                 <S.FieldWrapper errors={errors.typeOfMortgage}>
-                    <S.FieldTitle>What Type of Mortgage</S.FieldTitle>
-                    <DropDownList
-                    placeholder="Mortgage Types"
-                    name="typeOfMortgage"
-                    label="Select a Mortgage Type" 
-                    errors={errors.typeOfMortgage} 
-                    options={MORTGAGE_TYPES}
-                    register={register}
-                    isValue={currMortgageType}
-                    setValue={setCurrMortgageType} />
+                        <S.FieldTitle>What Type of Mortgage</S.FieldTitle>
+                        <DropDownList
+                        placeholder="Mortgage Types"
+                        name="typeOfMortgage"
+                        label="Select a Mortgage Type" 
+                        errors={errors.typeOfMortgage} 
+                        options={MORTGAGE_TYPES}
+                        register={register}
+                        isValue={currMortgageType}
+                        setValue={setCurrMortgageType} />
                 </S.FieldWrapper>
                 <S.FieldWrapper errors={errors.purchasePrice}>
                     <S.FieldTitle>Purchase Price</S.FieldTitle>
@@ -99,7 +98,12 @@ const AgentForm = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Are there concessions? 
-                        <Slider isChecked={isConcessions} setIsChecked={setIsConcessions} name="areConcessions" required={false} register={register} />
+                        <Slider 
+                        isChecked={isConcessions} 
+                        setIsChecked={setIsConcessions} 
+                        name="areConcessions" 
+                        required={false} 
+                        register={register} />
                     </S.FieldTitle>
                     { isConcessions ?
                     <div>
@@ -136,32 +140,77 @@ const AgentForm = () => {
                     </S.MultiContainer>
                 </S.FieldWrapper>
                 <S.FieldWrapper>
+                {/* Year should only display year no month or day */}
                         <S.FieldTitle>Year Built</S.FieldTitle>
-                        <CustomDatePicker showYearPicker={true} control={control} name="dateHouseBuilt" label="Select Date Built" required={true} />
+                        <CustomDatePicker
+                        getValues={getValues}
+                        showYearPicker={true} 
+                        control={control} 
+                        name="dateHouseBuilt" 
+                        label="Select Date Built" 
+                        required={true}
+                        dateFormat="yyyy"
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper error={errors.titleOrTownSewer} >
-                    <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
-                    <RadioSelector register={register} name="titleOrTownSewer" required={true} array={["Title V","Public Sewer"]} />
+                        <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
+                        <RadioSelector 
+                        register={register} 
+                        name="titleOrTownSewer" 
+                        required={false} 
+                        array={["Title V","Public Sewer"]}
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper error={errors.publicOrTownWater} >
-                    <S.FieldTitle>Public or Town Water</S.FieldTitle>
-                    <RadioSelector register={register} name="publicOrTownWater" required={true} array={["Town Water","Private Water"]} />
+                        <S.FieldTitle>Public or Town Water</S.FieldTitle>
+                        <RadioSelector 
+                        register={register} 
+                        name="publicOrTownWater" 
+                        required={false} 
+                        array={["Town Water","Private Water"]}
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                    <S.FieldTitle>Inspection Deadline</S.FieldTitle>
-                    <CustomDatePicker control={control} name="inspectionDeadline" label="Select Inspection Deadline" required={true} />
+                {/* TODO: Is waved or not */}
+                        <S.FieldTitle>Inspection Deadline</S.FieldTitle>
+                        <CustomDatePicker
+                        getValues={getValues}
+                        control={control} 
+                        name="inspectionDeadline" 
+                        label="Select Inspection Deadline" 
+                        required={true}
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
+                {/* If cash no commitment deadline. Add conditional */}
                         <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
-                        <CustomDatePicker control={control} name="mortgageCommitmentDeadline" label="Select Mortgage Commitment Date" required={true} />
+                        <CustomDatePicker 
+                        control={control}
+                        getValues={getValues}
+                        name="mortgageCommitmentDeadline" 
+                        label="Select Mortgage Commitment Date" 
+                        required={true}
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                    <S.FieldTitle>Closing Date</S.FieldTitle>
-                    <CustomDatePicker control={control} name="houseClosingDate" label="Select Closing Date" required={true} />
+                        <S.FieldTitle>Closing Date</S.FieldTitle>
+                        <CustomDatePicker 
+                        control={control}
+                        getValues={getValues}
+                        name="houseClosingDate" 
+                        label="Select Closing Date" 
+                        required={true}
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
-                    <Slider isChecked={additionalOffer} setIsChecked={setAdditionalOffer} name="buyerHasSubmittedAdditionalOffer" register={register} required={false}  />
+                        <Slider 
+                        isChecked={additionalOffer}
+                        setIsChecked={setAdditionalOffer}
+                        name="buyerHasSubmittedAdditionalOffer" 
+                        register={register}
+                        required={false}
+                        />
                     </S.FieldTitle>
                 </S.FieldWrapper>
                 <S.Input type="submit" value="Next" />
@@ -170,4 +219,4 @@ const AgentForm = () => {
     );
 }
 
-export default AgentForm
+export default General

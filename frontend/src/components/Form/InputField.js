@@ -17,7 +17,7 @@ const InputField = React.memo(({ name, label, register, errors, required, classN
         if(getValues && getValues(`${name}`)) {
             setIsEmpty(true)
         }
-    })
+    }, [name])
 
     return (
         <S.InputField style={style} isEmpty={isEmpty}>

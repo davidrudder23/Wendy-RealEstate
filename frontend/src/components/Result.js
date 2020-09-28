@@ -5,13 +5,13 @@ import { useHistory } from "react-router-dom";
 
 const Result = props => {
   const { state } = useStateMachine(updateAction);
-  const { push } = useHistory();
+  const { goBack } = useHistory();
 
   return (
     <div className="container">
       <h2>Result</h2>
       <pre>{JSON.stringify(state, null, 2)}</pre>
-      <button onClick={() => push("/")} >Back</button>
+      <button onClick={() => goBack()} >Back</button>
     </div>
   );
 };

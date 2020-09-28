@@ -4,10 +4,15 @@ import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomDatePicker = ({ control, name, label, errors, required, className, showYearPicker, ...rest }) => {
+const CustomDatePicker = ({ control, name, label, errors, required, className, showYearPicker, dateFormat="MM/dd/yyyy", getValues, ...rest }) => {
     const classVal = required ? `${className} required-field`: className;
-    
     const [isEmpty, setIsEmpty] = React.useState(false);
+
+    React.useEffect(() => {
+        if(getValues && getValues(`${name}`)) {
+            setIsEmpty(true)
+        }
+    }, [name])
     
     return (
         <S.InputField isEmpty={isEmpty}>
@@ -15,14 +20,17 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
                 control={control}
                 name={name}
                 rules={{ required: required }}
-                defaultValue=""
+                defaultValue={null}
                 {...rest}
-                render={(props) => (
-                <DatePicker
+                render={(props) => {
+                return <DatePicker
                     showYearPicker={showYearPicker}
-                    defaultValue=""
-                    placeholderText=""
+                    dateFormat={dateFormat}
+                    defaultValue={null}
+                    placeholderText={null}
+                    startDate={null}
                     className="input"
+                    selected={ props.value !== null ? new Date(props.value) : null}
                     onChange={(e) => {
                         props.onChange(e)
                         setIsEmpty(true);
@@ -40,10 +48,9 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
                         setIsEmpty(true)
                         e.stopPropagation();
                     }}
-                    selected={props.value}
                     closeOnScroll={true}
                 />
-                )}
+                }}
             />
             <label className={classVal}>{label}</label>
             {required && errors && <span>Required Field</span>}

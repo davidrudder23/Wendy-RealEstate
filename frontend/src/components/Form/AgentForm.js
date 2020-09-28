@@ -4,21 +4,6 @@ import InputField from "./InputField";
 import * as yup from "yup";
 
 const AgentForm = ({ errors, register, name, title,  getValues, isAttorney }) => {
-    
-
-    // const validationSchema = React.useMemo(
-    //     () => yup.object().shape({
-    //         '$name': yup.string().required("Required"),
-    //     })
-    //     .from(`${name}_firstName`, `$name`, true)
-    //     .from(`${name}_lastName`, '$name', true).label
-    //     , [name]);
-    
-    // React.useEffect(() => {
-    //     rules(validationSchema)
-    // },
-    // // eslint-disable-next-line 
-    // [name])
 
     return (
         <S.FieldWrapper>
@@ -26,11 +11,11 @@ const AgentForm = ({ errors, register, name, title,  getValues, isAttorney }) =>
            <S.MultiContainer>
                         <InputField
                         getValues={getValues}
-                            name={`${name}_firstName`}
-                            label="First Name"
-                            errors={errors.x}
-                            required={true}
-                            register={register}
+                        name={`${name}_firstName`}
+                        label="First Name"
+                        errors={errors.x}
+                        required={true}
+                        register={register}
                         />
                         <InputField 
                         getValues={getValues}
