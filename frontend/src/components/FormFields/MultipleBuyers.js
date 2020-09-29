@@ -5,9 +5,9 @@ import * as S from "./FormStyled"
 const buyerCountToText = ["Second", "Third","Fourth","Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
 let buyers = [];
 
-const MultipleBuyers = ({errors, register, required, getValues }) => {
+const MultipleBuyers = ({errors, register, getValues }) => {
     const [buyerCount, setBuyerCount] = React.useState(0);
-    const MAX_BUYERS = 9;
+    const MAX_BUYERS = 4;
     const addBuyerRef = React.createRef();
 
     const increaseBuyerCount = (event) => {

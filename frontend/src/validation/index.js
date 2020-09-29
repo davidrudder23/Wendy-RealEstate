@@ -94,4 +94,4 @@ export const LendersValidation = yup.object().shape({
 
 export const AdditionalInformationValidation = yup.object().shape({
 
-})
+});

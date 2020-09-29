@@ -1,12 +1,13 @@
-Limit number of buyers in general page to 5
 Update state structure for all forms
-Remove additional buyer if all fields are empty
 Change all address fields to State, City, ZipCode
 add switch for seller or agent
-Merge all deadline fields into single block
-Validate deadlines against each other
 Add auto complete for Address, state, zipcode, city
+add call to database
 Add improved validation for address, state, zipcode, city
 Add improved validation for mls
 Add improved validation for deed reference number
-add call to database
+Validate deadlines against each other
+
+
+This issue will require additional refactoring and is 
+not currently worth the time: Remove additional buyer if all fields are empty

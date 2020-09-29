@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
-import InputField from "../FormFields/InputField";
+// import InputField from "../FormFields/InputField";
 import { yupResolver } from '@hookform/resolvers';
 import { AdditionalInformationValidation } from "../../validation";
 

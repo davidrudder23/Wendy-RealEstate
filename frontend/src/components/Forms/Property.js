@@ -82,15 +82,16 @@ const Property = () => {
                         options={MORTGAGE_TYPES}
                         register={register}
                         isValue={currMortgageType}
-                        setValue={setCurrMortgageType} />
+                        setValue={setCurrMortgageType}
+                        />
                 </S.FieldWrapper>
                 <S.FieldWrapper errors={errors.purchasePrice}>
                     <S.FieldTitle>Purchase Price</S.FieldTitle>
                     <div>
                         <InputField
                         getValues={getValues}
-                        name="purchasePrice" 
-                        label="Purchase price?" 
+                        name="purchasePrice"
+                        label="Purchase price?"
                         errors={errors.purchasePrice}
                         register={register}
                         required={true}
@@ -100,18 +101,19 @@ const Property = () => {
                 <S.FieldWrapper>
                     <S.FieldTitle>Are there concessions? 
                         <Slider 
-                        isChecked={isConcessions} 
-                        setIsChecked={setIsConcessions} 
-                        name="areConcessions" 
-                        required={false} 
-                        register={register} />
+                        isChecked={isConcessions}
+                        setIsChecked={setIsConcessions}
+                        name="areConcessions"
+                        required={false}
+                        register={register}
+                        />
                     </S.FieldTitle>
                     { isConcessions ?
                     <div>
                         <InputField
                         getValues={getValues}
-                        name="concessions" 
-                        label="What are the concessions?" 
+                        name="concessions"
+                        label="What are the concessions?"
                         errors={errors.concessions}
                         register={register}
                         required={true}
@@ -163,10 +165,10 @@ const Property = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper error={errors.publicOrTownWater} >
                         <S.FieldTitle>Public or Town Water</S.FieldTitle>
-                        <RadioSelector 
-                        register={register} 
+                        <RadioSelector
+                        register={register}
                         name="publicOrTownWater" 
-                        required={false} 
+                        required={false}
                         array={["Town Water","Private Water"]}
                         />
                 </S.FieldWrapper>
