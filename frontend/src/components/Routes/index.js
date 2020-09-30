@@ -7,6 +7,7 @@ import ListingBroker from "../Forms/ListingBroker";
 import Lenders from "../Forms/Lenders";
 import Attorney from '../Forms/Attorney';
 import ForSaleByOwner from '../Forms/ForSaleByOwner';
+// import Testing from "../Forms/Testing";
 
 const index = () => {
     return (
@@ -18,6 +19,7 @@ const index = () => {
             <Route path="/ListingBroker" component={ListingBroker} />
             <Route path="/Lenders" component={Lenders} />
             <Route path="/result" component={Result} />
+            {/* <Route path="/testing" component={Testing} /> */}
         </Router>
     )
 }

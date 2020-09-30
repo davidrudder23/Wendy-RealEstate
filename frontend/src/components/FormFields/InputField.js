@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from "./InputFieldStyled";
 
-const InputField = React.memo(({ name, label, register, errors, required, className, style, getValues }) => {
+const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors }) => {
     const classVal = required ? `${className} required-field`: className;
     const [isEmpty, setIsEmpty] = React.useState(false);
     const isFieldEmpty = (value) => {
@@ -12,7 +12,7 @@ const InputField = React.memo(({ name, label, register, errors, required, classN
         }
     }
 
-    React.useEffect(() =>{
+    React.useEffect(() => {
         if(getValues && getValues(`${name}`)) {
             setIsEmpty(true)
         }
@@ -25,9 +25,7 @@ const InputField = React.memo(({ name, label, register, errors, required, classN
             onBlur={event => isFieldEmpty(event.target.value)}
             />
             <label className={classVal}>{label}</label>
-            {errors ? <span>{errors?.message}</span>
-            : null
-            }
+            {errors?.name ? <span>{errors?.name?.message}</span> : null}
         </S.InputField>
     )
 })

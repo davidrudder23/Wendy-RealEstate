@@ -11,7 +11,7 @@ const Result = props => {
     <div className="container">
       <h2>Result</h2>
       <pre>{JSON.stringify(state, null, 2)}</pre>
-      <button onClick={() => goBack()} >Back</button>
+      <button onClick={() => goBack()}>Back</button>
     </div>
   );
 };
