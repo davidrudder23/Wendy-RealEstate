@@ -13,7 +13,7 @@ const BuyerAgent = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
     const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state.details,
+        defaultValues: state.details.buyerAgentInformation,
         mode: 'onChange',
         reValidateMode: 'onChange',
         resolver: yupResolver(BuyerAgentInfoValidation),
@@ -21,7 +21,7 @@ const BuyerAgent = () => {
 
     const onSubmit = data => {
         action({ buyerAgentInformation: data});
-        push("/BuyerAttorney");
+        push("/BuyersAttorney");
     }
 
     return (

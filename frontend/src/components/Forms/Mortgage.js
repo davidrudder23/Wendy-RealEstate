@@ -2,8 +2,8 @@ import React from 'react'
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import { useHistory } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers";
-import { BuyerFormOneValidation } from "../../validation";
+// import { yupResolver } from "@hookform/resolvers";
+// import { BuyerFormOneValidation } from "../../validation";
 import { useForm } from "react-hook-form";
 import * as S from "../FormFields/FormStyled";
 import DropDownList from "../FormFields/DropDownList";
@@ -12,9 +12,11 @@ import CustomDatePicker from '../FormFields/DatePicker';
 import InputField from "../FormFields/InputField";
 import Slider from "../FormFields/Slider";
 import FormHeader from '../FormFields/FormHeader';
+import { AGENT_TYPES } from "../../shared";
 
 const Mortgage = () => {
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType;
     const { push } = useHistory();
     const { register, handleSubmit, errors, control, getValues } = useForm({
         defaultValues: state.details.general,
@@ -24,8 +26,21 @@ const Mortgage = () => {
     });
 
     const onSubmit = data => {
-        action({ general: data});
-        push("/BuyerAgent");
+        action({ mortgage: data});
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+            push("/result");
+        }else {
+            if(agentType === AGENT_TYPES.SELLERS){
+                push("/Sellers");
+            }
+            if(agentType === AGENT_TYPES.BUYERS){
+                if(state.details.property.buyerHasSubmittedAdditionalOffer){
+                    push("/BuyersAttorney");
+                }else{
+                    push("/BuyersAgent");
+                }
+            }
+        }
     }
 
     const [currMortgageType, setCurrMortgageType] = React.useState("");

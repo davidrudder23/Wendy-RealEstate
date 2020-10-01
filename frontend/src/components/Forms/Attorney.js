@@ -8,9 +8,11 @@ import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { BuyerAgentInfoValidation } from "../../validation";
 import { yupResolver } from '@hookform/resolvers';
+import { AGENT_TYPES } from "../../shared";
 
 const Attorney = () => {
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType;
     const { push } = useHistory();
     const { register, handleSubmit, errors, getValues } = useForm({
         defaultValues: state.details.buyerAttorney,
@@ -21,7 +23,16 @@ const Attorney = () => {
 
     const onSubmit = data => {
         action({ buyerAttorney: data});
-        push("/FSBO");
+        if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
+            push("/result");
+        }else {
+            if(agentType === AGENT_TYPES.SELLERS){
+                push("/AdditionalInformation");
+            }
+            if(agentType === AGENT_TYPES.BUYERS){
+                push("/FSBO");
+            }
+        }
     }
 
     return (

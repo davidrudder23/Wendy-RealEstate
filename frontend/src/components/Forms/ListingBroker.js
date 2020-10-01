@@ -8,9 +8,11 @@ import * as S from "../FormFields/FormStyled";
 import InputField from "../FormFields/InputField";
 import { yupResolver } from '@hookform/resolvers';
 import { ListingBrokerValidation } from "../../validation";
+import { AGENT_TYPES } from "../../shared";
 
 const ListingBroker = () => {
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType;
     const { push } = useHistory();
     const { register, handleSubmit, errors, getValues } = useForm({
         defaultValues: state.details,
@@ -19,9 +21,21 @@ const ListingBroker = () => {
         resolver: yupResolver(ListingBrokerValidation),
     });
 
+    console.log(state)
+
     const onSubmit = data => {
         action(data);
-        push("/result");
+        if(!process.env.ENABLE_REDIRECT && (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')){
+            push("/result");
+        }else {
+            if(agentType === AGENT_TYPES.SELLERS){
+                console.log("See notebook notes for BuyersSection information")
+                // push("BuyersSection");
+            }
+            if(agentType === AGENT_TYPES.BUYERS){
+               
+            }
+        }
     }
 
     return (
@@ -91,6 +105,7 @@ const ListingBroker = () => {
                         />
                     </div>
                 </S.FieldWrapper>
+                
                 <S.Input type="submit" value="Next" />
             </form> 
         </S.Container>

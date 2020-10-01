@@ -18,23 +18,29 @@ import { PROPERTY_TYPES, AGENT_TYPES } from "../../shared";
 
 const Property = () => {
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType;
     const { push } = useHistory();
-    const { register, handleSubmit, errors, control, getValues, watch } = useForm({
-        defaultValues: state.details,
-        resolver: yupResolver(BuyerFormOneValidation),
+    const { register, handleSubmit, errors, control, getValues } = useForm({
+        defaultValues: state.details.property,
+        // resolver: yupResolver(BuyerFormOneValidation),
         mode: 'onSubmit',
         reValidateMode: "onChange"
     });
 
-    const onSubmit = data => {
-        action(data);
-        push("/result");
-    }
-
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
     const [inspectionWaved, setInspectionWaved] = React.useState(false);
-    const agentType = state.details.agentType;
+
+    const onSubmit = data => {
+        action({property: data});
+        console.log(process.env.REACT_APP_ENABLE_REDIRECT)
+        // This is currently here for testing each page individually and will need to be disabled in production
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+            push("/result");
+        }else{
+            push("/Mortgage");
+        }
+    }
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
@@ -72,7 +78,7 @@ const Property = () => {
                 : null
                 }
                 { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ?
-                    <S.FieldWrapper>
+                    <S.FieldWrapper error={errors.vacentOrOccupied}>
                         <S.FieldTitle>Is the house vacant or occupied?</S.FieldTitle>
                         <RadioSelector 
                             register={register}
@@ -86,7 +92,7 @@ const Property = () => {
                         <S.FieldTitle>Year Built</S.FieldTitle>
                         <CustomDatePicker
                         getValues={getValues}
-                        showYearPicker={true} 
+                        showYearPicker={true}
                         control={control} 
                         name="dateHouseBuilt" 
                         label="Select Date Built" 

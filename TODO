@@ -12,6 +12,11 @@ Increase slider with slightly and add more padding to left side of YES
 Add Additional Header to each page with a Title for the Page
 Change Tab display Icon and Name
 Add google lookup by property address
+All pages should redirect if they were not accessed correctly. E.g., attempting to skip the first page or not being redirected there by the correct page
 
 This issue will require additional refactoring and is 
 not currently worth the time: Remove additional buyer if all fields are empty
+
+
+
+Pages Needed:

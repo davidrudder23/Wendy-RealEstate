@@ -13,7 +13,7 @@ import { AgentTypeValidation } from "../../validation";
 const AgentType = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
-    const { register, handleSubmit, watch, errors } = useForm({
+    const { register, handleSubmit, errors } = useForm({
         defaultValues: state.details,
         mode: 'onSubmit',
         reValidateMode: "onChange",
@@ -24,6 +24,8 @@ const AgentType = () => {
         action(data);
         push("/Property");
     }
+
+    console.log(process.env.REACT_APP_ENABLE_REDIRECT)
 
     return (
         <S.Container>

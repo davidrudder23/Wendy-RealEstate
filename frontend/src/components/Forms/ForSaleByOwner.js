@@ -9,10 +9,12 @@ import Slider from "../FormFields/Slider";
 import InputField from "../FormFields/InputField";
 import { yupResolver } from '@hookform/resolvers';
 import { FSBOValidation } from "../../validation";
+import { AGENT_TYPES } from "../../shared";
 
 const ForSaleByOwner = () => {
     const [ isFSBO, setIsFSBO ] = React.useState(true);
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType;
     const { push } = useHistory();
     const { register, handleSubmit, errors, getValues } = useForm({
         defaultValues: state.details,
@@ -23,7 +25,11 @@ const ForSaleByOwner = () => {
 
     const onSubmit = data => {
         action({ FSBO: data});
-        push("/result");
+        if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
+            push("/result");
+        }else if(agentType === AGENT_TYPES.BUYERS){
+            push("/ListingBroker");
+        }
     }
 
     return (
