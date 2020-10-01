@@ -7,18 +7,22 @@ import ListingBroker from "../Forms/ListingBroker";
 import Lenders from "../Forms/Lenders";
 import Attorney from '../Forms/Attorney';
 import ForSaleByOwner from '../Forms/ForSaleByOwner';
+import Mortgage from "../Forms/Mortgage";
+import AgentType from "../Forms/AgentType";
 // import Testing from "../Forms/Testing";
 
 const index = () => {
     return (
         <Router>
-            <Route exact path="/Property" component={Property} />
+            <Route exact path="/" component={AgentType} />
+            <Route path="/Property" component={Property} />
             <Route path="/BuyerAgent" component={BuyerAgent} />
             <Route path="/BuyerAttorney" component={Attorney} />
             <Route path="/FSBO" component={ForSaleByOwner} />
             <Route path="/ListingBroker" component={ListingBroker} />
             <Route path="/Lenders" component={Lenders} />
             <Route path="/result" component={Result} />
+            <Route path="/Mortgage" component={Mortgage} />
             {/* <Route path="/testing" component={Testing} /> */}
         </Router>
     )

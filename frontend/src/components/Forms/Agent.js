@@ -97,6 +97,7 @@ const BuyerAgent = () => {
                                 required={true}
                                 />
                     </S.MultiContainer>
+                    {/* Buyers Agency Compensation per MLS is sellers agent only */}
                                 <div>
                                     <InputField
                                     getValues={getValues}

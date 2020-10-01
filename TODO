@@ -7,7 +7,11 @@ Add improved validation for address, state, zipcode, city
 Add improved validation for mls
 Add improved validation for deed reference number
 Validate deadlines against each other
-
+Determine if getValues can be converted to a hook to conform to DRY
+Increase slider with slightly and add more padding to left side of YES
+Add Additional Header to each page with a Title for the Page
+Change Tab display Icon and Name
+Add google lookup by property address
 
 This issue will require additional refactoring and is 
 not currently worth the time: Remove additional buyer if all fields are empty

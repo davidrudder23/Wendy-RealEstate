@@ -5,6 +5,11 @@ import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../shared";
 const PHONE_REG_EXP = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const REQUIRED = "Required";
 const VALID_EMAIL = "Must be a Valid Email!";
+const NUMBER_ERROR_MESSAGE = "Can only contain numbers";
+
+export const AgentTypeValidation = yup.object().shape({
+    agentType: yup.string().required(REQUIRED),
+});
 
 export const BuyerFormOneValidation = yup.object().shape({
     address: yup.string().required(REQUIRED),
@@ -22,9 +27,9 @@ export const BuyerFormOneValidation = yup.object().shape({
     propertyType: yup.string().required(REQUIRED).oneOf([...PROPERTY_TYPES], "Select a valid Property type."),
     concessions: yup.string().required(REQUIRED),
     typeOfMortgage: yup.string().required(REQUIRED).oneOf([...MORTGAGE_TYPES], "Select a valid Mortgage type."),
-    purchasePrice: yup.number().required(REQUIRED).typeError("Can only contain digits"),
-    firstDeposit: yup.number().typeError("Can only contain numbers"),
-    secondDeposit: yup.number().required(REQUIRED).typeError("Can only contain digits"),
+    purchasePrice: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
+    firstDeposit: yup.number().typeError(NUMBER_ERROR_MESSAGE),
+    secondDeposit: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
     dateHouseBuilt: yup.string().required(REQUIRED),
     titleOrTownSewer: yup.string().required(REQUIRED),
     publicOrTownWater: yup.string().required(REQUIRED),
@@ -32,6 +37,7 @@ export const BuyerFormOneValidation = yup.object().shape({
     mortgageCommitmentDeadline: yup.string().required(REQUIRED),
     houseClosingDate: yup.string().required(REQUIRED),
     buyerhasSubmittedAdditionalOffer: yup.string().required(REQUIRED),
+    loxBoxCode: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
 });
 
 export const BuyerAgentInfoValidation = yup.object().shape({

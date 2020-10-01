@@ -14,35 +14,34 @@ import updateAction from '../../state/updateState';
 import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers";
 import { BuyerFormOneValidation } from "../../validation";
-import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../../shared";
+import { PROPERTY_TYPES, AGENT_TYPES } from "../../shared";
 
 const Property = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
-    const { register, handleSubmit, errors, control, getValues } = useForm({
-        defaultValues: state.details.general,
+    const { register, handleSubmit, errors, control, getValues, watch } = useForm({
+        defaultValues: state.details,
         resolver: yupResolver(BuyerFormOneValidation),
         mode: 'onSubmit',
         reValidateMode: "onChange"
     });
 
     const onSubmit = data => {
-        action({ general: data});
-        push("/BuyerAgent");
+        action(data);
+        push("/result");
     }
 
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
-    const [currMortgageType, setCurrMortgageType] = React.useState("");
-    const [isConcessions, setIsConcessions] = React.useState(false);
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
     const [inspectionWaved, setInspectionWaved] = React.useState(false);
+    const agentType = state.details.agentType;
 
     return (
         // "handleSubmit" will validate your inputs before invoking "onSubmit"
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <PropertyInfo getValues={getValues} errors={errors} register={register}/>
+                <PropertyInfo agentType={agentType} getValues={getValues} errors={errors} register={register}/>
                 <MultipleBuyers getValues={getValues} errors={errors} register={register} />
                 <S.FieldWrapper errors={errors.propertyType}>
                         <S.FieldTitle>Property Type</S.FieldTitle>
@@ -72,76 +71,17 @@ const Property = () => {
                 </S.FieldWrapper>
                 : null
                 }
-                <S.FieldWrapper errors={errors.typeOfMortgage}>
-                        <S.FieldTitle>What Type of Mortgage</S.FieldTitle>
-                        <DropDownList
-                        placeholder="Mortgage Types"
-                        name="typeOfMortgage"
-                        label="Select a Mortgage Type" 
-                        errors={errors.typeOfMortgage} 
-                        options={MORTGAGE_TYPES}
-                        register={register}
-                        isValue={currMortgageType}
-                        setValue={setCurrMortgageType}
+                { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ?
+                    <S.FieldWrapper>
+                        <S.FieldTitle>Is the house vacant or occupied?</S.FieldTitle>
+                        <RadioSelector 
+                            register={register}
+                            name="vacentOrOccupied"
+                            required={true}
+                            array={["Vacant","Occupied"]}
                         />
-                </S.FieldWrapper>
-                <S.FieldWrapper errors={errors.purchasePrice}>
-                    <S.FieldTitle>Purchase Price</S.FieldTitle>
-                    <div>
-                        <InputField
-                        getValues={getValues}
-                        name="purchasePrice"
-                        label="Purchase price?"
-                        errors={errors.purchasePrice}
-                        register={register}
-                        required={true}
-                        />
-                    </div>
-                </S.FieldWrapper>
-                <S.FieldWrapper>
-                    <S.FieldTitle>Are there concessions? 
-                        <Slider 
-                        isChecked={isConcessions}
-                        setIsChecked={setIsConcessions}
-                        name="areConcessions"
-                        required={false}
-                        register={register}
-                        />
-                    </S.FieldTitle>
-                    { isConcessions ?
-                    <div>
-                        <InputField
-                        getValues={getValues}
-                        name="concessions"
-                        label="What are the concessions?"
-                        errors={errors.concessions}
-                        register={register}
-                        required={true}
-                        />
-                    </div>
-                    : null }
-                </S.FieldWrapper>
-                <S.FieldWrapper>
-                    <S.FieldTitle>Deposit Information</S.FieldTitle>
-                    <S.MultiContainer>
-                        <InputField
-                        getValues={getValues}
-                        name="firstDeposit" 
-                        label="First Deposit Amount?" 
-                        errors={errors.firstDeposit}
-                        register={register}
-                        required={false}
-                        />
-                        <InputField
-                        getValues={getValues}
-                        name="secondDeposit" 
-                        label="Second Deposit Amount?" 
-                        errors={errors.secondDeposit}
-                        register={register}
-                        required={true}
-                        />
-                    </S.MultiContainer>
-                </S.FieldWrapper>
+                    </S.FieldWrapper>
+                : null }
                 <S.FieldWrapper>
                         <S.FieldTitle>Year Built</S.FieldTitle>
                         <CustomDatePicker
@@ -191,28 +131,21 @@ const Property = () => {
                             required={true}
                             />}
                 </S.FieldWrapper>
-                { getValues(`typeOfMortgage`) !== 'Cash' ?
-                <S.FieldWrapper>
-                    <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
-                    <CustomDatePicker 
-                    control={control}
-                    getValues={getValues}
-                    name="mortgageCommitmentDeadline" 
-                    label="Select Mortgage Commitment Date" 
-                    required={true}
-                    />
-                </S.FieldWrapper>
-                : null }
-                <S.FieldWrapper>
-                        <S.FieldTitle>Closing Date</S.FieldTitle>
-                        <CustomDatePicker 
-                        control={control}
-                        getValues={getValues}
-                        name="houseClosingDate" 
-                        label="Select Closing Date" 
-                        required={true}
+                { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH
+                ? <S.FieldWrapper>
+                    <S.FieldTitle>Lox Box Code</S.FieldTitle>
+                    <div>
+                        <InputField 
+                            getValues={getValues}
+                            name="loxBoxCode"
+                            label="Lox Box Code"
+                            errors={errors.loxBoxCode}
+                            required={true}
+                            register={register}
                         />
-                </S.FieldWrapper>
+                    </div>
+                </S.FieldWrapper> : null}
+                { agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? 
                 <S.FieldWrapper>
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
                         <Slider 
@@ -223,7 +156,7 @@ const Property = () => {
                         required={false}
                         />
                     </S.FieldTitle>
-                </S.FieldWrapper>
+                </S.FieldWrapper> : null}
                 <S.Input type="submit" value="Next" />
             </form>
         </S.Container>
