@@ -66,6 +66,7 @@ export const Input = styled.input`
     box-sizing: border-box;
     margin-bottom: .5rem;
     border-radius: .5rem;
+    margin-left: .5rem;
 `;
 
 export const MultiContainer = styled.div`

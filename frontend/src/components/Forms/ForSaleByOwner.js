@@ -11,6 +11,7 @@ import InputField from "../FormFields/InputField";
 // import { yupResolver } from '@hookform/resolvers';
 // import { FSBOValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 const ForSaleByOwner = () => {
     const [ isFSBO, setIsFSBO ] = React.useState(true);
@@ -140,7 +141,8 @@ const ForSaleByOwner = () => {
                     </div>
                 </S.FieldWrapper>
                 : null }
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     )

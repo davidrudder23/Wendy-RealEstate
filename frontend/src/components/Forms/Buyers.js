@@ -1,11 +1,14 @@
 import React from 'react'
+import { Next, Back } from "../FormFields/SharedButtons";
 
 // This will represent buyers section
 const Buyers = () => {
     return (
-        <div>
+        <form>
             
-        </div>
+            <Next />
+            <Back />
+        </form>
     )
 }
 

@@ -1,11 +1,15 @@
 import React from 'react'
 
+import { Next, Back } from "../FormFields/SharedButtons";
+
 // TODO: Build Page
 const Referral = () => {
     return (
-        <div>
+        <form>
             
-        </div>
+            <Next />
+            <Back />
+        </form>
     )
 }
 

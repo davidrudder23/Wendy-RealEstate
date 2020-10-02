@@ -10,6 +10,7 @@ import InputField from "../FormFields/InputField";
 // import { yupResolver } from '@hookform/resolvers';
 // import { LendersValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 // TODO: Verify if lenders can only be accessed buy a Buyers Agent
 const Lenders = () => {
@@ -89,7 +90,8 @@ const Lenders = () => {
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     )

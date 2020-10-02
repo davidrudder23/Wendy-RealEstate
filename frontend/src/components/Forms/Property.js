@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 // import { yupResolver } from "@hookform/resolvers";
 // import { BuyerFormOneValidation } from "../../validation";
 import { PROPERTY_TYPES, AGENT_TYPES } from "../../shared";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 const Property = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -42,7 +43,6 @@ const Property = () => {
     }
 
     return (
-        // "handleSubmit" will validate your inputs before invoking "onSubmit"
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
@@ -165,7 +165,8 @@ const Property = () => {
                         />
                     </S.FieldTitle>
                 </S.FieldWrapper> : null}
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     );

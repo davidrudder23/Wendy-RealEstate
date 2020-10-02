@@ -14,6 +14,7 @@ import InputField from "../FormFields/InputField";
 import Slider from "../FormFields/Slider";
 import FormHeader from '../FormFields/FormHeader';
 import { AGENT_TYPES } from "../../shared";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 const Mortgage = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -147,7 +148,8 @@ const Mortgage = () => {
                         required={true}
                         />
                 </S.FieldWrapper>
-            <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     )

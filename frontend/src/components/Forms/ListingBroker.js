@@ -10,6 +10,7 @@ import InputField from "../FormFields/InputField";
 // import { yupResolver } from '@hookform/resolvers';
 // import { ListingBrokerValidation } from "../../validation";
 import { AGENT_TYPES, MORTGAGE_TYPES } from "../../shared";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 // In my notes ListingBroker === ListingBroker and ListingAgent pages
 const ListingBroker = () => {
@@ -142,8 +143,8 @@ const ListingBroker = () => {
                     </div>
                     }
                 </S.FieldWrapper>
-                
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form> 
         </S.Container>
     )

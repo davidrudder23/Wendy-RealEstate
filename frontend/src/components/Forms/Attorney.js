@@ -10,6 +10,7 @@ import FormHeader from "../FormFields/FormHeader";
 // import { BuyerAgentInfoValidation } from "../../validation";
 // import { yupResolver } from '@hookform/resolvers';
 import { AGENT_TYPES } from "../../shared";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 // This field represents Buyers Attorney In both notebook flows
 const Attorney = () => {
@@ -98,7 +99,8 @@ const Attorney = () => {
                                 />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Next, Back } from "../FormFields/SharedButtons";
 
 // TODO: Build Page
 // This page is very similar to buyers information and MultipleBuyers page under formfields could be utilized in both.
@@ -6,9 +7,11 @@ import React from 'react'
 // sellers are correctly recorded or removed if fields are empty
 const Sellers = () => {
     return (
-        <div>
+        <form>
             
-        </div>
+            <Next />
+            <Back />
+        </form>
     )
 }
 

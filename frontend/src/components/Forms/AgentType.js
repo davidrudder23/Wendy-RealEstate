@@ -7,13 +7,14 @@ import {AGENT_TYPES} from "../../shared";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import RadioSelector from "../FormFields/RadioSelector";
+import { Next } from "../FormFields/SharedButtons";
 // TODO: Enable Validation
 // import { yupResolver } from "@hookform/resolvers";
 // import { AgentTypeValidation } from "../../validation";
 
 const AgentType = () => {
     const { state, action } = useStateMachine(updateAction);
-    const { push } = useHistory();
+    const { push, length } = useHistory();
     const { register, handleSubmit, errors } = useForm({
         defaultValues: state.details,
         mode: 'onSubmit',
@@ -30,6 +31,8 @@ const AgentType = () => {
         }
     }
 
+    console.log("History Length: " + length)
+
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,7 +46,7 @@ const AgentType = () => {
                         array={Object.values(AGENT_TYPES)}
                     />
                 </S.FieldWrapper>
-                <S.Input type="submit" value="next" />
+                <Next />
             </form>
         </S.Container>
     )

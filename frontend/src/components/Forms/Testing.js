@@ -6,6 +6,7 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 const Testing = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -46,7 +47,8 @@ const Testing = () => {
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     )

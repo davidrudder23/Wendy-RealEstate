@@ -8,6 +8,7 @@ import * as S from "../FormFields/FormStyled";
 // import InputField from "../FormFields/InputField";
 import { yupResolver } from '@hookform/resolvers';
 import { AdditionalInformationValidation } from "../../validation";
+import { Next, Back } from "../FormFields/SharedButtons";
 
 const AdditionalInformation = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -40,7 +41,8 @@ const AdditionalInformation = () => {
                     {/* TODO: Need Additional field --> create text area field to allow for longer input */}
                     {/* TODO: This is for an outside referral NOT with the Tracy Gagne Team. Is there a refereall to be paid on this transaction. */}
                 </S.FieldWrapper>
-                <S.Input type="submit" value="Next" />
+                <Next />
+                <Back />
             </form>
         </S.Container>
     )
