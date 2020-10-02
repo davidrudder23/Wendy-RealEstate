@@ -149,7 +149,7 @@ const Property = () => {
                             register={register}
                         />
                     </div>
-                </S.FieldWrapper> : null}\
+                </S.FieldWrapper> : null}
                 {/* TODO: This is currently used to determine what type of email should be sent.
                     Note: Refer to Wendy Email for Message differences.
                 */}
