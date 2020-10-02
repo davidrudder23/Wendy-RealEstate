@@ -1,14 +1,13 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import InputField from "../FormFields/InputField";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
-// TODO: Enable Validation
-// import { BuyerAgentInfoValidation } from "../../validation";
-// import { yupResolver } from '@hookform/resolvers';
+import { TestAttorneyValidation } from "../../validation";
+import { yupResolver } from '@hookform/resolvers';
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 
@@ -17,15 +16,19 @@ const Attorney = () => {
     const { state, action } = useStateMachine(updateAction);
     const agentType = state.details.agentType;
     const { push } = useHistory();
+    const { represents } = useParams();
     const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state.details.buyerAttorney,
+        defaultValues: state,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        // resolver: yupResolver(BuyerAgentInfoValidation),
+        resolver: yupResolver(TestAttorneyValidation),
     });
 
+    console.log(errors)
+    console.log(errors[represents]?.firstName.message)
     const onSubmit = data => {
-        action({ buyerAttorney: data});
+        action({ attorney: data });
+        push("/result")
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else {
@@ -43,21 +46,21 @@ const Attorney = () => {
             <form onSubmit={handleSubmit(onSubmit)} >
                 <FormHeader />
                 <S.FieldWrapper>
-                <S.FieldTitle>Buyers Attorney Information</S.FieldTitle>
+                <S.FieldTitle>{represents} Attorney Information</S.FieldTitle>
                    <S.MultiContainer>
                                 <InputField
                                 getValues={getValues}
-                                name="firstName"
+                                name={`${represents}.firstName`}
                                 label="First Name"
-                                errors={errors.firstName}
+                                errors={errors[represents]?.firstName}
                                 required={true}
                                 register={register}
                                 />
                                 <InputField 
                                 getValues={getValues}
-                                name="lastName"
+                                name={`${represents}.lastName`}
                                 label="Last Name"
-                                errors={errors.lastName}
+                                errors={errors[represents]?.lastName}
                                 required={true}
                                 register={register}
                                 />
@@ -65,17 +68,17 @@ const Attorney = () => {
                     <S.MultiContainer>
                                 <InputField
                                 getValues={getValues}
-                                name="emailAddress"
+                                name={`${represents}.emailAddress`}
                                 label="Email"
-                                errors={errors.emailAddress}
+                                errors={errors[represents]?.emailAddress}
                                 required={true}
                                 register={register}
                                 />
                                 <InputField 
                                 getValues={getValues}
-                                name="emailAddressVerification"
+                                name={`${represents}.emailAddressVerification`}
                                 label="Email Verification"
-                                errors={errors.emailAddressVerification}
+                                errors={errors[represents]?.emailAddressVerification}
                                 required={true}
                                 register={register}
                                 />
@@ -83,17 +86,17 @@ const Attorney = () => {
                     <S.MultiContainer>
                                 <InputField
                                 getValues={getValues}
-                                name="firmName"
+                                name={`${represents}.firmName`}
                                 label="Attorney Firm Name"
-                                errors={errors.firmName}
+                                errors={errors[represents]?.firmName}
                                 required={false}
                                 register={register}
                                 />
                                 <InputField 
                                 getValues={getValues}
-                                name="phoneNumber"
+                                name={`${represents}.phoneNumber`}
                                 label="Phone number"
-                                errors={errors.phoneNumber}
+                                errors={errors[represents]?.phoneNumber}
                                 required={false}
                                 register={register}
                                 />

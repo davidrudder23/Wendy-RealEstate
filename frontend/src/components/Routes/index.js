@@ -18,7 +18,7 @@ const index = () => {
             <Route exact path="/" component={AgentType}/>
             <Route path="/Property" component={Property}/>
             <Route path="/BuyersAgent" component={BuyerAgent}/>
-            <Route path="/BuyersAttorney" component={Attorney}/>
+            <Route path="/Attorney/:represents" component={Attorney}/>
             <Route path="/FSBO" component={ForSaleByOwner}/>
             <Route path="/ListingBroker" component={ListingBroker}/>
             <Route path="/Lenders" component={Lenders} />

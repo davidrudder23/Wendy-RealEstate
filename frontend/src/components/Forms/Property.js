@@ -13,8 +13,8 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import { useHistory } from "react-router-dom";
 // TODO: Enable Validation
-// import { yupResolver } from "@hookform/resolvers";
-// import { BuyerFormOneValidation } from "../../validation";
+import { yupResolver } from "@hookform/resolvers";
+import { BuyerFormOneValidation } from "../../validation";
 import { PROPERTY_TYPES, AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 
@@ -24,7 +24,7 @@ const Property = () => {
     const { push } = useHistory();
     const { register, handleSubmit, errors, control, getValues } = useForm({
         defaultValues: state.details.property,
-        // resolver: yupResolver(BuyerFormOneValidation),
+        resolver: yupResolver(BuyerFormOneValidation),
         mode: 'onSubmit',
         reValidateMode: "onChange"
     });

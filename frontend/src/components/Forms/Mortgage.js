@@ -41,7 +41,7 @@ const Mortgage = () => {
             }
             if(agentType === AGENT_TYPES.BUYERS){
                 if(state.details.property.buyerHasSubmittedAdditionalOffer){
-                    push("/BuyersAttorney");
+                    push(`/Attorney/${AGENT_TYPES.BUYERS}`);
                 }else{
                     push("/BuyersAgent");
                 }

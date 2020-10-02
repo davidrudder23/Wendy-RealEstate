@@ -51,7 +51,7 @@ export const BuyerAgentInfoValidation = yup.object().shape({
     buyersAgentCompensationPerMLS: yup.string().notRequired(),
 });
 
-export const BuyerAttorneyValidation = yup.object().shape({
+export const AttorneyValidation = yup.object().shape({
     firstName: yup.string().required(REQUIRED),
     lastName: yup.string().required(REQUIRED),
     emailAddress: yup.string().required(REQUIRED),
@@ -59,6 +59,18 @@ export const BuyerAttorneyValidation = yup.object().shape({
     firmName: yup.string().notRequired(),
     phoneNumber: yup.string().notRequired().matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
 });
+
+const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...newMap, [key]: rule}), {});
+export const TestAttorneyValidation = yup.lazy(obj => 
+    yup.object(mapRules(obj, yup.object({
+        firstName: yup.string().required(REQUIRED),
+        lastName: yup.string().required(REQUIRED),
+        emailAddress: yup.string().email(VALID_EMAIL).required(REQUIRED),
+        emailAddressVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('emailAddress'), null], "Email Addresses Must Match"),
+        firmName: yup.string().required(REQUIRED),
+        phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
+    })))
+)
 
 export const FSBOValidation = yup.object().shape({
     forSaleByOwner: yup.string().required(REQUIRED),

@@ -25,7 +25,7 @@ const InputField = React.memo(({ name, label, className, style, required, regist
             onBlur={event => isFieldEmpty(event.target.value)}
             />
             <label className={classVal}>{label}</label>
-            {errors?.name ? <span>{errors?.name?.message}</span> : null}
+            {errors ? <span>{errors?.message}</span> : null}
         </S.InputField>
     )
 })
