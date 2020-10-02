@@ -7,8 +7,9 @@ import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import Slider from "../FormFields/Slider";
 import InputField from "../FormFields/InputField";
-import { yupResolver } from '@hookform/resolvers';
-import { FSBOValidation } from "../../validation";
+// TODO: Enable Validation
+// import { yupResolver } from '@hookform/resolvers';
+// import { FSBOValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 
 const ForSaleByOwner = () => {
@@ -20,12 +21,12 @@ const ForSaleByOwner = () => {
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(FSBOValidation),
+        // resolver: yupResolver(FSBOValidation),
     });
 
     const onSubmit = data => {
         action({ FSBO: data});
-        if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else if(agentType === AGENT_TYPES.BUYERS){
             push("/ListingBroker");

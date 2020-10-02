@@ -6,10 +6,12 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
-import { BuyerAgentInfoValidation } from "../../validation";
-import { yupResolver } from '@hookform/resolvers';
+// TODO: Enable Validation
+// import { BuyerAgentInfoValidation } from "../../validation";
+// import { yupResolver } from '@hookform/resolvers';
 import { AGENT_TYPES } from "../../shared";
 
+// This field represents Buyers Attorney In both notebook flows
 const Attorney = () => {
     const { state, action } = useStateMachine(updateAction);
     const agentType = state.details.agentType;
@@ -18,12 +20,12 @@ const Attorney = () => {
         defaultValues: state.details.buyerAttorney,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(BuyerAgentInfoValidation),
+        // resolver: yupResolver(BuyerAgentInfoValidation),
     });
 
     const onSubmit = data => {
         action({ buyerAttorney: data});
-        if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else {
             if(agentType === AGENT_TYPES.SELLERS){

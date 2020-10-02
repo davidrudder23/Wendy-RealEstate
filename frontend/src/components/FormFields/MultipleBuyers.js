@@ -5,6 +5,7 @@ import * as S from "./FormStyled"
 const buyerCountToText = ["Second", "Third","Fourth","Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
 let buyers = [];
 
+// Generalize this page to be used for multiple sellers and buyers
 const MultipleBuyers = ({errors, register, getValues }) => {
     const [buyerCount, setBuyerCount] = React.useState(0);
     const MAX_BUYERS = 4;

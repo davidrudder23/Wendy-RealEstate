@@ -12,7 +12,7 @@ import { AdditionalInformationValidation } from "../../validation";
 const AdditionalInformation = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
-    const { register, handleSubmit, errors, getValues } = useForm({
+    const { handleSubmit } = useForm({
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
@@ -21,7 +21,12 @@ const AdditionalInformation = () => {
 
     const onSubmit = data => {
         action(data);
-        push("/result");
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+            push("/result");
+        }else {
+            push("/result");
+            // TODO: Determine what the final steps will be here
+        }
     }
 
     return (
@@ -30,23 +35,12 @@ const AdditionalInformation = () => {
                 <FormHeader />
                 <S.FieldWrapper>
                     <S.FieldTitle>Additional Information</S.FieldTitle>
-                    {/* 
-                        TODO:
-                        Team lead or Sphere not split with eXp only with the Tracy Gagne Team
-                        What does this mean?
-                    */}
-                    {/* 
-                        TODO:
-                        Need Additional field --> create text area field to allow for longer input
-                    */}
-                    {/* 
-                        Need to be able to upload documents
-                    */}
-                    {/* 
-                        This is for an outside referral NOT with the Tracy Gagne Team
-                        Is there a refereall to be paid on this transaction
-                    */}
+                    {/*  */}
+                    {/* TODO: Make field: Are you currently part of the tracy gagne team? */}
+                    {/* TODO: Need Additional field --> create text area field to allow for longer input */}
+                    {/* TODO: This is for an outside referral NOT with the Tracy Gagne Team. Is there a refereall to be paid on this transaction. */}
                 </S.FieldWrapper>
+                <S.Input type="submit" value="Next" />
             </form>
         </S.Container>
     )

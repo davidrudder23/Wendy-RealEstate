@@ -6,8 +6,9 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
-import { BuyerAgentInfoValidation } from "../../validation";
-import { yupResolver } from '@hookform/resolvers';
+// TODO: Enable Validation
+// import { BuyerAgentInfoValidation } from "../../validation";
+// import { yupResolver } from '@hookform/resolvers';
 
 const BuyerAgent = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -16,12 +17,16 @@ const BuyerAgent = () => {
         defaultValues: state.details.buyerAgentInformation,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(BuyerAgentInfoValidation),
+        // resolver: yupResolver(BuyerAgentInfoValidation),
     });
 
     const onSubmit = data => {
         action({ buyerAgentInformation: data});
-        push("/BuyersAttorney");
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+            push("/result");
+        }else{
+            push("/BuyersAttorney");
+        }
     }
 
     return (

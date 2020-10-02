@@ -24,9 +24,9 @@ export const BuyerFormOneValidation = yup.object().shape({
     firstBuyerEmailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('firstBuyerEmail'), null], "Email Addresses Must Match"),
     firstBuyerPhoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
     firstBuyerFullAddress: yup.string().required(REQUIRED),
-    propertyType: yup.string().required(REQUIRED).oneOf([...PROPERTY_TYPES], "Select a valid Property type."),
+    propertyType: yup.string().required(REQUIRED).oneOf([...Object.values(PROPERTY_TYPES)], "Select a valid Property type."),
     concessions: yup.string().required(REQUIRED),
-    typeOfMortgage: yup.string().required(REQUIRED).oneOf([...MORTGAGE_TYPES], "Select a valid Mortgage type."),
+    typeOfMortgage: yup.string().required(REQUIRED).oneOf([...Object.values(MORTGAGE_TYPES)], "Select a valid Mortgage type."),
     purchasePrice: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
     firstDeposit: yup.number().typeError(NUMBER_ERROR_MESSAGE),
     secondDeposit: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
@@ -83,7 +83,8 @@ export const ListingBrokerValidation = yup.object().shape({
         lastName: yup.string().required(REQUIRED),
         email: yup.string().email(VALID_EMAIL).required(REQUIRED),
         emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
-        phoneNumber: yup.string().required(REQUIRED)
+        phoneNumber: yup.string().required(REQUIRED),
+        mlsID: yup.string().required(REQUIRED)
     }),
 });
 

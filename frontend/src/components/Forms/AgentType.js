@@ -7,8 +7,9 @@ import {AGENT_TYPES} from "../../shared";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import RadioSelector from "../FormFields/RadioSelector";
-import { yupResolver } from "@hookform/resolvers";
-import { AgentTypeValidation } from "../../validation";
+// TODO: Enable Validation
+// import { yupResolver } from "@hookform/resolvers";
+// import { AgentTypeValidation } from "../../validation";
 
 const AgentType = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -17,15 +18,17 @@ const AgentType = () => {
         defaultValues: state.details,
         mode: 'onSubmit',
         reValidateMode: "onChange",
-        resolver: yupResolver(AgentTypeValidation),
+        // resolver: yupResolver(AgentTypeValidation),
     });
 
     const onSubmit = data => {
         action(data);
-        push("/Property");
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+            push("result")
+        }else{
+            push("/Property");
+        }
     }
-
-    console.log(process.env.REACT_APP_ENABLE_REDIRECT)
 
     return (
         <S.Container>

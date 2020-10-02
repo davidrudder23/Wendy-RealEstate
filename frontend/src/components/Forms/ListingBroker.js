@@ -6,10 +6,12 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import InputField from "../FormFields/InputField";
-import { yupResolver } from '@hookform/resolvers';
-import { ListingBrokerValidation } from "../../validation";
-import { AGENT_TYPES } from "../../shared";
+// TODO: Enable Validation
+// import { yupResolver } from '@hookform/resolvers';
+// import { ListingBrokerValidation } from "../../validation";
+import { AGENT_TYPES, MORTGAGE_TYPES } from "../../shared";
 
+// In my notes ListingBroker === ListingBroker and ListingAgent pages
 const ListingBroker = () => {
     const { state, action } = useStateMachine(updateAction);
     const agentType = state.details.agentType;
@@ -18,24 +20,42 @@ const ListingBroker = () => {
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(ListingBrokerValidation),
+        // resolver: yupResolver(ListingBrokerValidation),
     });
-
-    console.log(state)
 
     const onSubmit = data => {
         action(data);
-        if(!process.env.ENABLE_REDIRECT && (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')){
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else {
             if(agentType === AGENT_TYPES.SELLERS){
+                // TODO: Fix Buyers Section
+                // Note: Buyers section exist in both buyer and sellers form just different at different steps (see notebook)
                 console.log("See notebook notes for BuyersSection information")
                 // push("BuyersSection");
+                push("/BuyersAgent");
             }
             if(agentType === AGENT_TYPES.BUYERS){
-               
+                if(state.details.mortgage.typeOfMortgage === MORTGAGE_TYPES.CASH){
+                    push("/AdditionalInformation");
+                }else {
+                    push("/Lenders");
+                }
             }
         }
+    }
+
+    // This was done because the field will be wrapped different html elements depending on agentType
+    const phoneNumberField = () => {
+        return (
+            <InputField 
+            getValues={getValues}
+            name="listingAgent.phoneNumber"
+            label="Phone Number"
+            errors={errors.listingAgent?.phoneNumber}
+            register={register}
+            required={true}
+            />)
     }
 
     return (
@@ -45,14 +65,19 @@ const ListingBroker = () => {
                 <S.FieldWrapper>
                     <S.FieldTitle>Listing Broker</S.FieldTitle>
                     <S.MultiContainer>
+                    {/* Sellers Side this should default to eXp and not be displayed */}
+                    {/* TODO: give option to pick eXp */}
                         <InputField
                         getValues={getValues}
                         name="listingBroker.company"
                         label="Company"
                         errors={errors.listingBroker?.company}
                         register={register}
+                        required={true}
                         />
-                        <InputField 
+                        {/* TODO: Can be pre filled if eXp with --> eXp Address = P.O. Box 10665 Holyoke Ma 01041*/}
+                        <InputField                        
+                        required={true}
                         getValues={getValues}
                         name="listingBroker.address"
                         label="Address"
@@ -65,6 +90,7 @@ const ListingBroker = () => {
                     <S.FieldTitle>Listing Agent</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField 
+                        required={true}
                         getValues={getValues}
                         name="listingAgent.firstName"
                         label="First Name"
@@ -72,6 +98,7 @@ const ListingBroker = () => {
                         register={register}
                         />
                         <InputField 
+                        required={true}
                         getValues={getValues}
                         name="listingAgent.lastName"
                         label="Last Name"
@@ -81,6 +108,7 @@ const ListingBroker = () => {
                     </S.MultiContainer>
                     <S.MultiContainer>
                         <InputField 
+                        required={true}
                         getValues={getValues}
                         name="listingAgent.email"
                         label="Email"
@@ -88,6 +116,7 @@ const ListingBroker = () => {
                         register={register}
                         />
                         <InputField 
+                        required={true}
                         getValues={getValues}
                         name="listingAgent.emailVerification"
                         label="Email Verification"
@@ -95,15 +124,23 @@ const ListingBroker = () => {
                         register={register}
                         />
                     </S.MultiContainer>
+                    { state.details.agentType === AGENT_TYPES.SELLERS || state.details.agentType === AGENT_TYPES.BOTH ? 
+                        <S.MultiContainer>
+                            {phoneNumberField()}
+                            <InputField 
+                                required={true}
+                                getValues={getValues}
+                                name="listingAgent.mlsID"
+                                label="MLS ID"
+                                errors={errors.listingAgent?.mlsID}
+                                register={register}   
+                            />
+                        </S.MultiContainer>
+                    : 
                     <div>
-                        <InputField 
-                        getValues={getValues}
-                        name="listingAgent.phoneNumber"
-                        label="Phone Number"
-                        errors={errors.listingAgent?.phoneNumber}
-                        register={register}
-                        />
+                        {phoneNumberField()}
                     </div>
+                    }
                 </S.FieldWrapper>
                 
                 <S.Input type="submit" value="Next" />

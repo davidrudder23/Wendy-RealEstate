@@ -6,22 +6,32 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import InputField from "../FormFields/InputField";
-import { yupResolver } from '@hookform/resolvers';
-import { LendersValidation } from "../../validation";
+// TODO: Enable Validaiton
+// import { yupResolver } from '@hookform/resolvers';
+// import { LendersValidation } from "../../validation";
+import { AGENT_TYPES } from "../../shared";
 
+// TODO: Verify if lenders can only be accessed buy a Buyers Agent
 const Lenders = () => {
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType;
     const { push } = useHistory();
     const { register, handleSubmit, errors, getValues } = useForm({
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(LendersValidation),
+        // resolver: yupResolver(LendersValidation),
     });
 
     const onSubmit = data => {
         action(data);
-        push("/result");
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+            push("/result");
+        }else {
+            if(agentType === AGENT_TYPES.BUYERS){
+                push("/AdditionalInformation");
+            }
+        }
     }
 
     return (

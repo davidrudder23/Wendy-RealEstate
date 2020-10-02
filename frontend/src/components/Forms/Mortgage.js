@@ -2,6 +2,7 @@ import React from 'react'
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import { useHistory } from "react-router-dom";
+// TODO: Enable Validation
 // import { yupResolver } from "@hookform/resolvers";
 // import { BuyerFormOneValidation } from "../../validation";
 import { useForm } from "react-hook-form";
@@ -19,7 +20,7 @@ const Mortgage = () => {
     const agentType = state.details.agentType;
     const { push } = useHistory();
     const { register, handleSubmit, errors, control, getValues } = useForm({
-        defaultValues: state.details.general,
+        defaultValues: state.details.mortgage,
         // resolver: yupResolver(BuyerFormOneValidation),
         mode: 'onSubmit',
         reValidateMode: "onChange"
@@ -31,7 +32,11 @@ const Mortgage = () => {
             push("/result");
         }else {
             if(agentType === AGENT_TYPES.SELLERS){
-                push("/Sellers");
+                
+                console.log("I am currently skipping sellers page because it is not complete. ")
+                // TODO: Fix this when sellers page is done
+                // push("/Sellers");
+                push("/ListingBroker");
             }
             if(agentType === AGENT_TYPES.BUYERS){
                 if(state.details.property.buyerHasSubmittedAdditionalOffer){
@@ -57,7 +62,7 @@ const Mortgage = () => {
                         name="typeOfMortgage"
                         label="Select a Mortgage Type" 
                         errors={errors.typeOfMortgage}
-                        options={MORTGAGE_TYPES}
+                        options={Object.values(MORTGAGE_TYPES)}
                         register={register}
                         isValue={currMortgageType}
                         setValue={setCurrMortgageType}

@@ -12,8 +12,9 @@ import RadioSelector from "../FormFields/RadioSelector";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../../state/updateState';
 import { useHistory } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers";
-import { BuyerFormOneValidation } from "../../validation";
+// TODO: Enable Validation
+// import { yupResolver } from "@hookform/resolvers";
+// import { BuyerFormOneValidation } from "../../validation";
 import { PROPERTY_TYPES, AGENT_TYPES } from "../../shared";
 
 const Property = () => {
@@ -33,8 +34,6 @@ const Property = () => {
 
     const onSubmit = data => {
         action({property: data});
-        console.log(process.env.REACT_APP_ENABLE_REDIRECT)
-        // This is currently here for testing each page individually and will need to be disabled in production
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else{
@@ -56,7 +55,7 @@ const Property = () => {
                         name="propertyType" 
                         label="Select a Property Type" 
                         errors={errors.propertyType} 
-                        options={PROPERTY_TYPES} 
+                        options={Object.values(PROPERTY_TYPES)} 
                         register={register}
                         isValue={currPropertyType}
                         setValue={setCurrentPropertyType} />
@@ -150,7 +149,10 @@ const Property = () => {
                             register={register}
                         />
                     </div>
-                </S.FieldWrapper> : null}
+                </S.FieldWrapper> : null}\
+                {/* TODO: This is currently used to determine what type of email should be sent.
+                    Note: Refer to Wendy Email for Message differences.
+                */}
                 { agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? 
                 <S.FieldWrapper>
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
