@@ -10,7 +10,7 @@ import ForSaleByOwner from '../Forms/ForSaleByOwner';
 import Mortgage from "../Forms/Mortgage";
 import AgentType from "../Forms/AgentType";
 import AdditionalInformation from "../Forms/AdditionalInformation";
-// import Testing from "../Forms/Testing";
+import Testing from "../Forms/Testing";
 
 const index = () => {
     return (
@@ -25,7 +25,7 @@ const index = () => {
             <Route path="/result" component={Result} />
             <Route path="/Mortgage" component={Mortgage} />
             <Route path="/AdditionalInformation" component={AdditionalInformation} />
-            {/* <Route path="/testing" component={Testing} /> */}
+            <Route path="/testing" component={Testing} />
         </Router>
     )
 }

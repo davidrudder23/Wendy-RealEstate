@@ -1,6 +1,9 @@
 import * as yup from "yup";
 import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../shared";
 
+// This is used in lazy validation rules found here: https://github.com/jquense/yup/issues/130#issuecomment-578392176
+const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...newMap, [key]: rule}), {});
+
 // Regular Express to Verify phone numbers taken from: https://www.sitepoint.com/community/t/phone-number-regular-expression-validation/2204/4
 const PHONE_REG_EXP = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const REQUIRED = "Required";
@@ -60,7 +63,6 @@ export const AttorneyValidation = yup.object().shape({
     phoneNumber: yup.string().notRequired().matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
 });
 
-const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...newMap, [key]: rule}), {});
 export const TestAttorneyValidation = yup.lazy(obj => 
     yup.object(mapRules(obj, yup.object({
         firstName: yup.string().required(REQUIRED),
@@ -114,3 +116,25 @@ export const LendersValidation = yup.object().shape({
 export const AdditionalInformationValidation = yup.object().shape({
 
 });
+
+export const MultiGeneralInformationValidation = yup.lazy(obj =>
+    /* 
+        This object validation rule can be utilized to define a lazy array
+    */
+    yup.object(mapRules(obj, yup.lazy(obj2 =>
+        {
+            if(Array.isArray(obj2)){
+                return yup.array().of(
+                    yup.object().shape({
+                        firstName: yup.string().required(REQUIRED),
+                        lastName: yup.string().required(REQUIRED),
+                        fullAddress: yup.string().required(REQUIRED),
+                        phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
+                        email: yup.string().email(VALID_EMAIL).required(REQUIRED),
+                        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"), 
+                    })
+                );
+            }
+            return yup.mixed().notRequired();
+        }
+    ))));

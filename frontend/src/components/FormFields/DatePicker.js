@@ -3,16 +3,11 @@ import * as S from "./InputFieldStyled";
 import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
+import useCheckFieldValue from "../../hooks/useCheckFieldValue"
 
 const CustomDatePicker = ({ control, name, label, errors, required, className, showYearPicker, dateFormat="MM/dd/yyyy", getValues, ...rest }) => {
     const classVal = required ? `${className} required-field`: className;
-    const [isEmpty, setIsEmpty] = React.useState(false);
-
-    React.useEffect(() => {
-        if(getValues && getValues(`${name}`)) {
-            setIsEmpty(true)
-        }
-    }, [name, getValues]);
+    const { isEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
     
     return (
         <S.InputField isEmpty={isEmpty}>

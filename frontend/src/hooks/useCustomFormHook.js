@@ -13,7 +13,7 @@ const useCustomFormHook =  (validationRules = null) => {
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: validationRules ? yupResolver(validationRules) : null
+        resolver: (validationRules && process.env.REACT_APP_ENABLE_VALIDATION === 'true') ? yupResolver(validationRules) : null
     });
     const agentType = state.details.agentType ? state.details.agentType : null
 

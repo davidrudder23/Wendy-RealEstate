@@ -14,7 +14,7 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const Property = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(BuyerFormOneValidation);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(BuyerFormOneValidation);
 
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
@@ -34,7 +34,7 @@ const Property = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <PropertyInfo agentType={agentType} getValues={getValues} errors={errors} register={register}/>
-                <MultipleBuyers getValues={getValues} errors={errors} register={register} />
+                <MultipleBuyers title="Buyer" getValues={getValues} errors={errors} register={register} />
                 <S.FieldWrapper errors={errors.propertyType}>
                         <S.FieldTitle>Property Type</S.FieldTitle>
                         <DropDownList

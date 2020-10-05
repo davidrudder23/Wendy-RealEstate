@@ -18,11 +18,11 @@ const Mortgage = () => {
         action({ mortgage: data});
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
-        }else {
+        } else {
             if(agentType === AGENT_TYPES.SELLERS){
                 
                 console.log("I am currently skipping sellers page because it is not complete. ")
-                // TODO: Fix this when sellers page is done
+                // TODO: Fix this wh0en sellers page is done
                 // push("/Sellers");
                 push("/ListingBroker");
             }

@@ -1,22 +1,10 @@
 import React from 'react'
 import * as S from "./InputFieldStyled";
+import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 
 const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors }) => {
     const classVal = required ? `${className} required-field`: className;
-    const [isEmpty, setIsEmpty] = React.useState(false);
-    const isFieldEmpty = (value) => {
-        if(value === "" || value === undefined || value === null){
-            setIsEmpty(false)
-        }else{
-            setIsEmpty(true)
-        }
-    }
-
-    React.useEffect(() => {
-        if(getValues && getValues(`${name}`)) {
-            setIsEmpty(true)
-        }
-    }, [name, getValues]);
+    const { isEmpty, isFieldEmpty } = useCheckFieldValue(name, getValues);
 
     return (
         <S.InputField style={style} isEmpty={isEmpty}>

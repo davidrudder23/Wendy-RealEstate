@@ -1,34 +1,19 @@
 import React from 'react'
-import { useForm } from "react-hook-form";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import InputField from "../FormFields/InputField";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { TestAttorneyValidation } from "../../validation";
-import { yupResolver } from '@hookform/resolvers';
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
-// This field represents Buyers Attorney In both notebook flows
+/* This field represents Buyers Attorney In both notebook flows */
 const Attorney = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const agentType = state.details.agentType;
-    const { push } = useHistory();
+    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(TestAttorneyValidation);
     const { represents } = useParams();
-    const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
-        // resolver: yupResolver(TestAttorneyValidation),
-    });
-
-    console.log(errors)
-    console.log(errors[represents]?.firstName.message)
     const onSubmit = data => {
         action({ attorney: data });
-        push("/result")
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else {
