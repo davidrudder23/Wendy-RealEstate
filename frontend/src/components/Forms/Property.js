@@ -3,7 +3,6 @@ import * as S from "../FormFields/FormStyled";
 import InputField from "../FormFields/InputField";
 import FormHeader from "../FormFields/FormHeader";
 import DropDownList from "../FormFields/DropDownList";
-import MultipleBuyers from '../FormFields/MultipleBuyers';
 import Slider from "../FormFields/Slider";
 import PropertyInfo from "../FormFields/PropertyInfo";
 import CustomDatePicker from '../FormFields/DatePicker';
@@ -34,7 +33,6 @@ const Property = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <PropertyInfo agentType={agentType} getValues={getValues} errors={errors} register={register}/>
-                <MultipleBuyers title="Buyer" getValues={getValues} errors={errors} register={register} />
                 <S.FieldWrapper errors={errors.propertyType}>
                         <S.FieldTitle>Property Type</S.FieldTitle>
                         <DropDownList

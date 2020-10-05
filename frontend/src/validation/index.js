@@ -117,10 +117,10 @@ export const AdditionalInformationValidation = yup.object().shape({
 
 });
 
-export const MultiGeneralInformationValidation = yup.lazy(obj =>
-    /* 
-        This object validation rule can be utilized to define a lazy array
-    */
+/* 
+    This object validation rule can be utilized to define a lazy array
+*/
+export const ClientValidation = yup.lazy(obj =>
     yup.object(mapRules(obj, yup.lazy(obj2 =>
         {
             if(Array.isArray(obj2)){

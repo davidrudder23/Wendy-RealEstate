@@ -4,11 +4,11 @@ import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from '../../hooks/useCustomFormHook';
-import MultipleBuyers from '../FormFields/MultipleBuyers';
-import { MultiGeneralInformationValidation } from "../../validation";
+import GeneralClientInformation from '../FormFields/GeneralClientInformation';
+import { ClientValidation } from "../../validation";
 
 const Testing = () => {
-    const { register, handleSubmit, getValues, errors, action, push } = useCustomFormHook(MultiGeneralInformationValidation);
+    const { register, handleSubmit, getValues, errors, action, push } = useCustomFormHook(ClientValidation);
 
     const onSubmit = data => {
         action(data);
@@ -40,7 +40,7 @@ const Testing = () => {
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <MultipleBuyers title="Buyer" getValues={getValues} errors={errors} register={register} />
+                <GeneralClientInformation title="Buyer" getValues={getValues} errors={errors} register={register} />
                 <br />
                 <Next />
                 <Back />

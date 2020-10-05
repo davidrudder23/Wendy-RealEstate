@@ -3,9 +3,9 @@ import InputField from "./InputField";
 import * as S from "./FormStyled"
 import { ordinal_suffix_of } from "../../shared";
 
-// TODO: Generalize this page to be used for multiple sellers and buyers
+// TODO: ** BUG ** When returning to this page the count is reset to 1. Determine how to fix this.
 const MAX_BUYERS = 5;
-const MultipleBuyers = ({errors, register, getValues, title }) => {
+const GeneralClientInformation = ({errors, register, getValues, title }) => {
     const [count, setCount] = React.useState(1);
 
     const increaseCount = (event) => {
@@ -20,11 +20,10 @@ const MultipleBuyers = ({errors, register, getValues, title }) => {
         setCount(count => count - 1);
     }
 
-    console.log(errors)
-
     const fieldCount = () => {
         let fields = [];
         for(let i = 0; i < count; i++){
+            
             let error =
             errors[title]?.[i]?.firstName ||
             errors[title]?.[i]?.lastName ||
@@ -63,4 +62,4 @@ const MultipleBuyers = ({errors, register, getValues, title }) => {
     )
 }
 
-export default MultipleBuyers
+export default GeneralClientInformation
