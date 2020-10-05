@@ -8,7 +8,6 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { ClientValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 
-// TODO: Build Page
 const Client = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(ClientValidation);
     const { clientType } = useParams();

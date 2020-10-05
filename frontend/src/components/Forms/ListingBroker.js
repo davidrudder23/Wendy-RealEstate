@@ -43,7 +43,8 @@ const ListingBroker = () => {
             errors={errors.listingAgent?.phoneNumber}
             register={register}
             required={true}
-            />)
+            />
+        )
     }
 
     return (

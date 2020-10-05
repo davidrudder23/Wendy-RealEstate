@@ -4,19 +4,13 @@ TODO: Google Address lookup for address fields?
 TODO: Add auto complete for Address, state, zipcode, city
 TODO: Change all address fields to State, City, ZipCode
 TODO: add call to database
-TODO: Add improved validation for address, state, zipcode, city
 TODO: Add improved validation for mls
 TODO: Add improved validation for deed reference number
 TODO: Validate deadlines against each other
-TODO: Determine if getValues can be converted to a hook to conform to DRY
 TODO: Increase slider with slightly and add more padding to left side of YES
 TODO: Add Additional Header to each page with a Title for the Page
 TODO: Change Tab display Icon and Name
-TODO: Add google lookup by property address
 TODO: All pages should redirect if they were not accessed correctly. E.g., attempting to skip the first page or not being redirected there by the correct page
 TODO: Add PDF for final page ( See email for PDF format ) Verify Button
 TODO: Add Option to download PDF on final page
 TODO: The ability for wendy to assign new transaction coordinators to a transaction ( Not Urgent think of how to do this )
-
-NOTE: This issue will require additional refactoring and is not currently worth the time: 
-TODO: Remove additional buyer if all fields are empty
