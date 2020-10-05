@@ -21,7 +21,7 @@ const Attorney = () => {
         defaultValues: state,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(TestAttorneyValidation),
+        // resolver: yupResolver(TestAttorneyValidation),
     });
 
     console.log(errors)

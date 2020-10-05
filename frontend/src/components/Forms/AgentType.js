@@ -1,27 +1,14 @@
 import React from 'react'
-import { useForm } from "react-hook-form";
 import * as S from "../FormFields/FormStyled";
-import { useHistory } from "react-router-dom";
 import FormHeader from '../FormFields/FormHeader';
 import {AGENT_TYPES} from "../../shared";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import RadioSelector from "../FormFields/RadioSelector";
 import { Next } from "../FormFields/SharedButtons";
-// TODO: Enable Validation
-// import { yupResolver } from "@hookform/resolvers";
-// import { AgentTypeValidation } from "../../validation";
+import { AgentTypeValidation } from "../../validation";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const AgentType = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const { push, length } = useHistory();
-    const { register, handleSubmit, errors } = useForm({
-        defaultValues: state.details,
-        mode: 'onSubmit',
-        reValidateMode: "onChange",
-        // resolver: yupResolver(AgentTypeValidation),
-    });
-
+    const { register, handleSubmit, errors, action, push } = useCustomFormHook(AgentTypeValidation);
     const onSubmit = data => {
         action(data);
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
@@ -30,8 +17,6 @@ const AgentType = () => {
             push("/Property");
         }
     }
-
-    console.log("History Length: " + length)
 
     return (
         <S.Container>

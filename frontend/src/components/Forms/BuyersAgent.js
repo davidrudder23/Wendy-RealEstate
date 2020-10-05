@@ -1,25 +1,13 @@
 import React from 'react'
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import InputField from "../FormFields/InputField";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
-// TODO: Enable Validation
-// import { BuyerAgentInfoValidation } from "../../validation";
-// import { yupResolver } from '@hookform/resolvers';
+import { BuyerAgentInfoValidation } from "../../validation";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const BuyerAgent = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const { push } = useHistory();
-    const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state.details.buyerAgentInformation,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
-        // resolver: yupResolver(BuyerAgentInfoValidation),
-    });
+    const { register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(BuyerAgentInfoValidation);
 
     const onSubmit = data => {
         action({ buyerAgentInformation: data});

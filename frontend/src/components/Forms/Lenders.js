@@ -1,28 +1,15 @@
 import React from 'react'
 import FormHeader from "../FormFields/FormHeader";
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import InputField from "../FormFields/InputField";
-// TODO: Enable Validaiton
-// import { yupResolver } from '@hookform/resolvers';
-// import { LendersValidation } from "../../validation";
+import { LendersValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 // TODO: Verify if lenders can only be accessed buy a Buyers Agent
 const Lenders = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const agentType = state.details.agentType;
-    const { push } = useHistory();
-    const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state.details,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
-        // resolver: yupResolver(LendersValidation),
-    });
+    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(LendersValidation);
 
     const onSubmit = data => {
         action(data);

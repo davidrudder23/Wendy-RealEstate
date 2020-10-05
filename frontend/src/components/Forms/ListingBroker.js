@@ -1,28 +1,15 @@
 import React from 'react'
 import FormHeader from "../FormFields/FormHeader";
-import { useForm } from "react-hook-form";
-import { useHistory, useParams } from "react-router-dom";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import InputField from "../FormFields/InputField";
-// TODO: Enable Validation
-// import { yupResolver } from '@hookform/resolvers';
-// import { ListingBrokerValidation } from "../../validation";
+import { ListingBrokerValidation } from "../../validation";
 import { AGENT_TYPES, MORTGAGE_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 // In my notes ListingBroker === ListingBroker and ListingAgent pages
 const ListingBroker = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const agentType = state.details.agentType;
-    const { push } = useHistory();
-    const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state.details,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
-        // resolver: yupResolver(ListingBrokerValidation),
-    });
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation);
 
     const onSubmit = data => {
         action(data);

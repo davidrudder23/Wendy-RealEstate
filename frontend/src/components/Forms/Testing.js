@@ -1,21 +1,12 @@
 import React from 'react'
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import InputField from "../FormFields/InputField";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
+import useCustomFormHook from './useCustomFormHook';
 
 const Testing = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const { push } = useHistory();
-    const { register, handleSubmit, getValues, errors } = useForm({
-        defaultValues: state.details,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
-    });
+    const { register, handleSubmit, getValues, errors, action, push } = useCustomFormHook();
 
     const onSubmit = data => {
         action(data);

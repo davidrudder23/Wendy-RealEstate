@@ -1,29 +1,16 @@
 import React from 'react';
 import FormHeader from "../FormFields/FormHeader";
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
 import * as S from "../FormFields/FormStyled";
 import Slider from "../FormFields/Slider";
 import InputField from "../FormFields/InputField";
-// TODO: Enable Validation
-// import { yupResolver } from '@hookform/resolvers';
-// import { FSBOValidation } from "../../validation";
+import { FSBOValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const ForSaleByOwner = () => {
+    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(FSBOValidation);
     const [ isFSBO, setIsFSBO ] = React.useState(true);
-    const { state, action } = useStateMachine(updateAction);
-    const agentType = state.details.agentType;
-    const { push } = useHistory();
-    const { register, handleSubmit, errors, getValues } = useForm({
-        defaultValues: state.details,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
-        // resolver: yupResolver(FSBOValidation),
-    });
 
     const onSubmit = data => {
         action({ FSBO: data});

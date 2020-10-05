@@ -1,11 +1,5 @@
 import React from 'react'
-import { useStateMachine } from 'little-state-machine';
-import updateAction from '../../state/updateState';
-import { useHistory } from "react-router-dom";
-// TODO: Enable Validation
-// import { yupResolver } from "@hookform/resolvers";
-// import { BuyerFormOneValidation } from "../../validation";
-import { useForm } from "react-hook-form";
+import { BuyerFormOneValidation } from "../../validation";
 import * as S from "../FormFields/FormStyled";
 import DropDownList from "../FormFields/DropDownList";
 import { MORTGAGE_TYPES } from "../../shared";
@@ -15,17 +9,10 @@ import Slider from "../FormFields/Slider";
 import FormHeader from '../FormFields/FormHeader';
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
+import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const Mortgage = () => {
-    const { state, action } = useStateMachine(updateAction);
-    const agentType = state.details.agentType;
-    const { push } = useHistory();
-    const { register, handleSubmit, errors, control, getValues } = useForm({
-        defaultValues: state.details.mortgage,
-        // resolver: yupResolver(BuyerFormOneValidation),
-        mode: 'onSubmit',
-        reValidateMode: "onChange"
-    });
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(BuyerFormOneValidation);
 
     const onSubmit = data => {
         action({ mortgage: data});
