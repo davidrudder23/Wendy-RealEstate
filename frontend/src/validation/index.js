@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { MORTGAGE_TYPES, PROPERTY_TYPES } from "../shared";
+import { AGENT_TYPES, PROPERTY_TYPES } from "../shared";
 
 // This is used in lazy validation rules found here: https://github.com/jquense/yup/issues/130#issuecomment-578392176
 const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...newMap, [key]: rule}), {});
@@ -10,38 +10,37 @@ const REQUIRED = "Required";
 const VALID_EMAIL = "Must be a Valid Email!";
 const NUMBER_ERROR_MESSAGE = "Can only contain numbers";
 
+
 export const AgentTypeValidation = yup.object().shape({
     agentType: yup.string().required(REQUIRED),
 });
 
-export const BuyerFormOneValidation = yup.object().shape({
+export const BuyerFormOneValidation = (agentType) => yup.object().shape({
     address: yup.string().required(REQUIRED),
     city: yup.string().required(REQUIRED),
     state: yup.string().required(REQUIRED),
     zipCode: yup.number().required().typeError(REQUIRED),
-    mlsNumber: yup.string().required().test('len', 'Must be exactly 7 digits', val => val.length === 7),
-    deedReference: yup.string().required(REQUIRED).test('len', 'Must be in format XXXX-XXXXXXX', val => val.length === 11),
-    firstBuyerFirstName: yup.string().required(REQUIRED),
-    firstBuyerLastName: yup.string().required(REQUIRED),
-    firstBuyerEmail: yup.string().email(VALID_EMAIL).required(REQUIRED),
-    firstBuyerEmailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('firstBuyerEmail'), null], "Email Addresses Must Match"),
-    firstBuyerPhoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
-    firstBuyerFullAddress: yup.string().required(REQUIRED),
+    mlsNumber: yup.string().test('len', 'Must be exactly 7 digits', val => val.length === 7),
+    deedReference: yup.string().required(REQUIRED).test('len', 'Must be in format XXXX-XXXXXXX', val => val.length === 11).required(REQUIRED),
     propertyType: yup.string().required(REQUIRED).oneOf([...Object.values(PROPERTY_TYPES)], "Select a valid Property type."),
-    concessions: yup.string().required(REQUIRED),
-    typeOfMortgage: yup.string().required(REQUIRED).oneOf([...Object.values(MORTGAGE_TYPES)], "Select a valid Mortgage type."),
-    purchasePrice: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
-    firstDeposit: yup.number().typeError(NUMBER_ERROR_MESSAGE),
-    secondDeposit: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
+    condoManagementCompany: yup.string()
+    .when(
+        "propertyType",
+       { is: val => val === PROPERTY_TYPES.CONDO,
+        then: yup.string().required(REQUIRED)
+    }),
     dateHouseBuilt: yup.string().required(REQUIRED),
     titleOrTownSewer: yup.string().required(REQUIRED),
     publicOrTownWater: yup.string().required(REQUIRED),
     inspectionDeadline: yup.string().required(REQUIRED),
-    mortgageCommitmentDeadline: yup.string().required(REQUIRED),
-    houseClosingDate: yup.string().required(REQUIRED),
-    buyerhasSubmittedAdditionalOffer: yup.string().required(REQUIRED),
-    loxBoxCode: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
+    buyerhasSubmittedAdditionalOffer: agentType === AGENT_TYPES.BUYERS ? yup.string().required(REQUIRED) : yup.string().notRequired(),
+    loxBoxCode: agentType === AGENT_TYPES.SELLERS ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
+    vacentOrOccupied: agentType === AGENT_TYPES.SELLERS ? yup.string().required(REQUIRED) : yup.string().notRequired(),
 });
+
+export const SellerPropertyValidation = yup.object().shape({
+    vacentOrOccupied: yup.string().required(REQUIRED),
+})
 
 export const BuyerAgentInfoValidation = yup.object().shape({
     buyersAgentFirstName: yup.string().required(REQUIRED),

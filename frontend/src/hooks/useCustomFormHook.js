@@ -6,16 +6,16 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 
 
-const useCustomFormHook =  (validationRules = null) => {
+const useCustomFormHook =  (validationRules ) => {
     const { state, action } = useStateMachine(updateAction);
+    const agentType = state.details.agentType ? state.details.agentType : null
     const { push } = useHistory();
     const { register, handleSubmit, getValues, errors, control } = useForm({
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: (validationRules && process.env.REACT_APP_ENABLE_VALIDATION === 'true') ? yupResolver(validationRules) : null
+        resolver: validationRules && process.env.REACT_APP_ENABLE_VALIDATION === 'true' ? yupResolver(validationRules(agentType)) : null
     });
-    const agentType = state.details.agentType ? state.details.agentType : null
 
     React.useEffect(() => {
         return () => {

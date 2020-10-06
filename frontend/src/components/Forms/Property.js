@@ -18,9 +18,12 @@ const Property = () => {
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
     const [inspectionWaved, setInspectionWaved] = React.useState(false);
+    
+    console.log(errors);
 
     const onSubmit = data => {
-        action({property: data});
+        console.log("pressed");
+        action({ property: data });
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else{
@@ -33,27 +36,27 @@ const Property = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <PropertyInfo agentType={agentType} getValues={getValues} errors={errors} register={register}/>
-                <S.FieldWrapper errors={errors.propertyType}>
+                <S.FieldWrapper error={errors?.propertyType}>
                         <S.FieldTitle>Property Type</S.FieldTitle>
                         <DropDownList
                         placeholder="Property Types"
                         name="propertyType" 
                         label="Select a Property Type" 
-                        errors={errors.propertyType} 
+                        errors={errors?.propertyType} 
                         options={Object.values(PROPERTY_TYPES)} 
                         register={register}
                         isValue={currPropertyType}
                         setValue={setCurrentPropertyType} />
                 </S.FieldWrapper>
                 { currPropertyType === "Condo" ?
-                <S.FieldWrapper error={errors.condoManagementCompany}>
+                <S.FieldWrapper error={errors?.condoManagementCompany}>
                     <S.FieldTitle>Who is the Condo Management Company</S.FieldTitle>
                     <div>
                         <InputField
                         getValues={getValues}
                         name="condoManagementCompany" 
-                        label="Management Company" 
-                        errors={errors.condoManagementCompany}
+                        label="Management Company"
+                        errors={errors?.condoManagementCompany}
                         register={register}
                         required={true}
                         />
@@ -62,17 +65,16 @@ const Property = () => {
                 : null
                 }
                 { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ?
-                    <S.FieldWrapper error={errors.vacentOrOccupied}>
+                    <S.FieldWrapper error={errors?.vacentOrOccupied}>
                         <S.FieldTitle>Is the house vacant or occupied?</S.FieldTitle>
                         <RadioSelector 
                             register={register}
                             name="vacentOrOccupied"
-                            required={true}
                             array={["Vacant","Occupied"]}
                         />
                     </S.FieldWrapper>
                 : null }
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.dateHouseBuilt}>
                         <S.FieldTitle>Year Built</S.FieldTitle>
                         <CustomDatePicker
                         getValues={getValues}
@@ -84,25 +86,23 @@ const Property = () => {
                         dateFormat="yyyy"
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors.titleOrTownSewer} >
+                <S.FieldWrapper error={errors?.titleOrTownSewer} >
                         <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
                         <RadioSelector 
                         register={register} 
-                        name="titleOrTownSewer" 
-                        required={false} 
+                        name="titleOrTownSewer"
                         array={["Title V","Public Sewer"]}
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors.publicOrTownWater} >
+                <S.FieldWrapper error={errors?.publicOrTownWater} >
                         <S.FieldTitle>Public or Town Water</S.FieldTitle>
                         <RadioSelector
                         register={register}
-                        name="publicOrTownWater" 
-                        required={false}
+                        name="publicOrTownWater"
                         array={["Town Water","Private Water"]}
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.inspectionWaved || errors?.inspectionDeadline}>
                         <S.FieldTitle>Inspection Waved
                             <Slider 
                             isChecked={inspectionWaved}
@@ -122,14 +122,14 @@ const Property = () => {
                             />}
                 </S.FieldWrapper>
                 { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH
-                ? <S.FieldWrapper>
+                ? <S.FieldWrapper error={errors?.loxBoxCode}>
                     <S.FieldTitle>Lox Box Code</S.FieldTitle>
                     <div>
                         <InputField 
                             getValues={getValues}
                             name="loxBoxCode"
                             label="Lox Box Code"
-                            errors={errors.loxBoxCode}
+                            errors={errors?.loxBoxCode}
                             required={true}
                             register={register}
                         />
@@ -139,7 +139,7 @@ const Property = () => {
                     Note: Refer to Wendy Email for Message differences.
                 */}
                 { agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? 
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.buyerHasSubmittedAdditionalOffer}>
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
                         <Slider 
                         isChecked={additionalOffer}

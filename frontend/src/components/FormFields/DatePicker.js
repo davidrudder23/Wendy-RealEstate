@@ -14,7 +14,6 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
             <Controller
                 control={control}
                 name={name}
-                rules={{ required: required }}
                 defaultValue={null}
                 {...rest}
                 render={(props) => {

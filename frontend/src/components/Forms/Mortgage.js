@@ -20,11 +20,8 @@ const Mortgage = () => {
             push("/result");
         } else {
             if(agentType === AGENT_TYPES.SELLERS){
-                
-                console.log("I am currently skipping sellers page because it is not complete. ")
-                // TODO: Fix this wh0en sellers page is done
-                // push("/Sellers");
-                push("/ListingBroker");
+                push("/Client/Seller");
+                // push("/ListingBroker");
             }
             if(agentType === AGENT_TYPES.BUYERS){
                 if(state.details.property.buyerHasSubmittedAdditionalOffer){
@@ -43,40 +40,40 @@ const Mortgage = () => {
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
             <FormHeader />
-            <S.FieldWrapper errors={errors.typeOfMortgage}>
+            <S.FieldWrapper error={errors?.typeOfMortgage}>
                         <S.FieldTitle>What Type of Mortgage</S.FieldTitle>
                         <DropDownList
                         placeholder="Mortgage Types"
                         name="typeOfMortgage"
                         label="Select a Mortgage Type" 
-                        errors={errors.typeOfMortgage}
+                        errors={errors?.typeOfMortgage}
                         options={Object.values(MORTGAGE_TYPES)}
                         register={register}
                         isValue={currMortgageType}
                         setValue={setCurrMortgageType}
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper errors={errors.purchasePrice}>
+                <S.FieldWrapper error={errors?.purchasePrice}>
                     <S.FieldTitle>Purchase Price</S.FieldTitle>
                     <div>
                         <InputField
                         getValues={getValues}
                         name="purchasePrice"
                         label="Purchase price?"
-                        errors={errors.purchasePrice}
+                        errors={errors?.purchasePrice}
                         register={register}
                         required={true}
                         />
                     </div>
                 </S.FieldWrapper>
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.firstDeposit || errors?.secondDeposit}>
                     <S.FieldTitle>Deposit Information</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
                         getValues={getValues}
                         name="firstDeposit" 
                         label="First Deposit Amount?" 
-                        errors={errors.firstDeposit}
+                        errors={errors?.firstDeposit}
                         register={register}
                         required={false}
                         />
@@ -90,7 +87,7 @@ const Mortgage = () => {
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.areConcessions || errors?.concessions}>
                     <S.FieldTitle>Are there concessions? 
                         <Slider 
                         isChecked={isConcessions}
@@ -106,7 +103,7 @@ const Mortgage = () => {
                         getValues={getValues}
                         name="concessions"
                         label="What are the concessions?"
-                        errors={errors.concessions}
+                        errors={errors?.concessions}
                         register={register}
                         required={true}
                         />
@@ -114,7 +111,7 @@ const Mortgage = () => {
                     : null }
                 </S.FieldWrapper>
                 { getValues(`typeOfMortgage`) !== 'Cash' ?
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.mortgageCommitmentDeadline}>
                     <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
                     <CustomDatePicker 
                     control={control}
@@ -125,7 +122,7 @@ const Mortgage = () => {
                     />
                 </S.FieldWrapper>
                 : null }
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.houseClosingDate}>
                         <S.FieldTitle>Closing Date</S.FieldTitle>
                         <CustomDatePicker
                         control={control}

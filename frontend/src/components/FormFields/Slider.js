@@ -3,8 +3,6 @@ import * as S from "./SliderStyled";
 
 const Slider = React.memo(({ isChecked, setIsChecked, name, required, register }) => {
 
-    console.log("re-rendered: " + name)
-
     return (
         <S.Container>
             <S.Label>
