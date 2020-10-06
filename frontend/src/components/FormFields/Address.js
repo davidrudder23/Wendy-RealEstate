@@ -5,8 +5,9 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import InputField from "../FormFields/InputField";
+import * as S from "./AddressStyled";
 
-const Address = () => {
+const Address = ({ label, name, register, required, getValues, errors }) => {
     const {
         ready,
         value,
@@ -38,30 +39,40 @@ const Address = () => {
           });
       };
      
-      const renderSuggestions = () =>
-        data.map((suggestion) => {
-          const {
-            id,
-            structured_formatting: { main_text, secondary_text },
-          } = suggestion;
-     
-          return (
-            <li key={id} onClick={handleSelect(suggestion)}>
-              <strong>{main_text}</strong> <small>{secondary_text}</small>
-            </li>
-          );
-        });
+      const renderSuggestions = () => {
+        return <S.DropDownContainer>
+                 <S.DropDownWrapper>
+                {data.map((suggestion) => {
+                  const {
+                    place_id,
+                    structured_formatting: { main_text, secondary_text },
+                  } = suggestion;
+                
+                  return (
+                    <S.DropDownItem key={place_id} onClick={handleSelect(suggestion)} >
+                      <strong>{main_text}</strong> <small>{secondary_text}</small>
+                    </S.DropDownItem>
+                  );
+                })}
+            </S.DropDownWrapper>
+        </S.DropDownContainer>
+      }
      
       return (
-        <div ref={ref}>
+        <div ref={ref} style={{display: "block"}}>
           <InputField
             value={value}
             onChange={handleInput}
             disabled={!ready}
-            placeholder="Where are you going?"
+            label={label}
+            name={name}
+            register={register}
+            required={required}
+            getValues={getValues}
+            errors={errors}
           />
           {/* We can use the "status" to decide whether we should display the dropdown or not */}
-          {status === "OK" && <ul>{renderSuggestions()}</ul>}
+          {status === "OK" && renderSuggestions()}
         </div>
       );
 }

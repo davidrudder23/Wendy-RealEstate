@@ -41,7 +41,15 @@ const Testing = () => {
                         />
                     </S.MultiContainer>
                     <div>
-                        <Address />
+                        <Address 
+                            name="testing.address"
+                            label="Address"
+                            required={true}
+                            register={register}
+                            errors={errors["testing"]?.address}
+                            getValues={getValues}
+
+                            />
                     </div>
                 </S.FieldWrapper>
                 <GeneralClientInformation title="Buyer" getValues={getValues} errors={errors} register={register} />
