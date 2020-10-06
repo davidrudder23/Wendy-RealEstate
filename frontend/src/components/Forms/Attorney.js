@@ -17,7 +17,15 @@ const Attorney = () => {
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else if(agentType === AGENT_TYPES.SELLERS){
-            push("/AdditionalInformation");
+
+                if(represents === AGENT_TYPES.SELLERS){
+                    push(`/Client/${AGENT_TYPES.BUYERS}`);
+                
+                }else if(represents === AGENT_TYPES.BUYERS){
+                    push("/AdditionalInformation");
+                    
+                }
+
         }else if(agentType === AGENT_TYPES.BUYERS){
             push("/FSBO");
         }

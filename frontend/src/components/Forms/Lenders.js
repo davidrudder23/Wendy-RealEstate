@@ -7,7 +7,6 @@ import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 
-// TODO: Verify if lenders can only be accessed buy a Buyers Agent
 const Lenders = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(LendersValidation);
 

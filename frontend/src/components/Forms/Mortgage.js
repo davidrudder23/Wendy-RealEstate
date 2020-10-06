@@ -12,7 +12,7 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const Mortgage = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(BuyerFormOneValidation);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(BuyerFormOneValidation);
 
     const onSubmit = data => {
         action({ mortgage: data});
@@ -21,14 +21,9 @@ const Mortgage = () => {
         } else {
             if(agentType === AGENT_TYPES.SELLERS){
                 push("/Client/Seller");
-                // push("/ListingBroker");
             }
             if(agentType === AGENT_TYPES.BUYERS){
-                if(state.details.property.buyerHasSubmittedAdditionalOffer){
-                    push(`/Attorney/${AGENT_TYPES.BUYERS}`);
-                }else{
-                    push("/BuyersAgent");
-                }
+                push("/Client/Buyer")
             }
         }
     }
@@ -110,7 +105,7 @@ const Mortgage = () => {
                     </div>
                     : null }
                 </S.FieldWrapper>
-                { getValues(`typeOfMortgage`) !== 'Cash' ?
+                { getValues(`typeOfMortgage`) !== MORTGAGE_TYPES.CASH ?
                 <S.FieldWrapper error={errors?.mortgageCommitmentDeadline}>
                     <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
                     <CustomDatePicker 

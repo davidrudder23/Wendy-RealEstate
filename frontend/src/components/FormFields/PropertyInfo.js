@@ -6,13 +6,13 @@ import { AGENT_TYPES } from "../../shared";
 const PropertyInfo = ({ register, errors, getValues, agentType }) => {
 
     const propertyInformation =
-    errors?.mlsNumber ||
-    errors?.deedReference ||
-    errors?.address ||
-    errors?.city ||
-    errors?.state ||
-    errors?.zipCode ||
-    errors?.mapReferences;
+    errors["property"]?.mlsNumber ||
+    errors["property"]?.deedReference ||
+    errors["property"]?.address ||
+    errors["property"]?.city ||
+    errors["property"]?.state ||
+    errors["property"]?.zipCode ||
+    errors["property"]?.mapReferences;
 
     return (
         <S.FieldWrapper error={propertyInformation}>
@@ -20,48 +20,48 @@ const PropertyInfo = ({ register, errors, getValues, agentType }) => {
             <S.MultiContainer>
                 <InputField
                 getValues={getValues}
-                name="address"
+                name="property.address"
                 label="Address" 
-                errors={errors?.address} 
+                errors={errors["property"]?.address} 
                 register={register} 
                 required={true} />
                 <InputField
                 getValues={getValues}
-                name="city" 
+                name="property.city" 
                 label="City" 
-                errors={errors?.city} 
+                errors={errors["property"]?.city} 
                 register={register} 
                 required={true} />
             </S.MultiContainer>
             <S.MultiContainer>
                 <InputField
                 getValues={getValues}
-                name="state" 
+                name="property.state" 
                 label="State" 
-                errors={errors?.state} 
+                errors={errors["property"]?.state} 
                 register={register} 
                 required={true} />
                 <InputField
                 getValues={getValues}
-                name="zipCode" 
+                name="property.zipCode" 
                 label="Zip Code" 
-                errors={errors?.zipCode} 
+                errors={errors["property"]?.zipCode} 
                 register={register} 
                 required={true} />
             </S.MultiContainer>
             <S.MultiContainer>
                 <InputField
                 getValues={getValues}
-                name="mlsNumber"
+                name="property.mlsNumber"
                 label="MLS Number" 
-                errors={errors?.mlsNumber} 
+                errors={errors["property"]?.mlsNumber} 
                 register={register} 
                 required={true}/>
                 <InputField
                 getValues={getValues}
-                name="deedReference"
+                name="property.deedReference"
                 label="Deed Reference (Book)" 
-                errors={errors?.deedReference} 
+                errors={errors["property"]?.deedReference} 
                 register={register} 
                 required={true} />
             </S.MultiContainer>
@@ -70,9 +70,9 @@ const PropertyInfo = ({ register, errors, getValues, agentType }) => {
                 <div>
                     <InputField
                     getValues={getValues}
-                    name="mapReferences"
+                    name="property.mapReferences"
                     label="Map References (Page)"
-                    errors={errors?.mapReferences}
+                    errors={errors["property"]?.mapReferences}
                     register={register}
                     required={true} />
                 </div> : null

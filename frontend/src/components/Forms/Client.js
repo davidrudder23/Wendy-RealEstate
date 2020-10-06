@@ -18,9 +18,9 @@ const Client = () => {
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else if(agentType === AGENT_TYPES.SELLERS){
-            push();
+            push("/ListingBroker");
         }else if(agentType === AGENT_TYPES.BUYERS){
-            push();
+            push("/BuyersAgent");
         }
     }
 

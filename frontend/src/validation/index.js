@@ -11,38 +11,35 @@ const VALID_EMAIL = "Must be a Valid Email!";
 const NUMBER_ERROR_MESSAGE = "Can only contain numbers";
 
 
-export const AgentTypeValidation = yup.object().shape({
+export const AgentTypeValidation = (agentType) => yup.object().shape({
     agentType: yup.string().required(REQUIRED),
 });
 
 export const BuyerFormOneValidation = (agentType) => yup.object().shape({
-    address: yup.string().required(REQUIRED),
-    city: yup.string().required(REQUIRED),
-    state: yup.string().required(REQUIRED),
-    zipCode: yup.number().required().typeError(REQUIRED),
-    mlsNumber: yup.string().test('len', 'Must be exactly 7 digits', val => val.length === 7),
-    deedReference: yup.string().required(REQUIRED).test('len', 'Must be in format XXXX-XXXXXXX', val => val.length === 11).required(REQUIRED),
-    propertyType: yup.string().required(REQUIRED).oneOf([...Object.values(PROPERTY_TYPES)], "Select a valid Property type."),
-    condoManagementCompany: yup.string()
-    .when(
-        "propertyType",
-       { is: val => val === PROPERTY_TYPES.CONDO,
-        then: yup.string().required(REQUIRED)
-    }),
-    dateHouseBuilt: yup.string().required(REQUIRED),
-    titleOrTownSewer: yup.string().required(REQUIRED),
-    publicOrTownWater: yup.string().required(REQUIRED),
-    inspectionDeadline: yup.string().required(REQUIRED),
-    buyerhasSubmittedAdditionalOffer: agentType === AGENT_TYPES.BUYERS ? yup.string().required(REQUIRED) : yup.string().notRequired(),
-    loxBoxCode: agentType === AGENT_TYPES.SELLERS ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
-    vacentOrOccupied: agentType === AGENT_TYPES.SELLERS ? yup.string().required(REQUIRED) : yup.string().notRequired(),
-});
+    property: yup.object().shape({
+        address: yup.string().required(REQUIRED),
+        city: yup.string().required(REQUIRED),
+        state: yup.string().required(REQUIRED),
+        zipCode: yup.number().required().typeError(REQUIRED),
+        mlsNumber: yup.string().test('len', 'Must be exactly 7 digits', val => val.length === 7),
+        deedReference: yup.string().required(REQUIRED).test('len', 'Must be in format XXXX-XXXXXXX', val => val.length === 11).required(REQUIRED),
+        propertyType: yup.string().required(REQUIRED).oneOf([...Object.values(PROPERTY_TYPES)], "Select a valid Property type."),
+        condoManagementCompany: yup.string()
+        .when(
+            "propertyType",
+        { is: val => val === PROPERTY_TYPES.CONDO,
+            then: yup.string().required(REQUIRED)
+        }),
+        dateHouseBuilt: yup.string().required(REQUIRED),
+        titleOrTownSewer: yup.string().required(REQUIRED),
+        publicOrTownWater: yup.string().required(REQUIRED),
+        inspectionDeadline: yup.string().required(REQUIRED),
+        buyerhasSubmittedAdditionalOffer: agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
+        loxBoxCode: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
+        vacentOrOccupied: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
+})});
 
-export const SellerPropertyValidation = yup.object().shape({
-    vacentOrOccupied: yup.string().required(REQUIRED),
-})
-
-export const BuyerAgentInfoValidation = yup.object().shape({
+export const BuyerAgentInfoValidation = (agentType) =>  yup.object().shape({
     buyersAgentFirstName: yup.string().required(REQUIRED),
     buyersAgentMLSNumber: yup.string().required(REQUIRED).test('len', 'Must be exactly 7 digits', val => val.length === 7),
     buyersAgentEmail: yup.string().email(VALID_EMAIL).required(REQUIRED),
@@ -53,7 +50,7 @@ export const BuyerAgentInfoValidation = yup.object().shape({
     buyersAgentCompensationPerMLS: yup.string().notRequired(),
 });
 
-export const AttorneyValidation = yup.object().shape({
+export const AttorneyValidation = (agentType) => yup.object().shape({
     firstName: yup.string().required(REQUIRED),
     lastName: yup.string().required(REQUIRED),
     emailAddress: yup.string().required(REQUIRED),
@@ -62,7 +59,7 @@ export const AttorneyValidation = yup.object().shape({
     phoneNumber: yup.string().notRequired().matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
 });
 
-export const TestAttorneyValidation = yup.lazy(obj => 
+export const TestAttorneyValidation = (agentType) => yup.lazy(obj => 
     yup.object(mapRules(obj, yup.object({
         firstName: yup.string().required(REQUIRED),
         lastName: yup.string().required(REQUIRED),
@@ -73,7 +70,7 @@ export const TestAttorneyValidation = yup.lazy(obj =>
     })))
 )
 
-export const FSBOValidation = yup.object().shape({
+export const FSBOValidation = (agentType) => yup.object().shape({
     forSaleByOwner: yup.string().required(REQUIRED),
     sellerFirstName: yup.string().notRequired(),
     sellerLastName: yup.string().notRequired(),
@@ -86,7 +83,7 @@ export const FSBOValidation = yup.object().shape({
     attorneyPhoneNumber: yup.string().notRequired(),
 });
 
-export const ListingBrokerValidation = yup.object().shape({
+export const ListingBrokerValidation = (agentType) => yup.object().shape({
     listingBroker: yup.object().shape({
         company: yup.string().required(REQUIRED),
         address: yup.string().notRequired(),
@@ -101,7 +98,7 @@ export const ListingBrokerValidation = yup.object().shape({
     }),
 });
 
-export const LendersValidation = yup.object().shape({
+export const LendersValidation = (agentType) => yup.object().shape({
     lender: yup.object().shape({
         firstName: yup.string().required(REQUIRED),
         lastName: yup.string().required(REQUIRED),
@@ -112,14 +109,14 @@ export const LendersValidation = yup.object().shape({
     }),
 });
 
-export const AdditionalInformationValidation = yup.object().shape({
+export const AdditionalInformationValidation = (agentType) => yup.object().shape({
 
 });
 
 /* 
     This object validation rule can be utilized to define a lazy array
 */
-export const ClientValidation = yup.lazy(obj =>
+export const ClientValidation = (agentType) => yup.lazy(obj =>
     yup.object(mapRules(obj, yup.lazy(obj2 =>
         {
             if(Array.isArray(obj2)){

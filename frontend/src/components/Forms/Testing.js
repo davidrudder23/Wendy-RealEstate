@@ -6,6 +6,7 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from '../../hooks/useCustomFormHook';
 import GeneralClientInformation from '../FormFields/GeneralClientInformation';
 import { ClientValidation } from "../../validation";
+import Address from '../FormFields/Address';
 
 const Testing = () => {
     const { register, handleSubmit, getValues, errors, action, push } = useCustomFormHook(ClientValidation);
@@ -39,6 +40,9 @@ const Testing = () => {
                             getValues={getValues}
                         />
                     </S.MultiContainer>
+                    <div>
+                        <Address />
+                    </div>
                 </S.FieldWrapper>
                 <GeneralClientInformation title="Buyer" getValues={getValues} errors={errors} register={register} />
                 <br />

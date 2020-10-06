@@ -17,11 +17,7 @@ const ListingBroker = () => {
             push("/result");
         }else {
             if(agentType === AGENT_TYPES.SELLERS){
-                // TODO: Fix Buyers Section
-                // Note: Buyers section exist in both buyer and sellers form just different at different steps (see notebook)
-                console.log("See notebook notes for BuyersSection information")
-                // push("BuyersSection");
-                push("/BuyersAgent");
+                push("/Attorney/Seller");
             }
             if(agentType === AGENT_TYPES.BUYERS){
                 if(state.details.mortgage.typeOfMortgage === MORTGAGE_TYPES.CASH){

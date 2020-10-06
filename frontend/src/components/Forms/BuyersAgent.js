@@ -5,7 +5,10 @@ import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
 import { BuyerAgentInfoValidation } from "../../validation";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
+import { AGENT_TYPES } from "../../shared";
 
+// TODO: update page with better field names. This will give a better data structure in the end.
+// This page can likely be generalized incase there is a requirement for Seller Agent Page
 const BuyerAgent = () => {
     const { register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(BuyerAgentInfoValidation);
 
@@ -14,7 +17,7 @@ const BuyerAgent = () => {
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
             push("/result");
         }else{
-            push("/BuyersAttorney");
+            push(`/Attorney/${AGENT_TYPES.BUYERS}`);
         }
     }
 

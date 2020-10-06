@@ -27,7 +27,7 @@ const index = () => {
             <Route path="/result" component={Result} />
             <Route path="/Mortgage" component={Mortgage} />
             <Route path="/AdditionalInformation" component={AdditionalInformation} />
-            <Route path="/testing" component={Testing} />
+            <Route path="/Testing" component={Testing} />
         </Router>
     )
 }

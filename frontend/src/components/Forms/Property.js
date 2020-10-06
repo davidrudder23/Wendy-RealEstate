@@ -18,13 +18,10 @@ const Property = () => {
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
     const [inspectionWaved, setInspectionWaved] = React.useState(false);
-    
-    console.log(errors);
 
     const onSubmit = data => {
-        console.log("pressed");
-        action({ property: data });
-        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+        action(data);
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false"){
             push("/result");
         }else{
             push("/Mortgage");
@@ -36,27 +33,27 @@ const Property = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <PropertyInfo agentType={agentType} getValues={getValues} errors={errors} register={register}/>
-                <S.FieldWrapper error={errors?.propertyType}>
+                <S.FieldWrapper error={errors["property"]?.propertyType}>
                         <S.FieldTitle>Property Type</S.FieldTitle>
                         <DropDownList
                         placeholder="Property Types"
-                        name="propertyType" 
-                        label="Select a Property Type" 
-                        errors={errors?.propertyType} 
+                        name="property.propertyType"
+                        label="Select a Property Type"
+                        errors={errors["property"]?.propertyType} 
                         options={Object.values(PROPERTY_TYPES)} 
                         register={register}
                         isValue={currPropertyType}
                         setValue={setCurrentPropertyType} />
                 </S.FieldWrapper>
                 { currPropertyType === "Condo" ?
-                <S.FieldWrapper error={errors?.condoManagementCompany}>
+                <S.FieldWrapper error={errors["property"]?.condoManagementCompany}>
                     <S.FieldTitle>Who is the Condo Management Company</S.FieldTitle>
                     <div>
                         <InputField
                         getValues={getValues}
-                        name="condoManagementCompany" 
+                        name="property.condoManagementCompany" 
                         label="Management Company"
-                        errors={errors?.condoManagementCompany}
+                        errors={errors["property"]?.condoManagementCompany}
                         register={register}
                         required={true}
                         />
@@ -65,49 +62,49 @@ const Property = () => {
                 : null
                 }
                 { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ?
-                    <S.FieldWrapper error={errors?.vacentOrOccupied}>
+                    <S.FieldWrapper error={errors["property"]?.vacentOrOccupied}>
                         <S.FieldTitle>Is the house vacant or occupied?</S.FieldTitle>
                         <RadioSelector 
                             register={register}
-                            name="vacentOrOccupied"
+                            name="property.vacentOrOccupied"
                             array={["Vacant","Occupied"]}
                         />
                     </S.FieldWrapper>
                 : null }
-                <S.FieldWrapper error={errors?.dateHouseBuilt}>
+                <S.FieldWrapper error={errors["property"]?.dateHouseBuilt}>
                         <S.FieldTitle>Year Built</S.FieldTitle>
                         <CustomDatePicker
                         getValues={getValues}
                         showYearPicker={true}
                         control={control} 
-                        name="dateHouseBuilt" 
+                        name="property.dateHouseBuilt" 
                         label="Select Date Built" 
                         required={true}
                         dateFormat="yyyy"
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors?.titleOrTownSewer} >
+                <S.FieldWrapper error={errors["property"]?.titleOrTownSewer} >
                         <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
                         <RadioSelector 
                         register={register} 
-                        name="titleOrTownSewer"
+                        name="property.titleOrTownSewer"
                         array={["Title V","Public Sewer"]}
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors?.publicOrTownWater} >
+                <S.FieldWrapper error={errors["property"]?.publicOrTownWater} >
                         <S.FieldTitle>Public or Town Water</S.FieldTitle>
                         <RadioSelector
                         register={register}
-                        name="publicOrTownWater"
+                        name="property.publicOrTownWater"
                         array={["Town Water","Private Water"]}
                         />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors?.inspectionWaved || errors?.inspectionDeadline}>
+                <S.FieldWrapper error={errors["property"]?.inspectionWaved || errors["property"]?.inspectionDeadline}>
                         <S.FieldTitle>Inspection Waved
                             <Slider 
                             isChecked={inspectionWaved}
                             setIsChecked={setInspectionWaved}
-                            name="isInspectionWaved" 
+                            name="property.isInspectionWaved" 
                             register={register}
                             required={false}
                             />
@@ -116,20 +113,20 @@ const Property = () => {
                             <CustomDatePicker
                             getValues={getValues}
                             control={control} 
-                            name="inspectionDeadline" 
+                            name="property.inspectionDeadline" 
                             label="Select Inspection Deadline" 
                             required={true}
                             />}
                 </S.FieldWrapper>
                 { agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH
-                ? <S.FieldWrapper error={errors?.loxBoxCode}>
+                ? <S.FieldWrapper error={errors["property"]?.loxBoxCode}>
                     <S.FieldTitle>Lox Box Code</S.FieldTitle>
                     <div>
                         <InputField 
                             getValues={getValues}
-                            name="loxBoxCode"
+                            name="property.loxBoxCode"
                             label="Lox Box Code"
-                            errors={errors?.loxBoxCode}
+                            errors={errors["property"]?.loxBoxCode}
                             required={true}
                             register={register}
                         />
@@ -139,12 +136,12 @@ const Property = () => {
                     Note: Refer to Wendy Email for Message differences.
                 */}
                 { agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? 
-                <S.FieldWrapper error={errors?.buyerHasSubmittedAdditionalOffer}>
+                <S.FieldWrapper error={errors["property"]?.buyerHasSubmittedAdditionalOffer}>
                     <S.FieldTitle>Has The buyer Submitted an offer for another property? 
                         <Slider 
                         isChecked={additionalOffer}
                         setIsChecked={setAdditionalOffer}
-                        name="buyerHasSubmittedAdditionalOffer" 
+                        name="property.buyerHasSubmittedAdditionalOffer" 
                         register={register}
                         required={false}
                         />
