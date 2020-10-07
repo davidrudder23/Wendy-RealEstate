@@ -3,13 +3,13 @@ import InputField from "../FormFields/InputField";
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
-import { AgentInfoValidation } from "../../validation";
+import { AgentAndBrokerValidation } from "../../validation";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { AGENT_TYPES } from "../../shared";
 import { useParams } from 'react-router-dom';
 
 const Agent = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook();
+    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(AgentAndBrokerValidation);
     const { represents } = useParams();
     const onSubmit = data => {
         action(data);

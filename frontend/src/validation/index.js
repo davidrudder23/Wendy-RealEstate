@@ -39,7 +39,7 @@ export const BuyerFormOneValidation = (agentType) => yup.object().shape({
         vacentOrOccupied: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
 })});
 
-export const AgentInfoValidation = (agentType) =>  yup.object().shape({
+export const AgentAndBrokerValidation = (agentType) =>  yup.object().shape({
     buyersAgentFirstName: yup.string().required(REQUIRED),
     buyersAgentMLSNumber: yup.string().required(REQUIRED).test('len', 'Must be exactly 7 digits', val => val.length === 7),
     buyersAgentEmail: yup.string().email(VALID_EMAIL).required(REQUIRED),
