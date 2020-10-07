@@ -4,7 +4,6 @@ import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from '../../hooks/useCustomFormHook';
-import GeneralClientInformation from '../FormFields/GeneralClientInformation';
 import { ClientValidation } from "../../validation";
 import Address from '../FormFields/Address';
 
@@ -52,7 +51,6 @@ const Testing = () => {
                             />
                     </div>
                 </S.FieldWrapper>
-                <GeneralClientInformation title="Buyer" getValues={getValues} errors={errors} register={register} />
                 <br />
                 <Next />
                 <Back />

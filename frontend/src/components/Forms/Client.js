@@ -20,7 +20,7 @@ const Client = () => {
         }else if(agentType === AGENT_TYPES.SELLERS){
             push("/ListingBroker");
         }else if(agentType === AGENT_TYPES.BUYERS){
-            push("/BuyersAgent");
+            push("/Agent/Buyer");
         }
     }
 

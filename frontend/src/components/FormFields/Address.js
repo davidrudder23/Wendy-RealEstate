@@ -7,6 +7,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import InputField from "../FormFields/InputField";
 import * as S from "./AddressStyled";
 
+// TODO: enable direction arrow to selected drop down item
 const Address = ({ label, name, register, required, getValues, errors }) => {
     const {
         ready,
@@ -49,7 +50,7 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
                   } = suggestion;
                 
                   return (
-                    <S.DropDownItem key={place_id} onClick={handleSelect(suggestion)} >
+                    <S.DropDownItem key={place_id} onClick={handleSelect(suggestion)}>
                       <strong>{main_text}</strong> <small>{secondary_text}</small>
                     </S.DropDownItem>
                   );

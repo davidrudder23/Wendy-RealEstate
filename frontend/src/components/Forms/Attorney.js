@@ -36,7 +36,7 @@ const Attorney = () => {
             <form onSubmit={handleSubmit(onSubmit)} >
                 <FormHeader />
                 <S.FieldWrapper>
-                <S.FieldTitle>{represents} Attorney Information</S.FieldTitle>
+                <S.FieldTitle>{represents}'s Attorney Information</S.FieldTitle>
                    <S.MultiContainer>
                                 <InputField
                                 getValues={getValues}
