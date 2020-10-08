@@ -3,6 +3,7 @@ import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import AutoComplete from './AutoComplete';
 
+// TODO: Create API Docs
 const Address = ({ label, name, register, required, getValues, errors }) => {
     const {
         ready,
