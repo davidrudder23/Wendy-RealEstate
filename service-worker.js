@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Wendy-RealEstate/precache-manifest.02b2203d7f7c9daf9d927a412abe97b6.js"
+  "/Wendy-RealEstate/precache-manifest.d41bb163d90750d3933bc3031fb47a90.js"
 );
 
 self.addEventListener('message', (event) => {
