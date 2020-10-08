@@ -8,10 +8,13 @@ import { AgentAndBrokerValidation } from "../../validation";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { AGENT_TYPES } from "../../shared";
 import { useParams } from 'react-router-dom';
+import Slider from "../FormFields/Slider";
+
 
 const Agent = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(AgentAndBrokerValidation);
     const { represents } = useParams();
+    const [isEXP, setIsExp] = React.useState(false);
     const onSubmit = data => {
         action(data);
         if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false"){
@@ -59,6 +62,10 @@ const Agent = () => {
         }
     }
 
+    const handleFieldsForIsExp = () => {
+
+    }
+
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -104,8 +111,19 @@ const Agent = () => {
                     {loadFieldsBasedOnAgent()}
                 </S.FieldWrapper>
                 <S.FieldWrapper>
+                    <S.FieldTitle>Is eXp your broker?
+                    <Slider
+                        isChecked={isEXP}
+                        setIsChecked={setIsExp}
+                        name="property.buyerHasSubmittedAdditionalOffer" 
+                        register={register}
+                        required={false}
+                    />
+                    </S.FieldTitle>
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                {/* TODO: Finish breaking this out into a method based on isExp */}
                     <S.FieldTitle>{represents}'s Broker</S.FieldTitle>
-                        {/* TODO: give option to pick eXp */}
                     <S.MultiContainer>
                         <InputField
                         getValues={getValues}
@@ -116,6 +134,7 @@ const Agent = () => {
                         required={true}
                         />
                         {/* TODO: Can be pre filled if eXp with --> eXp Address = P.O. Box 10665 Holyoke Ma 01041*/}
+                        <S.AddressWrapper>
                         <Address
                         getValues={getValues}
                         name={`broker.${represents}.address`}
@@ -124,6 +143,7 @@ const Agent = () => {
                         register={register}
                         required={true}
                         />
+                        </S.AddressWrapper>
                     </S.MultiContainer>
                 </S.FieldWrapper>
                 <Next />

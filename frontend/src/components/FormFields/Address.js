@@ -4,7 +4,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import AutoComplete from './AutoComplete';
 
 // TODO: Create API Docs
-const Address = ({ label, name, register, required, getValues, errors }) => {
+const Address = ({ label, name, register, required, getValues, errors, disable=false, value, ...props }) => {
     const {
         ready,
         suggestions: { status, data },
@@ -18,6 +18,10 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
      
       const handleInput = (e) => {
         setValue(e.target.value);
+        if(value){
+          setValue(value);
+          return;
+        }
       };
      
       const handleSelect = (e) => () => {
@@ -32,7 +36,7 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
           <AutoComplete
             onSelect={handleSelect}
             onChange={handleInput}
-            disabled={!ready}
+            disabled={disable || !ready}
             label={label}
             name={name}
             register={register}
@@ -42,6 +46,7 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
             suggestions={getDescriptions}
             status={status}
             filterValues={false}
+            {...props}
           />
         </div>
       );

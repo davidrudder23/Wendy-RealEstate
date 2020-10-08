@@ -78,3 +78,8 @@ export const MultiContainer = styled.div`
     }
     
 `;
+
+// Should only be used when inside MultiContainer
+export const AddressWrapper = styled.div`
+    padding-left: 1rem;
+`;
