@@ -10,8 +10,6 @@ import { yupResolver } from '@hookform/resolvers';
 import { AdditionalInformationValidation } from "../../validation";
 import { Next, Back } from "../FormFields/SharedButtons";
 
-
-
 const AdditionalInformation = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
