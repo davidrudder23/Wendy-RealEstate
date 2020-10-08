@@ -5,7 +5,7 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from '../../hooks/useCustomFormHook';
 import { ClientValidation } from "../../validation";
 import AutoComplete from '../FormFields/AutoComplete';
-// import Address from "../FormFields/Address";
+import Address from "../FormFields/Address";
 
 const Testing = () => {
     const {  register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(ClientValidation);
@@ -35,10 +35,10 @@ const Testing = () => {
                         required={false}
                     />
                 </S.FieldWrapper>
-                {/* <S.FieldWrapper>
+                <S.FieldWrapper>
                     <S.FieldTitle>Address Testing</S.FieldTitle>
                     <Address />
-                </S.FieldWrapper> */}
+                </S.FieldWrapper>
                 <br />
                 <Next />
                 <Back />

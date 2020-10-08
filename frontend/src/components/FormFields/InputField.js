@@ -2,6 +2,7 @@ import React from 'react'
 import * as S from "./InputFieldStyled";
 import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 
+// TODO: Create API docs for field
 const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, handleonblur, ...props}) => {
     const classVal = required ? `${className} required-field`: className;
     const { isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);

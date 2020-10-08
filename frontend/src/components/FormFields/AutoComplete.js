@@ -3,7 +3,7 @@ import InputField from './InputField';
 
 
 /*
-  TODO: Create api documentation for all custom components
+  TODO: Create api docs for field
   handleonblur = onBlur
   handleonkeypress = onKeyPress
 
