@@ -1,14 +1,11 @@
 import React from 'react'
 import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import InputField from "../FormFields/InputField";
-import * as S from "./AddressStyled";
+import AutoComplete from './AutoComplete';
 
-// TODO: Migrate component to AutoComplete Component
 const Address = ({ label, name, register, required, getValues, errors }) => {
     const {
         ready,
-        value,
         suggestions: { status, data },
         setValue,
         clearSuggestions,
@@ -22,34 +19,17 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
         setValue(e.target.value);
       };
      
-      const handleSelect = ({ description }) => () => {
-        setValue(description, false);
+      const handleSelect = (e) => () => {
+        setValue(e.currentTarget.innerText, false);
         clearSuggestions();
       };
-     
-      const renderSuggestions = () => {
-        return <S.DropDownContainer>
-                 <S.DropDownWrapper>
-                {data.map((suggestion) => {
-                  const {
-                    place_id,
-                    structured_formatting: { main_text, secondary_text },
-                  } = suggestion;
-                
-                  return (
-                    <S.DropDownItem key={place_id} onClick={handleSelect(suggestion)}>
-                      <strong>{main_text}</strong> <small>{secondary_text}</small>
-                    </S.DropDownItem>
-                  );
-                })}
-            </S.DropDownWrapper>
-        </S.DropDownContainer>
-      }
-     
+
+      const getDescriptions = data.map(({description}) => description);
+
       return (
         <div ref={ref}>
-          <InputField
-            value={value}
+          <AutoComplete
+            onSelect={handleSelect}
             onChange={handleInput}
             disabled={!ready}
             label={label}
@@ -58,9 +38,10 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
             required={required}
             getValues={getValues}
             errors={errors}
+            suggestions={getDescriptions}
+            status={status}
+            filterValues={false}
           />
-          {/* We can use the "status" to decide whether we should display the dropdown or not */}
-          {status === "OK" && renderSuggestions()}
         </div>
       );
 }

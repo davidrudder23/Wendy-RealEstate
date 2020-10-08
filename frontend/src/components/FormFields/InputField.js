@@ -3,7 +3,7 @@ import * as S from "./InputFieldStyled";
 import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 
 // TODO: Create API docs for field
-const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, handleonblur, ...props}) => {
+const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, handleonblur, onChange, ...props}) => {
     const classVal = required ? `${className} required-field`: className;
     const { isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
 
@@ -17,7 +17,7 @@ const InputField = React.memo(({ name, label, className, style, required, regist
     const handleOnBlur = e => {
         isFieldEmpty(e.target.value);
         if(handleonblur){
-            handleonblur(e);
+            props.handleonblur(e);
         }
     }
 
@@ -26,7 +26,7 @@ const InputField = React.memo(({ name, label, className, style, required, regist
             <input name={name} ref={register}
             onKeyPress={handleOnKeyPress}
             onBlur={handleOnBlur}
-            onKeyDown={handleOnKeyPress}
+            onChange={onChange}
             {...props}
             />
             <label className={classVal}>{label}</label>

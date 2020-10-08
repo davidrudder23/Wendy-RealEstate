@@ -3,12 +3,17 @@ import InputField from './InputField';
 
 
 /*
-  TODO: Create api docs for field
+  TODO: Create api docs
   handleonblur = onBlur
   handleonkeypress = onKeyPress
-
+  onSelect = handleSelect for list of rendered items
+  filterValues = allows you to turn off filtering the list
+  status = is if the component is ready to render the list
+  howToFilter = custom filter for the list
+  suggestions = an array of strings to render and search
+  onChange = onChange
 */
-const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress, ...props }) => {
+const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress, status = true, onChange, filterValues = true, onSelect, ...props }) => {
     const [suggestionState, setSuggestionState] = React.useState({
         // The active suggestion's index
         activeSuggestion: 0,
@@ -21,28 +26,39 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
     });
 
     const handleOnChange = e => {
-        const userInput = e.currentTarget.value;
+        const userInput = e.target.value;
         
         // Filter our suggestions that don't contain the user's input
         let filteredSuggestions;
-        if(howToFilter){
-          filteredSuggestions = howToFilter();
-        }else{
-          filteredSuggestions = suggestions.filter(
-              suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-          );
+        if(filterValues){
+          if(howToFilter){
+            filteredSuggestions = howToFilter(suggestions);
+          }else {
+            filteredSuggestions = suggestions.filter(
+                  suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+            );
+          }
+        }else {
+          filteredSuggestions = suggestions;
         }
 
         setSuggestionState({
             activeSuggestion: 0,
-            filteredSuggestions: filteredSuggestions,
+            filteredSuggestions,
             showSuggestions: true,
             userInput: userInput,
         });
+
+        if(onChange){
+          onChange(e);
+        }
     };
 
-    const handleOnClick = e => {
-        setSuggestionState({
+    const handleSelect = e => {
+      if(onSelect){
+        onSelect(e)
+      }
+      setSuggestionState({
             activeSuggestion: 0,
             filteredSuggestions: [],
             showSuggestions: false,
@@ -95,7 +111,7 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
                     }
       
                     return (
-                      <li className={className} key={suggestion} onClick={handleOnClick}>
+                      <li className={className} key={suggestion} onClick={handleSelect}>
                         {suggestion}
                       </li>
                     );
@@ -105,7 +121,7 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
             } else {
               return (
                 <div className="no-suggestions">
-                  <em>No suggestions, you're on your own!</em>
+                  <em>No suggestions</em>
                 </div>
               );
             }
@@ -114,15 +130,16 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
     
 
     return (
-        <React.Fragment>
+        <div>
         <InputField
-          onChange={props?.onChange || handleOnChange}
-          onKeyDown={props?.onKeyDown || handleOnKeyDown}
+          value={suggestionState.userInput}
+          onChange={handleOnChange}
+          onKeyDown={handleOnKeyDown}
           handleonblur={handleonblur}
           {...props}
         />
         {suggestionsListComponent()}
-      </React.Fragment>
+      </div>
     )
 }
 

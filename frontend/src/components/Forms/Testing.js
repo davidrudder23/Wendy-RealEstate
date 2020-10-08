@@ -37,7 +37,14 @@ const Testing = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Address Testing</S.FieldTitle>
-                    <Address />
+                    <Address 
+                        getValues={getValues}
+                        name="testing.address"
+                        label="Search for an address"
+                        errors={errors?.testing?.address}
+                        register={register}
+                        required={false}
+                    />
                 </S.FieldWrapper>
                 <br />
                 <Next />
