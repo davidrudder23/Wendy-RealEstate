@@ -1,3 +1,10 @@
+export const deploy = process.env.REACT_APP_DEPLOY_TO_GITHUB_PAGES;
+export const path = process.env.REACT_APP_BASE_PATH;
+
+export const handleDeploymentPath = (params) => {
+    return deploy === "true" ? path.concat(params) : params;
+}
+
 export const MORTGAGE_TYPES = {
     CONVENTIONAL: "Conventional",
     FHA: "FHA",

@@ -6,17 +6,18 @@ import { LendersValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
+import { handleDeploymentPath } from "../../shared";
 
 const Lenders = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(LendersValidation);
 
     const onSubmit = data => {
         action(data);
-        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
-            push("/result");
-        }else {
-            if(agentType === AGENT_TYPES.BUYERS){
-                push("/AdditionalInformation");
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false") {
+            push(handleDeploymentPath("/result"));
+        } else {
+            if (agentType === AGENT_TYPES.BUYERS) {
+                push(handleDeploymentPath("/AdditionalInformation"));
             }
         }
     }
@@ -24,55 +25,55 @@ const Lenders = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <FormHeader />
+                <FormHeader />
                 <S.FieldWrapper>
                     <S.FieldTitle>Lender Information</S.FieldTitle>
                     <S.MultiContainer>
-                        <InputField 
-                        getValues={getValues}
-                        name="lender.firstName"
-                        label="First Name"
-                        errors={errors.lender?.firstName}
-                        register={register}
+                        <InputField
+                            getValues={getValues}
+                            name="lender.firstName"
+                            label="First Name"
+                            errors={errors.lender?.firstName}
+                            register={register}
                         />
-                        <InputField 
-                        getValues={getValues}
-                        name="lender.lastName"
-                        label="Last Name"
-                        errors={errors.lender?.lastName}
-                        register={register}
-                        />
-                    </S.MultiContainer>
-                    <S.MultiContainer>
-                        <InputField 
-                        getValues={getValues}
-                        name="lender.companyName"
-                        label="Company Name"
-                        errors={errors.lender?.company}
-                        register={register}
-                        />
-                        <InputField 
-                        getValues={getValues}
-                        name="lender.phoneNumber"
-                        label="Phone Number"
-                        errors={errors.lender?.phoneNumber}
-                        register={register}
+                        <InputField
+                            getValues={getValues}
+                            name="lender.lastName"
+                            label="Last Name"
+                            errors={errors.lender?.lastName}
+                            register={register}
                         />
                     </S.MultiContainer>
                     <S.MultiContainer>
-                        <InputField 
-                        getValues={getValues}
-                        name="lender.email"
-                        label="Email"
-                        errors={errors.lender?.email}
-                        register={register}
-                        />                        
-                        <InputField 
-                        getValues={getValues}
-                        name="lender.emailVerification"
-                        label="Email Verification"
-                        errors={errors.lender?.emailVerification}
-                        register={register}
+                        <InputField
+                            getValues={getValues}
+                            name="lender.companyName"
+                            label="Company Name"
+                            errors={errors.lender?.company}
+                            register={register}
+                        />
+                        <InputField
+                            getValues={getValues}
+                            name="lender.phoneNumber"
+                            label="Phone Number"
+                            errors={errors.lender?.phoneNumber}
+                            register={register}
+                        />
+                    </S.MultiContainer>
+                    <S.MultiContainer>
+                        <InputField
+                            getValues={getValues}
+                            name="lender.email"
+                            label="Email"
+                            errors={errors.lender?.email}
+                            register={register}
+                        />
+                        <InputField
+                            getValues={getValues}
+                            name="lender.emailVerification"
+                            label="Email Verification"
+                            errors={errors.lender?.emailVerification}
+                            register={register}
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>

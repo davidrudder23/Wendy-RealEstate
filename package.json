@@ -1,13 +1,16 @@
 {
   "name": "wendy-services",
   "version": "0.0.1",
+  "homepage": "http://gcolon021.github.io/Wendy-RealEstate",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "create-react-app": "^3.4.1",
+    "gh-pages": "^3.1.0",
     "yup": "^0.29.3"
   },
   "scripts": {
+    "deploy": "gh-pages -d build -e ./frontend",
     "dev:install": "./script/00-install-dev.sh",
     "dev:up": "docker-compose -f docker/docker-compose.dev.yml up",
     "dev:down": "docker-compose -f docker/docker-compose.dev.yml down",

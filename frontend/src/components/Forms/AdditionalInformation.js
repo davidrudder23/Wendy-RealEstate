@@ -10,6 +10,8 @@ import { yupResolver } from '@hookform/resolvers';
 import { AdditionalInformationValidation } from "../../validation";
 import { Next, Back } from "../FormFields/SharedButtons";
 
+
+
 const AdditionalInformation = () => {
     const { state, action } = useStateMachine(updateAction);
     const { push } = useHistory();
@@ -22,9 +24,9 @@ const AdditionalInformation = () => {
 
     const onSubmit = data => {
         action(data);
-        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false"){
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push("/result");
-        }else {
+        } else {
             push("/result");
             // TODO: Determine what the final steps will be here
         }

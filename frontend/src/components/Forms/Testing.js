@@ -6,12 +6,13 @@ import useCustomFormHook from '../../hooks/useCustomFormHook';
 import { ClientValidation } from "../../validation";
 import AutoComplete from '../FormFields/AutoComplete';
 import Address from "../FormFields/Address";
+import { handleDeploymentPath } from "../../shared";
 
 const Testing = () => {
-    const {  register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(ClientValidation);
+    const { register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(ClientValidation);
     const onSubmit = data => {
         action(data);
-        push("/result");
+        push(handleDeploymentPath("/result"));
     }
 
     return (
@@ -22,10 +23,10 @@ const Testing = () => {
                     <S.FieldTitle>AutoComplete Test</S.FieldTitle>
                     <AutoComplete
                         suggestions={[
-                        "George",
-                        "Kate",
-                        "Luna",
-                        "finnick"
+                            "George",
+                            "Kate",
+                            "Luna",
+                            "finnick"
                         ]}
                         getValues={getValues}
                         name="testing.findValue"
@@ -37,7 +38,7 @@ const Testing = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Address Testing</S.FieldTitle>
-                    <Address 
+                    <Address
                         getValues={getValues}
                         name="testing.address"
                         label="Search for an address"
