@@ -14,7 +14,7 @@ const Attorney = () => {
     const { represents } = useParams();
     const onSubmit = data => {
         action({ attorney: data });
-        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false"){
             push("/result");
         }else if(agentType === AGENT_TYPES.SELLERS){
 

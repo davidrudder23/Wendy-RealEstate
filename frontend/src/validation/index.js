@@ -4,6 +4,7 @@ import { AGENT_TYPES, PROPERTY_TYPES } from "../shared";
 // This is used in lazy validation rules found here: https://github.com/jquense/yup/issues/130#issuecomment-578392176
 const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...newMap, [key]: rule}), {});
 
+// TODO: Find solution to replace regular expression
 // Regular Express to Verify phone numbers taken from: https://www.sitepoint.com/community/t/phone-number-regular-expression-validation/2204/4
 const PHONE_REG_EXP = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const REQUIRED = "Required";
@@ -38,17 +39,6 @@ export const BuyerFormOneValidation = (agentType) => yup.object().shape({
         loxBoxCode: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
         vacentOrOccupied: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
 })});
-
-export const AgentAndBrokerValidation = (agentType) =>  yup.object().shape({
-    buyersAgentFirstName: yup.string().required(REQUIRED),
-    buyersAgentMLSNumber: yup.string().required(REQUIRED).test('len', 'Must be exactly 7 digits', val => val.length === 7),
-    buyersAgentEmail: yup.string().email(VALID_EMAIL).required(REQUIRED),
-    buyersAgentEmailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('buyersAgentEmail'), null], "Email Addresses Must Match"),
-    buyersAgentPhoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
-    buyersAgentBrokerCompany: yup.string().required(REQUIRED),
-    buyersAgentBrokerAddress: yup.string().required(REQUIRED),
-    buyersAgentCompensationPerMLS: yup.string().notRequired(),
-});
 
 export const AttorneyValidation = (agentType) => yup.object().shape({
     firstName: yup.string().required(REQUIRED),
@@ -134,3 +124,18 @@ export const ClientValidation = (agentType) => yup.lazy(obj =>
             return yup.mixed().notRequired();
         }
     ))));
+
+export const AgentAndBrokerValidation = (agentType) =>  yup.object().shape({
+    broker: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
+        address: yup.string().required(REQUIRED),
+        companyName: yup.string().required(REQUIRED),
+    })))),
+    agent: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
+        firstName: yup.string().required(REQUIRED),
+        MLSNumber: yup.string().required(REQUIRED),
+        email: yup.string().email(VALID_EMAIL).required(REQUIRED),
+        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"), 
+        compensationPerMLS: agentType === AGENT_TYPES.SELLERS ? yup.string().required(REQUIRED) : yup.mixed().notRequired(),
+        phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
+    }))))
+});

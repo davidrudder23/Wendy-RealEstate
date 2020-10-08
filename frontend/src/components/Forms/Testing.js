@@ -1,15 +1,14 @@
 import React from 'react'
-import InputField from "../FormFields/InputField";
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from '../../hooks/useCustomFormHook';
 import { ClientValidation } from "../../validation";
-import Address from '../FormFields/Address';
+import AutoComplete from '../FormFields/AutoComplete';
+// import Address from "../FormFields/Address";
 
 const Testing = () => {
-    const { register, handleSubmit, getValues, errors, action, push } = useCustomFormHook(ClientValidation);
-
+    const {  register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(ClientValidation);
     const onSubmit = data => {
         action(data);
         push("/result");
@@ -20,37 +19,26 @@ const Testing = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <S.FieldWrapper>
-                    <S.FieldTitle>Testing Data</S.FieldTitle>
-                    <S.MultiContainer>
-                        <InputField 
-                            name="testing.firstName"
-                            label="First Name"
-                            required={true}
-                            register={register}
-                            errors={errors.testing?.firstName}
-                            getValues={getValues}
-                        />
-                        <InputField 
-                            name="testing.lastName"
-                            label="Last Name"
-                            required={true}
-                            register={register}
-                            errors={errors.testing?.lastName}
-                            getValues={getValues}
-                        />
-                    </S.MultiContainer>
-                    <div>
-                        <Address 
-                            name="testing.address"
-                            label="Address"
-                            required={true}
-                            register={register}
-                            errors={errors["testing"]?.address}
-                            getValues={getValues}
-
-                            />
-                    </div>
+                    <S.FieldTitle>AutoComplete Test</S.FieldTitle>
+                    <AutoComplete
+                        suggestions={[
+                        "George",
+                        "Kate",
+                        "Luna",
+                        "finnick"
+                        ]}
+                        getValues={getValues}
+                        name="testing.findValue"
+                        label="Search Here"
+                        errors={errors?.testing?.findValue}
+                        register={register}
+                        required={false}
+                    />
                 </S.FieldWrapper>
+                {/* <S.FieldWrapper>
+                    <S.FieldTitle>Address Testing</S.FieldTitle>
+                    <Address />
+                </S.FieldWrapper> */}
                 <br />
                 <Next />
                 <Back />

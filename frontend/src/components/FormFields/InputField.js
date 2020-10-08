@@ -2,15 +2,30 @@ import React from 'react'
 import * as S from "./InputFieldStyled";
 import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 
-const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, ...props}) => {
+const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, handleonblur, ...props}) => {
     const classVal = required ? `${className} required-field`: className;
-    const { isEmpty, isFieldEmpty } = useCheckFieldValue(name, getValues);
+    const { isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
+
+    const handleOnKeyPress = e => {
+        setIsEmpty(true)
+        if(props.handleonkeypress){
+            props.handleonkeypress(e);
+        }
+    }
+
+    const handleOnBlur = e => {
+        isFieldEmpty(e.target.value);
+        if(handleonblur){
+            handleonblur(e);
+        }
+    }
 
     return (
         <S.InputField style={style} isEmpty={isEmpty}>
             <input name={name} ref={register}
-            onKeyPress={event => isFieldEmpty(event.target.value)}
-            onBlur={event => isFieldEmpty(event.target.value)}
+            onKeyPress={handleOnKeyPress}
+            onBlur={handleOnBlur}
+            onKeyDown={handleOnKeyPress}
             {...props}
             />
             <label className={classVal}>{label}</label>

@@ -22,7 +22,7 @@ const AdditionalInformation = () => {
 
     const onSubmit = data => {
         action(data);
-        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false"){
+        if(process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false"){
             push("/result");
         }else {
             push("/result");

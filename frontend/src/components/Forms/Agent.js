@@ -1,5 +1,6 @@
 import React from 'react'
 import InputField from "../FormFields/InputField";
+import Address from "../FormFields/Address";
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
 import { Next, Back } from "../FormFields/SharedButtons";
@@ -87,7 +88,7 @@ const Agent = () => {
                         getValues={getValues}
                         name={`agent.${represents}.email`}
                         label="Email Address"
-                        erros={errors?.agent?.[represents]?.email}
+                        errors={errors?.agent?.[represents]?.email}
                         register={register}
                         required={true}
                         />
@@ -104,6 +105,7 @@ const Agent = () => {
                 </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>{represents}'s Broker</S.FieldTitle>
+                        {/* TODO: give option to pick eXp */}
                     <S.MultiContainer>
                         <InputField
                         getValues={getValues}
@@ -113,7 +115,8 @@ const Agent = () => {
                         register={register}
                         required={true}
                         />
-                        <InputField
+                        {/* TODO: Can be pre filled if eXp with --> eXp Address = P.O. Box 10665 Holyoke Ma 01041*/}
+                        <Address
                         getValues={getValues}
                         name={`broker.${represents}.address`}
                         label="Broker Address"

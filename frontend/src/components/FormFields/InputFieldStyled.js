@@ -73,8 +73,8 @@ export const InputField = styled.div`
         transform-origin: 0, 0.0em;
         transition: transform 500ms, color 300ms;
         transform: ${props => props.isEmpty ? 'scale(0.85, 0.85) rotateY(0)' :  'scale(1,1) rotateY(0)'};
-        color: #696969;
         line-height: ${props => props.isEmpty ? '.25em' : '3em'};
+        color: #696969;
     }
 
     span {

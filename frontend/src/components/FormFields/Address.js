@@ -1,13 +1,11 @@
 import React from 'react'
-import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete";
+import usePlacesAutocomplete from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import InputField from "../FormFields/InputField";
 import * as S from "./AddressStyled";
 
 // TODO: enable direction arrow to selected drop down item
+// TODO: InputField doesnt register first key press?
 const Address = ({ label, name, register, required, getValues, errors }) => {
     const {
         ready,
@@ -20,6 +18,38 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
       const ref = useOnclickOutside(() => {
         clearSuggestions();
       });
+
+
+
+    // const handleOnKeyDown = e => {
+      
+    //       // User pressed the enter key
+    //       if (e.keyCode === 13) {
+    //         this.setState({
+    //           activeSuggestion: 0,
+    //           showSuggestions: false,
+    //           userInput: filteredSuggestions[activeSuggestion]
+    //         });
+    //       }
+      
+    //       // User pressed the up arrow
+    //       else if (e.keyCode === 38) {
+    //         if (activeSuggestion === 0) {
+    //           return;
+    //         }
+      
+    //         this.setState({ activeSuggestion: activeSuggestion - 1 });
+    //       }
+      
+    //       // User pressed the down arrow
+    //       else if (e.keyCode === 40) {
+    //           if (activeSuggestion - 1 === filteredSuggestions.length) {
+    //               return;
+    //           }
+    
+    //       setSuggestionState({ activeSuggestion: activeSuggestion + 1 });
+    //     };
+    //   };
      
       const handleInput = (e) => {
         setValue(e.target.value);
@@ -28,16 +58,6 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
       const handleSelect = ({ description }) => () => {
         setValue(description, false);
         clearSuggestions();
-     
-        // Get latitude and longitude via utility functions
-        getGeocode({ address: description })
-          .then((results) => getLatLng(results[0]))
-          .then(({ lat, lng }) => {
-            console.log("📍 Coordinates: ", { lat, lng });
-          })
-          .catch((error) => {
-            console.log("😱 Error: ", error);
-          });
       };
      
       const renderSuggestions = () => {
@@ -60,10 +80,11 @@ const Address = ({ label, name, register, required, getValues, errors }) => {
       }
      
       return (
-        <div ref={ref} style={{display: "block"}}>
+        <div ref={ref}>
           <InputField
             value={value}
             onChange={handleInput}
+            // onKeyDown={handleOnKeyDown}
             disabled={!ready}
             label={label}
             name={name}
