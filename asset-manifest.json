@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Wendy-RealEstate/static/css/main.f8f5a137.chunk.css",
-    "main.js": "/Wendy-RealEstate/static/js/main.59bac8a7.chunk.js",
-    "main.js.map": "/Wendy-RealEstate/static/js/main.59bac8a7.chunk.js.map",
+    "main.js": "/Wendy-RealEstate/static/js/main.f80b83e0.chunk.js",
+    "main.js.map": "/Wendy-RealEstate/static/js/main.f80b83e0.chunk.js.map",
     "runtime-main.js": "/Wendy-RealEstate/static/js/runtime-main.79e7d5d7.js",
     "runtime-main.js.map": "/Wendy-RealEstate/static/js/runtime-main.79e7d5d7.js.map",
     "static/css/2.8d4cdce2.chunk.css": "/Wendy-RealEstate/static/css/2.8d4cdce2.chunk.css",
     "static/js/2.7609b6f4.chunk.js": "/Wendy-RealEstate/static/js/2.7609b6f4.chunk.js",
     "static/js/2.7609b6f4.chunk.js.map": "/Wendy-RealEstate/static/js/2.7609b6f4.chunk.js.map",
     "index.html": "/Wendy-RealEstate/index.html",
-    "precache-manifest.0571c285af1352cf177adac66bf7770e.js": "/Wendy-RealEstate/precache-manifest.0571c285af1352cf177adac66bf7770e.js",
+    "precache-manifest.afc22b6dfe612e6682d1e2879351645c.js": "/Wendy-RealEstate/precache-manifest.afc22b6dfe612e6682d1e2879351645c.js",
     "service-worker.js": "/Wendy-RealEstate/service-worker.js",
     "static/css/2.8d4cdce2.chunk.css.map": "/Wendy-RealEstate/static/css/2.8d4cdce2.chunk.css.map",
     "static/css/main.f8f5a137.chunk.css.map": "/Wendy-RealEstate/static/css/main.f8f5a137.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.8d4cdce2.chunk.css",
     "static/js/2.7609b6f4.chunk.js",
     "static/css/main.f8f5a137.chunk.css",
-    "static/js/main.59bac8a7.chunk.js"
+    "static/js/main.f80b83e0.chunk.js"
   ]
 }
