@@ -21,9 +21,11 @@ export const AutoCompleteWrapper = styled.div`
     max-height: 143px;
     overflow-y: auto;
     padding-left: 0;
-    width: 15.4375rem;
+    /* width: 15.4375rem; */
+    width: calc(300px + 1rem);
     z-index: 1000;
     background-color: #FFF;
+    font-size: 12px;
   }
   
   .suggestions li {
