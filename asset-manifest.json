@@ -6,19 +6,19 @@
     "runtime-main.js": "/Wendy-RealEstate/static/js/runtime-main.79e7d5d7.js",
     "runtime-main.js.map": "/Wendy-RealEstate/static/js/runtime-main.79e7d5d7.js.map",
     "static/css/2.bac53e54.chunk.css": "/Wendy-RealEstate/static/css/2.bac53e54.chunk.css",
-    "static/js/2.69b5efba.chunk.js": "/Wendy-RealEstate/static/js/2.69b5efba.chunk.js",
-    "static/js/2.69b5efba.chunk.js.map": "/Wendy-RealEstate/static/js/2.69b5efba.chunk.js.map",
+    "static/js/2.82935563.chunk.js": "/Wendy-RealEstate/static/js/2.82935563.chunk.js",
+    "static/js/2.82935563.chunk.js.map": "/Wendy-RealEstate/static/js/2.82935563.chunk.js.map",
     "index.html": "/Wendy-RealEstate/index.html",
-    "precache-manifest.93ef7ff0b98c22d7df9c1222c92363f4.js": "/Wendy-RealEstate/precache-manifest.93ef7ff0b98c22d7df9c1222c92363f4.js",
+    "precache-manifest.f96cf5e3587fd6bde6a17a5b228ee04c.js": "/Wendy-RealEstate/precache-manifest.f96cf5e3587fd6bde6a17a5b228ee04c.js",
     "service-worker.js": "/Wendy-RealEstate/service-worker.js",
     "static/css/2.bac53e54.chunk.css.map": "/Wendy-RealEstate/static/css/2.bac53e54.chunk.css.map",
     "static/css/main.f8f5a137.chunk.css.map": "/Wendy-RealEstate/static/css/main.f8f5a137.chunk.css.map",
-    "static/js/2.69b5efba.chunk.js.LICENSE.txt": "/Wendy-RealEstate/static/js/2.69b5efba.chunk.js.LICENSE.txt"
+    "static/js/2.82935563.chunk.js.LICENSE.txt": "/Wendy-RealEstate/static/js/2.82935563.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.79e7d5d7.js",
     "static/css/2.bac53e54.chunk.css",
-    "static/js/2.69b5efba.chunk.js",
+    "static/js/2.82935563.chunk.js",
     "static/css/main.f8f5a137.chunk.css",
     "static/js/main.a17be7d2.chunk.js"
   ]
