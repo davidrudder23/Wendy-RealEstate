@@ -11,11 +11,7 @@ const Address = ({ label, name, register, required, getValues, errors, disable=f
         setValue,
         clearSuggestions,
       } = usePlacesAutocomplete();
-
-      const ref = useOnclickOutside(() => {
-        clearSuggestions();
-      });
-     
+   
       const handleInput = (e) => {
         setValue(e.target.value);
         if(value){
@@ -29,26 +25,23 @@ const Address = ({ label, name, register, required, getValues, errors, disable=f
         clearSuggestions();
       };
 
+      const handleOnBlur = () => {
+        clearSuggestions();
+      }
+
       const getDescriptions = data.map(({description}) => description);
 
       return (
-        <div ref={ref}>
           <AutoComplete
             onSelect={handleSelect}
             onChange={handleInput}
             disabled={disable || !ready}
-            label={label}
-            name={name}
-            register={register}
-            required={required}
-            getValues={getValues}
-            errors={errors}
+            handleonblur={handleOnBlur}
             suggestions={getDescriptions}
             status={status}
             filterValues={false}
             {...props}
           />
-        </div>
       );
 }
 

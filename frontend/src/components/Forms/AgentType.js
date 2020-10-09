@@ -13,10 +13,14 @@ const AgentType = () => {
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
-            push(handleDeploymentPath("result"));
+            push(handleDeploymentPath("/result"));
         } else {
             push(handleDeploymentPath("/Property"));
         }
+    }
+
+    const handleTestingButton = () => {
+        push(handleDeploymentPath("/Testing"))
     }
 
     return (
@@ -31,6 +35,7 @@ const AgentType = () => {
                         array={Object.values(AGENT_TYPES)}
                     />
                 </S.FieldWrapper>
+                <button onClick={handleTestingButton}>Testing</button>
                 <Next />
             </form>
         </S.Container>

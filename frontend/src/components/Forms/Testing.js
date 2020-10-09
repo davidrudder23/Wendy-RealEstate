@@ -7,9 +7,11 @@ import { ClientValidation } from "../../validation";
 import AutoComplete from '../FormFields/AutoComplete';
 import Address from "../FormFields/Address";
 import { handleDeploymentPath } from "../../shared";
+import CustomDatePicker from '../FormFields/DatePicker';
+import InputField from "../FormFields/InputField";
 
 const Testing = () => {
-    const { register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(ClientValidation);
+    const { control, register, handleSubmit, errors, action, push, getValues } = useCustomFormHook(ClientValidation);
     const onSubmit = data => {
         action(data);
         push(handleDeploymentPath("/result"));
@@ -37,7 +39,7 @@ const Testing = () => {
                     />
                 </S.FieldWrapper>
                 <S.FieldWrapper>
-                    <S.FieldTitle>Address Testing</S.FieldTitle>
+                    <S.FieldTitle>Testing</S.FieldTitle>
                     <Address
                         getValues={getValues}
                         name="testing.address"
@@ -47,6 +49,34 @@ const Testing = () => {
                         required={false}
                     />
                 </S.FieldWrapper>
+                <S.FieldWrapper error={errors["property"]?.dateHouseBuilt}>
+                    <S.FieldTitle>Year Built</S.FieldTitle>
+                    <CustomDatePicker
+                        getValues={getValues}
+                        showYearPicker={true}
+                        control={control}
+                        name="property.dateHouseBuilt"
+                        label="Select Date Built"
+                        required={true}
+                        dateFormat="yyyy"
+                    />
+                </S.FieldWrapper>
+                <S.MultiContainer>
+                <InputField
+                getValues={getValues}
+                name="property.mlsNumber"
+                label="MLS Number" 
+                errors={errors["property"]?.mlsNumber} 
+                register={register} 
+                required={true}/>
+                <InputField
+                getValues={getValues}
+                name="property.deedReference"
+                label="Deed Reference (Book)" 
+                errors={errors["property"]?.deedReference} 
+                register={register} 
+                required={true} />
+            </S.MultiContainer>
                 <br />
                 <Next />
                 <Back />

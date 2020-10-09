@@ -1,6 +1,7 @@
 import React from 'react'
 import InputField from './InputField';
-
+import * as S from "./AutoCompleteStyled";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 /*
   TODO: Create api docs
@@ -13,7 +14,26 @@ import InputField from './InputField';
   suggestions = an array of strings to render and search
   onChange = onChange
 */
-const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress, status = true, onChange, filterValues = true, onSelect, ...props }) => {
+const AutoComplete = React.memo(({ 
+  suggestions = [], 
+  howToFilter,
+  handleonblur,
+  handleonkeypress, 
+  filterValues = true, 
+  status = true, 
+  onChange, 
+  onSelect,
+  getValues,
+  name,
+  errors,
+  register,
+  required,
+  label,
+  ...props }) => {
+    const ref = useOnclickOutside(() => {
+      handleOnBlur();
+    });
+    
     const [suggestionState, setSuggestionState] = React.useState({
         // The active suggestion's index
         activeSuggestion: 0,
@@ -24,10 +44,30 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
         // What the user has entered
         userInput: '',
     });
+
+    // This is required because AutoComplete is using InputField as a controlled component
+    React.useEffect(() => {
+      if(getValues && getValues(`${name}`)){
+        setSuggestionState({userInput: getValues(`${name}`)})
+      }
+    }, [name, getValues])
     
+    const handleOnBlur = (e) => {
+      if(handleonblur){
+        handleonblur(e);
+      }
+      setSuggestionState(state => {
+        return {
+        ...state,
+        activeSuggestion: 0,
+        filteredSuggestions: [],
+        showSuggestions: false,
+      }});
+    }
+
     const handleOnChange = e => {
       e.stopPropagation();
-      const userInput = e.target.value;
+      const userInput = e.currentTarget.value;
       
       // Filter our suggestions that don't contain the user's input
       let filteredSuggestions;
@@ -56,16 +96,18 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
       };
 
     const handleSelect = e => {
+      
       e.stopPropagation();
-      if(onSelect){
-        onSelect(e)
-      }
       setSuggestionState({
         activeSuggestion: 0,
         filteredSuggestions: [],
         showSuggestions: false,
         userInput: e.currentTarget.innerText,
       });
+
+      if(onSelect){
+        onSelect(e)
+      }
     };
 
 
@@ -76,51 +118,63 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
 
       // Error Message: A component is changing a controlled input of type undefined to be uncontrolled. Input elements should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
     */
-    // const handleOnKeyDown = e => {
-    //   const { activeSuggestion, filteredSuggestions } = suggestionState;
-    //   console.log(activeSuggestion)
+    const handleOnKeyDown = e => {
+      const { activeSuggestion, filteredSuggestions } = suggestionState;
 
-    //   // User pressed the enter key
-    //   if (e.keyCode === 13) {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     setSuggestionState({
-    //       activeSuggestion: 0,
-    //       showSuggestions: false,
-    //       userInput: filteredSuggestions[activeSuggestion]
-    //     });
-    //   }
+      // User pressed the enter key
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        e.stopPropagation();
+        setSuggestionState(state => { 
+          return {
+            ...state,
+            activeSuggestion: 0,
+            showSuggestions: false,
+            userInput: filteredSuggestions[activeSuggestion]
+          }
+        });
+      }
       
-    //   // User pressed the up arrow
-    //   else if (e.keyCode === 38) {
-    //     if (activeSuggestion === 0) {
-    //       return;
-    //     }
-        
-    //     setSuggestionState({ activeSuggestion: activeSuggestion - 1 });
-    //   }
+      // User pressed the up arrow
+      else if (e.keyCode === 38) {
+        if (activeSuggestion === 0) {
+          return;
+        }
+        setSuggestionState(state => { 
+          return { ...state, activeSuggestion: activeSuggestion - 1} 
+        });
+      }
       
-    //   // User pressed the down arrow
-    //   else if (e.keyCode === 40) {
-    //     if (activeSuggestion - 1 === filteredSuggestions.length) {
-    //       return;
-    //     }
+
+      // User pressed the down arrow
+      else if (e.keyCode === 40) {
+      
+        if (activeSuggestion - 1 === filteredSuggestions.length) {
+          return;
+        }
+      
         
-    //     setSuggestionState({ activeSuggestion: activeSuggestion + 1 });
-    //   };
-    //   e.stopPropagation();
-    // };
+        setSuggestionState(state => { 
+          return { ...state, activeSuggestion: activeSuggestion + 1} 
+        });
+      };
+      e.stopPropagation();
+    };
     
     const suggestionsListComponent = () => {
-      if (suggestionState.showSuggestions && suggestionState.userInput) {
-        if (suggestionState.filteredSuggestions.length) {
+      const { showSuggestions, filteredSuggestions, userInput, activeSuggestion } = suggestionState; 
+
+      if (showSuggestions && userInput) {
+        if (filteredSuggestions.length) {
+
+
           return (
             <ul className="suggestions">
-                  {suggestionState.filteredSuggestions.map((suggestion, index) => {
+                  {filteredSuggestions.map((suggestion, index) => {
                     let className;
-      
+
                     // Flag the active suggestion with a class
-                    if (index === suggestionState.activeSuggestion) {
+                    if (index === activeSuggestion) {
                       className = "suggestion-active";
                     }
       
@@ -144,17 +198,22 @@ const AutoComplete = ({ suggestions, howToFilter, handleonblur, handleonkeypress
     
 
     return (
-        <div>
-        <InputField
-          value={suggestionState.userInput}
-          onChange={handleOnChange}
-          // onKeyDown={handleOnKeyDown}
-          handleonblur={handleonblur}
-          {...props}
-        />
-        {suggestionsListComponent()}
-      </div>
+        <S.AutoCompleteWrapper ref={ref}>
+          <InputField
+            value={suggestionState.userInput}
+            onChange={handleOnChange}
+            onKeyDown={handleOnKeyDown}
+            getValues={getValues}
+            name={name}
+            errors={errors}
+            register={register}
+            required={required}
+            label={label}
+            {...props}
+          />
+          {suggestionsListComponent()}
+      </S.AutoCompleteWrapper>
     )
-}
+})
 
 export default AutoComplete
