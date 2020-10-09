@@ -13,6 +13,7 @@ export const AutoCompleteWrapper = styled.div`
   }
   
   .suggestions {
+    position: absolute;
     border: 1px solid #999;
     border-top-width: 0;
     list-style: none;
@@ -21,6 +22,8 @@ export const AutoCompleteWrapper = styled.div`
     overflow-y: auto;
     padding-left: 0;
     width: 15.4375rem;
+    z-index: 1000;
+    background-color: #FFF;
   }
   
   .suggestions li {

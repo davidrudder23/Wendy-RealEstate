@@ -1,15 +1,13 @@
-TODO: Update CSS for AutoComplete Drop Down Section
 TODO: Change all address fields to State, City, ZipCode
 TODO: Update state structure for all forms
 TODO: Add Additional Header to each page with a Title for the Page
 TODO: Complete unfinished pages
 TODO: Change Tab display Icon and Name
 TODO: add call to database
+TODO: Increase slider with slightly and add more padding to left side of YES
+TODO: Add Option to download PDF on final page
 TODO: Add improved validation for mls
 TODO: Add improved validation for deed reference number
 TODO: Validate deadlines against each other
-TODO: Increase slider with slightly and add more padding to left side of YES
 TODO: All pages should redirect if they were not accessed correctly. E.g., attempting to skip the first page or not being redirected there by the correct page
 TODO: Add PDF for final page ( See email for PDF format ) Verify Button
-TODO: Add Option to download PDF on final page
-TODO: The ability for wendy to assign new transaction coordinators to a transaction ( Not Urgent think of how to do this )

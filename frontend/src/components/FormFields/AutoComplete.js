@@ -2,6 +2,7 @@ import React from 'react'
 import InputField from './InputField';
 import * as S from "./AutoCompleteStyled";
 import useOnclickOutside from "react-cool-onclickoutside";
+// TODO: Add auto scrolling to keep active item into focus
 
 /*
   TODO: Create api docs
@@ -14,6 +15,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
   suggestions = an array of strings to render and search
   onChange = onChange
 */
+
 const AutoComplete = React.memo(({ 
   suggestions = [], 
   howToFilter,
@@ -110,14 +112,6 @@ const AutoComplete = React.memo(({
       }
     };
 
-
-    //TODO: This is currently bugged and does not work as intended.
-    /* 
-      Type -> use down arrow
-      should recreate bug
-
-      // Error Message: A component is changing a controlled input of type undefined to be uncontrolled. Input elements should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled input element for the lifetime of the component.
-    */
     const handleOnKeyDown = e => {
       const { activeSuggestion, filteredSuggestions } = suggestionState;
 
@@ -173,7 +167,6 @@ const AutoComplete = React.memo(({
                   {filteredSuggestions.map((suggestion, index) => {
                     let className;
 
-                    // Flag the active suggestion with a class
                     if (index === activeSuggestion) {
                       className = "suggestion-active";
                     }

@@ -1,10 +1,9 @@
 import React from 'react'
 import usePlacesAutocomplete from "use-places-autocomplete";
-import useOnclickOutside from "react-cool-onclickoutside";
 import AutoComplete from './AutoComplete';
 
 // TODO: Create API Docs
-const Address = ({ label, name, register, required, getValues, errors, disable=false, value, ...props }) => {
+const Address = ({ disable=false, value, ...props }) => {
     const {
         ready,
         suggestions: { status, data },
