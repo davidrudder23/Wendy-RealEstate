@@ -25,9 +25,9 @@ const index = () => {
             <Route path={handleDeploymentPath("/FSBO")} component={ForSaleByOwner} />
             <Route path={handleDeploymentPath("/ListingBroker")} component={ListingBroker} />
             <Route path={handleDeploymentPath("/Lenders")} component={Lenders} />
-            <Route path={handleDeploymentPath("/result")} component={Result} />
             <Route path={handleDeploymentPath("/Mortgage")} component={Mortgage} />
             <Route path={handleDeploymentPath("/AdditionalInformation")} component={AdditionalInformation} />
+            <Route path={handleDeploymentPath("/result")} component={Result} />
             <Route path={handleDeploymentPath("/Testing")} component={Testing} />
         </Router>
     )

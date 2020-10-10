@@ -18,16 +18,15 @@ const AdditionalInformation = () => {
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
-        resolver: yupResolver(AdditionalInformationValidation),
     });
 
     const onSubmit = data => {
+        console.log("FIRED")
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
             push(handleDeploymentPath("/result"));
-            // TODO: Determine what the final steps will be here
         }
     }
 
