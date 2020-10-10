@@ -13,7 +13,7 @@ const Lenders = () => {
 
     const onSubmit = data => {
         action(data);
-        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false") {
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
             if (agentType === AGENT_TYPES.BUYERS) {
@@ -21,7 +21,8 @@ const Lenders = () => {
             }
         }
     }
-
+    
+    // TODO: Lender info is required
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,8 +78,8 @@ const Lenders = () => {
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

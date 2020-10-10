@@ -7,6 +7,7 @@ import { AGENT_TYPES, MORTGAGE_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
+import Broker from "./Broker";
 
 // In my notes ListingBroker === ListingBroker and ListingAgent pages
 const ListingBroker = () => {
@@ -14,7 +15,7 @@ const ListingBroker = () => {
 
     const onSubmit = data => {
         action(data);
-        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false") {
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
             if (agentType === AGENT_TYPES.SELLERS) {
@@ -44,34 +45,17 @@ const ListingBroker = () => {
         )
     }
 
+
+
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <S.FieldWrapper>
-                    <S.FieldTitle>Listing Broker</S.FieldTitle>
-                    <S.MultiContainer>
-                        {/* Sellers Side this should default to eXp and not be displayed */}
-                        {/* TODO: give option to pick eXp */}
-                        <InputField
-                            getValues={getValues}
-                            name="listingBroker.company"
-                            label="Company"
-                            errors={errors.listingBroker?.company}
-                            register={register}
-                            required={true}
-                        />
-                        {/* TODO: Can be pre filled if eXp with --> eXp Address = P.O. Box 10665 Holyoke Ma 01041*/}
-                        <InputField
-                            required={true}
-                            getValues={getValues}
-                            name="listingBroker.address"
-                            label="Address"
-                            errors={errors.listingBroker?.address}
-                            register={register}
-                        />
-                    </S.MultiContainer>
-                </S.FieldWrapper>
+                <Broker 
+                    getValues={getValues}
+                    register={register}
+                    errors={errors}
+                />
                 <S.FieldWrapper>
                     <S.FieldTitle>Listing Agent</S.FieldTitle>
                     <S.MultiContainer>
@@ -128,8 +112,8 @@ const ListingBroker = () => {
                         </div>
                     }
                 </S.FieldWrapper>
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

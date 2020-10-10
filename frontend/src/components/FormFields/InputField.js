@@ -24,19 +24,23 @@ const InputField = React.memo(({ name, label, className, style, required, regist
     
     const handleOnChange = e => {
         setText(e.target.value);
+        setIsEmpty(true);
+        if(props.onChange){
+            props.onChange(e)
+        }
     }
 
     // TODO: Test input as a controlled field. This may allow address field to work as intended.
     // See Docs for Details: https://reactjs.org/docs/forms.html#controlled-components
     return (
-        <S.InputField style={style} isEmpty={isEmpty}>
+        <S.InputField style={style} isEmpty={isEmpty || text || value}>
             <input
             value={value || text}
             name={name}
             ref={register}
             onKeyPress={handleOnKeyPress}
             onBlur={handleOnBlur}
-            onChange={props.onChange || handleOnChange}
+            onChange={handleOnChange}
             onKeyDown={onKeyDown}
             {...props}
             />

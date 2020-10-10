@@ -24,7 +24,6 @@ const Attorney = () => {
 
             } else if (represents === AGENT_TYPES.BUYERS) {
                 push(handleDeploymentPath("/AdditionalInformation"));
-
             }
 
         } else if (agentType === AGENT_TYPES.BUYERS) {
@@ -32,6 +31,10 @@ const Attorney = () => {
         }
     }
 
+    // TODO: Sellers and Buyer attorney not actually required
+    // TODO: Add question do you have Attorney
+    // TODO: if not attorney would you like us to make an introduction.
+    // If introduction give list of attorneys. ( cleint choose and send email to this attorney)
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)} >
@@ -93,8 +96,8 @@ const Attorney = () => {
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

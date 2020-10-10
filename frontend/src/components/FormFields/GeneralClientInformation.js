@@ -2,6 +2,7 @@ import React from 'react';
 import InputField from "./InputField";
 import * as S from "./FormStyled"
 import { ordinal_suffix_of } from "../../shared";
+import Address from "../FormFields/Address";
 
 // TODO: ** BUG ** When returning to this page the count is reset to 1. Determine how to fix this.
 const MAX_BUYERS = 5;
@@ -45,7 +46,16 @@ const GeneralClientInformation = ({errors, register, getValues, title }) => {
                         </S.MultiContainer>
                         <S.MultiContainer>
                             <InputField name={`${title}.${i}.phoneNumber`} label="Phone Number" errors={errors[title]?.[i]?.phoneNumber} register={register} required={true} getValues={getValues}/>
-                            <InputField name={`${title}.${i}.fullAddress`} label="Full Address" errors={errors[title]?.[i]?.fullAddress} register={register} required={true} getValues={getValues}/>
+                            <S.AddressWrapper>
+                                <Address 
+                                name={`${title}.${i}.fullAddress`}
+                                label="Full Address" 
+                                errors={errors[title]?.[i]?.fullAddress} 
+                                register={register}
+                                required={true} 
+                                getValues={getValues}
+                                />
+                            </S.AddressWrapper>
                         </S.MultiContainer>
             </S.FieldWrapper>
             )
@@ -55,9 +65,10 @@ const GeneralClientInformation = ({errors, register, getValues, title }) => {
 
     return (
         <>
+            {/* TODO: verify change worked */}
             {fieldCount().map(value => value)}
-            { count === MAX_BUYERS ? <S.Button>Max Buyer Count Reached</S.Button> : <S.Button  onClick={increaseCount}>Add Buyer</S.Button> }
-            { count > 0 || MAX_BUYERS === count ? <S.Button style={{ float: "right" }} onClick={decreaseCount}>Remove Buyer</S.Button> : null }
+            { count === MAX_BUYERS ? <S.Button>Max Buyer Count Reached</S.Button> : <S.Button  onClick={increaseCount}>Add {title}</S.Button> }
+            { count > 0 || MAX_BUYERS === count ? <S.Button style={{ float: "right" }} onClick={decreaseCount}>Remove {title}</S.Button> : null }
         </>
     )
 }

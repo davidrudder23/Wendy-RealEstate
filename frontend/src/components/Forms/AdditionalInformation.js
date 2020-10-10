@@ -9,6 +9,7 @@ import * as S from "../FormFields/FormStyled";
 import { yupResolver } from '@hookform/resolvers';
 import { AdditionalInformationValidation } from "../../validation";
 import { Next, Back } from "../FormFields/SharedButtons";
+import { handleDeploymentPath } from "../../shared";
 
 const AdditionalInformation = () => {
     const { state, action } = useStateMachine(updateAction);
@@ -23,9 +24,9 @@ const AdditionalInformation = () => {
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
-            push("/result");
+            push(handleDeploymentPath("/result"));
         } else {
-            push("/result");
+            push(handleDeploymentPath("/result"));
             // TODO: Determine what the final steps will be here
         }
     }
@@ -41,8 +42,8 @@ const AdditionalInformation = () => {
                     {/* TODO: Need Additional field --> create text area field to allow for longer input */}
                     {/* TODO: This is for an outside referral NOT with the Tracy Gagne Team. Is there a refereall to be paid on this transaction. */}
                 </S.FieldWrapper>
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

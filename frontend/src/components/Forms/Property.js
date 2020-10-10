@@ -45,6 +45,9 @@ const Property = () => {
                         isValue={currPropertyType}
                         setValue={setCurrentPropertyType} />
                 </S.FieldWrapper>
+                {/* TODO: Multi Family. Are there tenants 
+                apt1, staying, vaca date (NOT REQUIRED)
+                and if there are are they staying. Final vaca date*/}
                 {currPropertyType === "Condo" ?
                     <S.FieldWrapper error={errors["property"]?.condoManagementCompany}>
                         <S.FieldTitle>Who is the Condo Management Company</S.FieldTitle>
@@ -137,7 +140,7 @@ const Property = () => {
                 */}
                 {agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ?
                     <S.FieldWrapper error={errors["property"]?.buyerHasSubmittedAdditionalOffer}>
-                        <S.FieldTitle>Has The buyer Submitted an offer for another property?
+                        <S.FieldTitle>Has the buyer submitted an offer for another property?
                         <Slider
                                 isChecked={additionalOffer}
                                 setIsChecked={setAdditionalOffer}
@@ -147,8 +150,8 @@ const Property = () => {
                             />
                         </S.FieldTitle>
                     </S.FieldWrapper> : null}
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     );

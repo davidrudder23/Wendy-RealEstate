@@ -11,11 +11,14 @@ import { handleDeploymentPath } from "../../shared";
 
 const ForSaleByOwner = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(FSBOValidation);
+    // TODO: false buy default
     const [isFSBO, setIsFSBO] = React.useState(true);
 
+
+    // TODO: Make all fields required
     const onSubmit = data => {
         action({ FSBO: data });
-        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false") {
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.BUYERS) {
             push(handleDeploymentPath("/ListingBroker"));
@@ -129,8 +132,8 @@ const ForSaleByOwner = () => {
                         </div>
                     </S.FieldWrapper>
                     : null}
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

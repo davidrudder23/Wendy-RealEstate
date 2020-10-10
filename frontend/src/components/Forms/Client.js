@@ -15,10 +15,14 @@ const Client = () => {
     const onSubmit = data => {
         action({ client: data });
         push(handleDeploymentPath("/result"))
-        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false") {
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.SELLERS) {
-            push(handleDeploymentPath("/ListingBroker"));
+            if(clientType === AGENT_TYPES.SELLERS){
+                push(handleDeploymentPath("/ListingBroker"));
+            }else if(clientType === AGENT_TYPES.BUYERS){
+                push(handleDeploymentPath("/Agent/Buyer"));
+            }
         } else if (agentType === AGENT_TYPES.BUYERS) {
             push(handleDeploymentPath("/Agent/Buyer"));
         }
@@ -30,8 +34,8 @@ const Client = () => {
                 <FormHeader />
                 <GeneralClientInformation title={clientType} getValues={getValues} errors={errors} register={register} />
                 <br />
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

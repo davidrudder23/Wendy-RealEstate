@@ -146,8 +146,8 @@ const Agent = () => {
                         </S.AddressWrapper>
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

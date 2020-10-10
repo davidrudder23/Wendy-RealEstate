@@ -78,8 +78,8 @@ const Testing = () => {
                 required={true} />
             </S.MultiContainer>
                 <br />
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )

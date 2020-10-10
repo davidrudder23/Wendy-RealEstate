@@ -17,7 +17,7 @@ const Mortgage = () => {
 
     const onSubmit = data => {
         action({ mortgage: data });
-        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT !== "false") {
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
             if (agentType === AGENT_TYPES.SELLERS) {
@@ -71,7 +71,7 @@ const Mortgage = () => {
                             label="First Deposit Amount?"
                             errors={errors?.firstDeposit}
                             register={register}
-                            required={false}
+                            required={true}
                         />
                         <InputField
                             getValues={getValues}
@@ -79,7 +79,7 @@ const Mortgage = () => {
                             label="Second Deposit Amount?"
                             errors={errors.secondDeposit}
                             register={register}
-                            required={true}
+                            required={false}
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
@@ -128,8 +128,8 @@ const Mortgage = () => {
                         required={true}
                     />
                 </S.FieldWrapper>
-                <Next />
                 <Back />
+                <Next />
             </form>
         </S.Container>
     )
