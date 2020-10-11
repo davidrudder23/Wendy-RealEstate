@@ -19,9 +19,6 @@ export const AgentTypeValidation = (agentType) => yup.object().shape({
 export const BuyerFormOneValidation = (agentType) => yup.object().shape({
     property: yup.object().shape({
         address: yup.string().required(REQUIRED),
-        city: yup.string().required(REQUIRED),
-        state: yup.string().required(REQUIRED),
-        zipCode: yup.number().required().typeError(REQUIRED),
         mlsNumber: yup.string().test('len', 'Must be exactly 7 digits', val => val.length === 7),
         deedReference: yup.string().required(REQUIRED).test('len', 'Must be in format XXXX-XXXXXXX', val => val.length === 11).required(REQUIRED),
         propertyType: yup.string().required(REQUIRED).oneOf([...Object.values(PROPERTY_TYPES)], "Select a valid Property type."),
