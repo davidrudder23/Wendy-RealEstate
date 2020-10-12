@@ -4,7 +4,7 @@ import InputField from "../FormFields/InputField";
 import Address from "../FormFields/Address";
 import Slider from "../FormFields/Slider";
 
-const Broker = ({ getValues, errors, register }) => {
+const Broker = ({ getValues, errors, register, represents}) => {
     const [isEXP, setIsExp] = React.useState(false);
 
     const handleIsExp = () => {
@@ -15,7 +15,7 @@ const Broker = ({ getValues, errors, register }) => {
                     <InputField
                         required={true}
                         getValues={getValues}
-                        name="listingBroker.company"
+                        name={`broker.${represents}.companyName`}
                         label="Company"
                         errors={errors?.listingBroker?.company}
                         register={register}

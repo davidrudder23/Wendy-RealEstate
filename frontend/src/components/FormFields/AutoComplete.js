@@ -4,18 +4,6 @@ import * as S from "./AutoCompleteStyled";
 import useOnclickOutside from "react-cool-onclickoutside";
 // TODO: Add auto scrolling to keep active item into focus
 
-/*
-  TODO: Create api docs
-  handleonblur = onBlur
-  handleonkeypress = onKeyPress
-  onSelect = handleSelect for list of rendered items
-  filterValues = allows you to turn off filtering the list
-  status = is if the component is ready to render the list
-  howToFilter = custom filter for the list
-  suggestions = an array of strings to render and search
-  onChange = onChange
-*/
-
 const AutoComplete = React.memo(({ 
   suggestions = [], 
   howToFilter,

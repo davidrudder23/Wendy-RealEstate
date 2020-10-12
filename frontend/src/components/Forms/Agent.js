@@ -62,10 +62,6 @@ const Agent = () => {
         }
     }
 
-    const handleFieldsForIsExp = () => {
-
-    }
-
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -115,7 +111,7 @@ const Agent = () => {
                     <Slider
                             isChecked={isEXP}
                             setIsChecked={setIsExp}
-                            name="property.buyerHasSubmittedAdditionalOffer"
+                            name="property.brokerIsExp"
                             register={register}
                             required={false}
                         />

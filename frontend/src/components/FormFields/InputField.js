@@ -2,7 +2,6 @@ import React from 'react'
 import * as S from "./InputFieldStyled";
 import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 
-// TODO: Create API docs for field
 const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, value, onKeyDown, ...props}) => {
     const classVal = required ? `${className} required-field`: className;
     const { isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
@@ -30,7 +29,6 @@ const InputField = React.memo(({ name, label, className, style, required, regist
         }
     }
 
-    // TODO: Test input as a controlled field. This may allow address field to work as intended.
     // See Docs for Details: https://reactjs.org/docs/forms.html#controlled-components
     return (
         <S.InputField style={style} isEmpty={isEmpty || text || value}>

@@ -7,7 +7,7 @@ export const InputField = styled.div`
     position: relative;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    
+
     /* This is so there can be multiple fields side by side 
         Start-block
     */
@@ -88,6 +88,16 @@ export const InputField = styled.div`
     .react-datepicker-popper {
         z-index: 4;
     }
+
+    ::has(> input[type="hidden"]) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* input[type="hidden"]:(> div.active) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    } */
 
 `;
 

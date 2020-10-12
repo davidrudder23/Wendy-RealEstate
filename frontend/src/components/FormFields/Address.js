@@ -2,7 +2,11 @@ import React from 'react'
 import usePlacesAutocomplete from "use-places-autocomplete";
 import AutoComplete from './AutoComplete';
 
-// TODO: Create API Docs
+/* 
+  Uses google places api to lookup address and utilizes AutoComplete
+  to generate dropdown list of choices to select from.
+*/
+
 const Address = ({ disable=false, value, ...props }) => {
     const {
         ready,
