@@ -12,9 +12,10 @@ const Client = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(ClientValidation);
     const { clientType } = useParams();
 
-    const onSubmit = data => {
-        action({ client: data });
+    console.log("client re rendered")
 
+    const onSubmit = data => {
+        action(data);
         push(handleDeploymentPath("/result"));
         // if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
         // } else if (agentType === AGENT_TYPES.SELLERS) {

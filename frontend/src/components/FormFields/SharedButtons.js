@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 export const Back = () => {
     const history = useHistory();
-    console.log(history)
     return (<S.Input type="button" value="Back" onClick={() => history.goBack()} />)
 }
 
