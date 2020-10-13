@@ -21,7 +21,6 @@ const AdditionalInformation = () => {
     });
 
     const onSubmit = data => {
-        console.log("FIRED")
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));

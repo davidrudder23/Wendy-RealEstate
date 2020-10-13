@@ -9,11 +9,11 @@ const GeneralClientInformation = ({ errors, register, getValues, title }) => {
     const [count, setCount] = React.useState(1);
 
     React.useEffect(() => {
-        if (getValues && getValues(`client.${title}.count`) !== undefined) {
-            setCount(parseInt(getValues(`client.${title}.count`))
-            );
+        let newCount;
+        if (getValues && (newCount = parseInt(getValues(`client.${title}.count`))) !== undefined) {
+            setCount(newCount);
         }
-    }, []);
+    }, [getValues, title]);
 
     const increaseCount = (event) => {
         event.preventDefault();

@@ -11,13 +11,10 @@ import { handleDeploymentPath } from "../../shared";
 
 const ForSaleByOwner = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(FSBOValidation);
-    // TODO: false buy default
-    const [isFSBO, setIsFSBO] = React.useState(true);
+    const [isFSBO, setIsFSBO] = React.useState(false);
 
-
-    // TODO: Make all fields required
     const onSubmit = data => {
-        action({ FSBO: data });
+        action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.BUYERS) {
@@ -35,99 +32,98 @@ const ForSaleByOwner = () => {
                             isChecked={isFSBO}
                             setIsChecked={setIsFSBO}
                             register={register}
-                            name="forSaleByOwner"
+                            name="FSBO.isForSaleByOwner"
                             required={false} />
                     </S.FieldTitle>
-                    {
-                        isFSBO ?
-                            <React.Fragment>
-                                <S.MultiContainer>
-                                    <InputField
-                                        getValues={getValues}
-                                        name="sellerFirstName"
-                                        label="Sellers First Name"
-                                        errors={errors.sellerFirstName}
-                                        register={register}
-                                        required={false}
-                                    />
-                                    <InputField
-                                        getValues={getValues}
-                                        name="sellerLastName"
-                                        label="Sellers Last Name"
-                                        errors={errors.sellerLastName}
-                                        register={register}
-                                        required={false}
-                                    />
-                                </S.MultiContainer>
-                                <S.MultiContainer>
-                                    <InputField
-                                        getValues={getValues}
-                                        name="sellerEmail"
-                                        label="Sellers Email Address"
-                                        errors={errors.sellerEmail}
-                                        register={register}
-                                        required={false}
-                                    />
-                                    <InputField
-                                        getValues={getValues}
-                                        name="sellerEmailVerification"
-                                        label="Seller Email Verification"
-                                        errors={errors.sellerEmailVerification}
-                                        register={register}
-                                        required={false}
-                                    />
-                                </S.MultiContainer>
-                            </React.Fragment>
-                            : null
-                    }
                 </S.FieldWrapper>
+                {isFSBO ?
+                <S.FieldWrapper>
+                    <S.FieldTitle>Buyer's Information</S.FieldTitle>
+                    <S.MultiContainer>
+                        <InputField
+                            getValues={getValues}
+                            name="FSBO.firstName"
+                            label="First Name"
+                            errors={errors["FSBO"]?.firstName}
+                            register={register}
+                            required={true}
+                        />
+                        <InputField
+                            getValues={getValues}
+                            name="FSBO.lastName"
+                            label="Last Name"
+                            errors={errors["FSBO"]?.sellerLastName}
+                            register={register}
+                            required={true}
+                        />
+                    </S.MultiContainer>
+                    <S.MultiContainer>
+                        <InputField
+                            getValues={getValues}
+                            name="FSBO.email"
+                            label="Email Address"
+                            errors={errors["FSBO"]?.email}
+                            register={register}
+                            required={true}
+                        />
+                        <InputField
+                            getValues={getValues}
+                            name="FSBO.emailVerification"
+                            label="Email Verification"
+                            errors={errors["FSBO"]?.emailVerification}
+                            register={register}
+                            required={true}
+                        />
+                    </S.MultiContainer>
+                </S.FieldWrapper>
+                : null}
                 {isFSBO ?
                     <S.FieldWrapper>
                         <S.FieldTitle>Attorney Information (This Attorney will be holding Escrow )</S.FieldTitle>
                         <S.MultiContainer>
                             <InputField
                                 getValues={getValues}
-                                name="attorneyfirstName"
+                                name="FSBO.attorney.firstName"
                                 label="First Name"
-                                errors={errors.attorneyfirstName}
+                                errors={errors["FSBO"]?.attorney?.firstName}
                                 register={register}
-                                required={false}
+                                required={true}
                             />
                             <InputField
                                 getValues={getValues}
-                                name="attorneylastName"
+                                name="FSBO.attorney.lastName"
                                 label="Last Name"
-                                errors={errors.firstName}
+                                errors={errors["FSBO"]?.attorney?.firstName}
                                 register={register}
-                                required={false}
+                                required={true}
                             />
                         </S.MultiContainer>
                         <S.MultiContainer>
                             <InputField
                                 getValues={getValues}
-                                name="attorneyEmail"
+                                name="FSBO.attorney.email"
                                 label="Email"
-                                errors={errors.attorneyEmail}
+                                errors={errors["FSBO"]?.attorney?.email}
                                 register={register}
-                                required={false}
+                                required={true}
                             />
                             <InputField
                                 getValues={getValues}
-                                name="attorneyEmailVerification"
+                                name="FSBO.attorney.emailVerification"
                                 label="Email Verification"
-                                errors={errors.attorneyEmailVerification}
+                                errors={errors["FSBO"]?.attorney?.emailVerification}
                                 register={register}
-                                required={false}
+                                required={true}
                             />
                         </S.MultiContainer>
                         <div>
                             <InputField
                                 getValues={getValues}
-                                name="attorneyPhoneNumber"
+                                name="FSBO.attorney.phoneNumber"
                                 label="Phone Number"
-                                errors={errors.attorneyPhoneNumber}
+                                errors={errors["FSBO"]?.attorney?.phoneNumber}
                                 register={register}
-                                required={false}
+                                required={true}
                             />
                         </div>
                     </S.FieldWrapper>

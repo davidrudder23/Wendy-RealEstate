@@ -142,11 +142,20 @@ const AutoComplete = React.memo(({
       };
       e.stopPropagation();
     };
-    
-    const suggestionsListComponent = () => {
-      const { showSuggestions, filteredSuggestions, userInput, activeSuggestion } = suggestionState; 
 
-      if (showSuggestions && userInput) {
+    const handleOnFocus = () => {
+      setSuggestionState({
+        activeSuggestion: 0,
+        filteredSuggestions: suggestions,
+        showSuggestions: true,
+        userInput: "",
+      });
+    }
+
+    const suggestionsListComponent = () => {
+      const { showSuggestions, filteredSuggestions, activeSuggestion } = suggestionState; 
+
+      if (showSuggestions) {
         if (filteredSuggestions.length) {
 
 
@@ -184,6 +193,7 @@ const AutoComplete = React.memo(({
             value={suggestionState.userInput}
             onChange={handleOnChange}
             onKeyDown={handleOnKeyDown}
+            onFocus={handleOnFocus}
             getValues={getValues}
             name={name}
             errors={errors}

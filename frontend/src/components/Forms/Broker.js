@@ -4,6 +4,7 @@ import InputField from "../FormFields/InputField";
 import Address from "../FormFields/Address";
 import Slider from "../FormFields/Slider";
 
+// TODO: Change broker to autocomplete field for selecting a broker
 const Broker = ({ getValues, errors, register, represents}) => {
     const [isEXP, setIsExp] = React.useState(false);
 
@@ -17,7 +18,7 @@ const Broker = ({ getValues, errors, register, represents}) => {
                         getValues={getValues}
                         name={`broker.${represents}.companyName`}
                         label="Company"
-                        errors={errors?.listingBroker?.company}
+                        errors={errors["broker"]?.[represents]?.company}
                         register={register}
                         value="eXp"
                         disabled={true}
@@ -25,9 +26,9 @@ const Broker = ({ getValues, errors, register, represents}) => {
                     <InputField
                         required={true}
                         getValues={getValues}
-                        name="listingBroker.address"
+                        name={`broker.${represents}.address`}
                         label="Address"
-                        errors={errors?.listingBroker?.address}
+                        errors={errors["broker"]?.[represents]?.address}
                         register={register}
                         value="P.O. Box 10665 Holyoke Ma 01041"
                         disabled={true}
