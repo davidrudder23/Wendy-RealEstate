@@ -5,6 +5,7 @@ import Address from "../FormFields/Address";
 import Slider from "../FormFields/Slider";
 
 // TODO: Change broker to autocomplete field for selecting a broker
+// TODO: Update data structure once autocomplete is added
 const Broker = ({ getValues, errors, register, represents}) => {
     const [isEXP, setIsExp] = React.useState(false);
 
@@ -16,9 +17,9 @@ const Broker = ({ getValues, errors, register, represents}) => {
                     <InputField
                         required={true}
                         getValues={getValues}
-                        name={`broker.${represents}.companyName`}
+                        name={`${represents}.broker.companyName`}
                         label="Company"
-                        errors={errors["broker"]?.[represents]?.company}
+                        errors={errors[`${represents}`]?.broker?.company}
                         register={register}
                         value="eXp"
                         disabled={true}
@@ -26,9 +27,9 @@ const Broker = ({ getValues, errors, register, represents}) => {
                     <InputField
                         required={true}
                         getValues={getValues}
-                        name={`broker.${represents}.address`}
+                        name={`${represents}.broker.address`}
                         label="Address"
-                        errors={errors["broker"]?.[represents]?.address}
+                        errors={errors[`${represents}`]?.broker?.address}
                         register={register}
                         value="P.O. Box 10665 Holyoke Ma 01041"
                         disabled={true}
@@ -55,20 +56,19 @@ const Broker = ({ getValues, errors, register, represents}) => {
             <S.FieldWrapper>
                 <S.FieldTitle>Listing Broker</S.FieldTitle>
                 <S.MultiContainer>
-                    {/* TODO: Sellers Side this should default to eXp and not be displayed */}
                     <InputField
                     required={true}
                     getValues={getValues}
-                    name="listingBroker.company"
+                    name="listing.broker.company"
                     label="Company"
-                    errors={errors?.listingBroker?.company}
+                    errors={errors?.listing?.Broker?.company}
                     register={register}
                     />
                     <S.AddressWrapper>
                     <Address
                     required={true}
                     getValues={getValues}
-                    name="listingBroker.address"
+                    name="listing.broker.address"
                     label="Address"
                     errors={errors?.listingBroker?.address}
                     register={register}
