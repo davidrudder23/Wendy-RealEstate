@@ -36,9 +36,9 @@ const ListingBroker = () => {
         return (
             <InputField
                 getValues={getValues}
-                name="listingAgent.phoneNumber"
+                name="listing.agent.phoneNumber"
                 label="Phone Number"
-                errors={errors.listingAgent?.phoneNumber}
+                errors={errors?.listing?.Agent?.phoneNumber}
                 register={register}
                 required={true}
             />
@@ -62,17 +62,17 @@ const ListingBroker = () => {
                         <InputField
                             required={true}
                             getValues={getValues}
-                            name="listingAgent.firstName"
+                            name="listing.agent.firstName"
                             label="First Name"
-                            errors={errors.listingAgent?.firstName}
+                            errors={errors?.listing?.agent?.firstName}
                             register={register}
                         />
                         <InputField
                             required={true}
                             getValues={getValues}
-                            name="listingAgent.lastName"
+                            name="listing.agent.lastName"
                             label="Last Name"
-                            errors={errors.listingAgent?.lastName}
+                            errors={errors?.listing?.agent?.lastName}
                             register={register}
                         />
                     </S.MultiContainer>
@@ -80,17 +80,17 @@ const ListingBroker = () => {
                         <InputField
                             required={true}
                             getValues={getValues}
-                            name="listingAgent.email"
+                            name="listing.agent.email"
                             label="Email"
-                            errors={errors.listingAgent?.email}
+                            errors={errors?.listing?.Agent?.email}
                             register={register}
                         />
                         <InputField
                             required={true}
                             getValues={getValues}
-                            name="listingAgent.emailVerification"
+                            name="listing.agent.emailVerification"
                             label="Email Verification"
-                            errors={errors.listingAgent?.emailVerification}
+                            errors={errors?.listing?.agent?.emailVerification}
                             register={register}
                         />
                     </S.MultiContainer>
@@ -100,9 +100,9 @@ const ListingBroker = () => {
                             <InputField
                                 required={true}
                                 getValues={getValues}
-                                name="listingAgent.mlsID"
+                                name="listing.agent.mlsID"
                                 label="MLS ID"
-                                errors={errors.listingAgent?.mlsID}
+                                errors={errors?.listing?.agent?.mlsID}
                                 register={register}
                             />
                         </S.MultiContainer>
