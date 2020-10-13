@@ -16,17 +16,17 @@ const Client = () => {
 
     const onSubmit = data => {
         action(data);
-        push(handleDeploymentPath("/result"));
-        // if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
-        // } else if (agentType === AGENT_TYPES.SELLERS) {
-        //     if (clientType === AGENT_TYPES.SELLERS) {
-        //         push(handleDeploymentPath("/ListingBroker"));
-        //     } else if (clientType === AGENT_TYPES.BUYERS) {
-        //         push(handleDeploymentPath("/Agent/Buyer"));
-        //     }
-        // } else if (agentType === AGENT_TYPES.BUYERS) {
-        //     push(handleDeploymentPath("/Agent/Buyer"));
-        // }
+        if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
+            push(handleDeploymentPath("/result"));
+        } else if (agentType === AGENT_TYPES.SELLERS) {
+            if (clientType === AGENT_TYPES.SELLERS) {
+                push(handleDeploymentPath("/ListingBroker"));
+            } else if (clientType === AGENT_TYPES.BUYERS) {
+                push(handleDeploymentPath("/Agent/Buyer"));
+            }
+        } else if (agentType === AGENT_TYPES.BUYERS) {
+            push(handleDeploymentPath("/Agent/Buyer"));
+        }
     }
 
     return (
