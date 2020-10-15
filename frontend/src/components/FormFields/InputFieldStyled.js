@@ -11,14 +11,14 @@ export const InputField = styled.div`
     /* This is so there can be multiple fields side by side 
         Start-block
     */
-    padding-left: 1rem;
+    padding-left: ${props => props.disablePadding ? 0 : "1rem"};
 
     @media only screen and (max-device-width : 425px) {
         padding-left: 0;
     }
 
     :last-child label {
-        padding-left: 1rem;
+        padding-left: ${props => props.disablePadding ? 0 : "1rem"};
         
         @media only screen and (max-device-width : 425px) {
             padding-left: 0;

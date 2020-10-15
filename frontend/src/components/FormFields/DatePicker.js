@@ -10,7 +10,7 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
     const { isEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
     
     return (
-        <S.InputField isEmpty={isEmpty}>
+        <S.InputField disablePadding={true} isEmpty={isEmpty}>
             <Controller
                 control={control}
                 name={name}
