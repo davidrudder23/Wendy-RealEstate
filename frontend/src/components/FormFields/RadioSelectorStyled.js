@@ -25,5 +25,5 @@ export const OtherWrapper = styled.div`
     display: inline-block;
     margin: .5rem;
     position: relative;
-    top: -1.275rem;
+    top: -1.125rem;
 `;

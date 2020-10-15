@@ -22,10 +22,9 @@ const RadioSelector = React.memo(({ register, name, array, other=false, defaultV
             </S.Container>
             {other ?
                 <S.OtherWrapper>
-                    <S.InputRadio name={name} type="radio" style={{marginTop: "1.825rem"}} defaultChecked={selectedVal === "test2"} value={otherVal}/>
+                    <S.InputRadio name={name} type="radio" style={{marginTop: "1.825rem"}} defaultChecked={selectedVal === defaultVal} value={otherVal}/>
                     <div style={{float: "right"}}>
-                        <InputField 
-                        name={name} 
+                        <InputField
                         label="Other" 
                         register={register} 
                         required={false} />
