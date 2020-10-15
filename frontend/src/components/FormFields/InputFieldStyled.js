@@ -29,7 +29,6 @@ export const InputField = styled.div`
         padding-left: 0;
         label {
             padding-left: 0;
-        
         }
 
         @media only screen and (max-device-width : 425px) {
