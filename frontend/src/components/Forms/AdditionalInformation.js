@@ -2,6 +2,7 @@ import React from 'react'
 import FormHeader from "../FormFields/FormHeader";
 import * as S from "../FormFields/FormStyled";
 // import InputField from "../FormFields/InputField";
+import RadioSelector from "../FormFields/RadioSelector";
 // import { yupResolver } from '@hookform/resolvers';
 // import { AdditionalInformationValidation } from "../../validation";
 import { Next, Back } from "../FormFields/SharedButtons";
@@ -25,10 +26,13 @@ const AdditionalInformation = () => {
                 <FormHeader />
                 <S.FieldWrapper>
                     <S.FieldTitle>Additional Information</S.FieldTitle>
-                    {/*  */}
                     {/* TODO: Make field: Are you currently part of the tracy gagne team? */}
                     {/* TODO: Need Additional field --> create text area field to allow for longer input */}
                     {/* TODO: This is for an outside referral NOT with the Tracy Gagne Team. Is there a refereall to be paid on this transaction. */}
+                </S.FieldWrapper>
+                <S.FieldWrapper>
+                    <S.FieldTitle>Team lead or Sphere Not split with eXp only with the Tracy Gagne Team</S.FieldTitle>
+                    <RadioSelector array={["75/25", "100"]} other={false} name={"finalPaymentSplit"} other={true} />
                 </S.FieldWrapper>
                 <Back />
                 <Next />
