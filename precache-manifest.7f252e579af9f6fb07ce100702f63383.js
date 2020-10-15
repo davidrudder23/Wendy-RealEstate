@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a2d0248617a684c1f670a9d21abd733e",
+    "revision": "813a586a5928e2ecf37322f2d0c69214",
     "url": "/Wendy-RealEstate/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Wendy-RealEstate/static/css/2.bac53e54.chunk.css"
   },
   {
-    "revision": "84be8e5c9b5af34d1733",
+    "revision": "3c7bc93f41679c1c5250",
     "url": "/Wendy-RealEstate/static/css/main.f8f5a137.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Wendy-RealEstate/static/js/2.7e428e6c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "84be8e5c9b5af34d1733",
-    "url": "/Wendy-RealEstate/static/js/main.e8f9fdf5.chunk.js"
+    "revision": "3c7bc93f41679c1c5250",
+    "url": "/Wendy-RealEstate/static/js/main.bc347cc6.chunk.js"
   },
   {
     "revision": "480cd12a36444b8793f3",
