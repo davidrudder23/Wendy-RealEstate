@@ -40,9 +40,9 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
                     }}
                     onFocus={(e) => {
                         setIsEmpty(true)
+                        e.preventDefault();
                         e.stopPropagation();
                     }}
-                    closeOnScroll={true}
                 />
                 }}
             />

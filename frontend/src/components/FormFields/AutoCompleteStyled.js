@@ -2,6 +2,9 @@ import styled from "styled-components";
 // TODO update styles
 
 export const AutoCompleteWrapper = styled.div`
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+
     && > div {
         margin-bottom: 0;
         padding-bottom: 0;
@@ -21,7 +24,6 @@ export const AutoCompleteWrapper = styled.div`
     max-height: 143px;
     overflow-y: auto;
     padding-left: 0;
-    /* width: 15.4375rem; */
     width: calc(300px + 1rem);
     z-index: 1000;
     background-color: #FFF;
