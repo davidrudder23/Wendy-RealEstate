@@ -2,9 +2,26 @@ import React from 'react';
 import * as S from "./RadioSelectorStyled";
 import InputField from "./InputField";
 
-const RadioSelector = React.memo(({ register, name, array, other=false, defaultVal }) => {
-    const selectedVal = React.createRef();
-    const [otherVal, setOtherVal] = React.useState("")
+const RadioSelector = React.memo(({ register, name, array, other=false, defaultVal, getValues, watch }) => {
+    /* 
+        Lines 9 -> 13 Takes care of the inputfield value on return to the page
+        if it was a selected as the option. If it was not selected then it will
+        be set to ""
+    */
+    let watchVal = watch ? watch(name) : false;
+    let textFieldHasValue = watchVal ? !array.includes(watchVal) : "";
+    const [otherVal, setOtherVal] = React.useState({
+        text: textFieldHasValue ? watchVal : ""
+    })
+
+    const handleSetOtherVal = (e) => {
+        setOtherVal(state => {
+            return {
+                text: e.target.value
+            }
+        });
+        e.persist();
+    }
 
     // To create a radio group you must used uncontrolled components.
     // Documentation: https://reactjs.org/docs/uncontrolled-components.html
@@ -13,7 +30,7 @@ const RadioSelector = React.memo(({ register, name, array, other=false, defaultV
             <S.Container>
                 {array.map((value) => (
                     <S.optionWrapper key={`input-${value}`}>
-                        <S.InputRadio name={name} type="radio" value={value} defaultChecked={selectedVal === defaultVal} ref={register} />
+                        <S.InputRadio name={name} type="radio" defaultValue={value} defaultChecked={value === defaultVal} ref={register} />
                         <S.Label>
                             {value}
                         </S.Label>
@@ -22,12 +39,22 @@ const RadioSelector = React.memo(({ register, name, array, other=false, defaultV
             </S.Container>
             {other ?
                 <S.OtherWrapper>
-                    <S.InputRadio name={name} type="radio" style={{marginTop: "1.825rem"}} defaultChecked={selectedVal === defaultVal} value={otherVal}/>
+                    <S.InputRadio
+                    value={otherVal?.text}
+                    name={name}
+                    type="radio"
+                    style={{marginTop: "1.825rem"}}
+                    defaultChecked={otherVal?.text === defaultVal}
+                    ref={register}
+                    />
                     <div style={{float: "right"}}>
                         <InputField
-                        label="Other" 
-                        register={register} 
-                        required={false} />
+                        onChange={handleSetOtherVal}
+                        value={otherVal?.text}
+                        label="Other"
+                        required={false}
+                        getValues={getValues}
+                         />
                     </div>
                 </S.OtherWrapper> 
             : null }
