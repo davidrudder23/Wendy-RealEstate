@@ -23,8 +23,7 @@ const RadioSelector = React.memo(({ register, name, array, other=false, defaultV
         e.persist();
     }
 
-    // To create a radio group you must used uncontrolled components.
-    // Documentation: https://reactjs.org/docs/uncontrolled-components.html
+    // TODO: Make Labels Clickable? Improves interaction for older/elderly users
     return (
         <React.Fragment>
             <S.Container>

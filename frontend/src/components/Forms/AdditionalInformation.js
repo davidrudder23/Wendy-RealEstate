@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FormHeader from "../FormFields/FormHeader";
 import * as S from "../FormFields/FormStyled";
-// import InputField from "../FormFields/InputField";
+import InputField from "../FormFields/InputField";
 import RadioSelector from "../FormFields/RadioSelector";
 import Slider from "../FormFields/Slider";
 // import { yupResolver } from '@hookform/resolvers';
@@ -13,6 +13,7 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 const AdditionalInformation = () => {
     const { handleSubmit, action, push, register, getValues, watch } = useCustomFormHook();
     const [withTracyGagne, setWithTracyGagne] = useState(false)
+    const [hasReferral, setHasReferral] = useState(false);
 
     const onSubmit = data => {
         action(data);
@@ -23,16 +24,61 @@ const AdditionalInformation = () => {
         }
     }
 
+    const renderHasReferral = () => {
+        if(hasReferral){
+            return (
+                <S.FieldWrapper>
+                    <S.FieldTitle>Referral Information</S.FieldTitle>
+                    <S.MultiContainer>
+                        <InputField 
+                        name="referral.Agent"
+                        label="Agent that Referred Client"
+                        getValues={getValues}
+                        register={register}
+                        required={true}
+                        />
+                        <InputField
+                        name="referral.broker"
+                        label="Agent that Referred Client"
+                        getValues={getValues}
+                        register={register}
+                        required={true}
+                        />
+                    </S.MultiContainer>
+                    <S.MultiContainer>
+                    <InputField
+                        name="referral.email"
+                        label="Referring Agent Email Address"
+                        getValues={getValues}
+                        register={register}
+                        required={true}
+                        />
+                        <InputField
+                        name="referral.emailVerification"
+                        label="Email Address Verification"
+                        getValues={getValues}
+                        register={register}
+                        required={true}
+                        />
+                    </S.MultiContainer>
+                    <div>
+                    <InputField
+                        name="referral.amount"
+                        label="Amount"
+                        getValues={getValues}
+                        register={register}
+                        required={true}
+                        />
+                    </div>
+                </S.FieldWrapper>
+            )
+        }
+    }
+
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <S.FieldWrapper>
-                    <S.FieldTitle>Additional Information</S.FieldTitle>
-                    {/* TODO: Make field: Are you currently part of the tracy gagne team? */}
-                    {/* TODO: Need Additional field --> create text area field to allow for longer input */}
-                    {/* TODO: This is for an outside referral NOT with the Tracy Gagne Team. Is there a refereall to be paid on this transaction. */}
-                </S.FieldWrapper>
                 <S.FieldWrapper>
                     <S.FieldTitle>Are you with the Tracy Gagne Team? <Slider isChecked={withTracyGagne} setIsChecked={setWithTracyGagne} /></S.FieldTitle>
                 </S.FieldWrapper>
@@ -47,6 +93,12 @@ const AdditionalInformation = () => {
                     watch={watch}
                     />
                 </S.FieldWrapper> : null}
+                <S.FieldWrapper>
+                    <S.FieldTitle>Is there a referral to be paid for the transaction? 
+                        <Slider isChecked={hasReferral} setIsChecked={setHasReferral} />
+                    </S.FieldTitle>
+                </S.FieldWrapper>
+                {renderHasReferral()}
                 <Back />
                 <Next />
             </form>
