@@ -2,17 +2,34 @@ import React from 'react'
 import InputField from './InputField';
 import * as S from "./AutoCompleteStyled";
 import useOnclickOutside from "react-cool-onclickoutside";
-// TODO: Add auto scrolling to keep active item into focus
 
-const AutoComplete = React.memo(({ 
-  suggestions = [], 
+// TODO: Add auto scrolling to keep active item into focus
+const AutoComplete = React.memo(({
+
+  /** A list of items to sort and display as suggestions */
+  suggestions = [],
+
+  /** Can be a custom filter function that with params (suggestions) and returns (filteredSuggestions) */
   howToFilter,
+
+  /** pass a function that uses onBlur and gets the params (event) */
   handleonblur,
-  handleonkeypress, 
-  filterValues = true, 
-  status = true, 
-  onChange, 
+
+  /** pass a function that uses OnKeyPress and gets the params (event) */
+  handleonkeypress,
+
+  /** Can be used when you want to disable the field during loading or other reasons */
+  status = true,
+
+  /** Allows for onChange effect with params of (event) */
+  onChange,
+  
+  /** Can pass a function that is triggered on selection of an item in the list of suggestions. The possible params are (event , tuple) */
   onSelect,
+  /** If you do not wish to pass a sorting method you can use the default one provided in onChange */
+  useDefaultFilter,
+  /* If the array that was passed is a tuple you can indicate which column in the tuple you which to search and sort with */
+  setTupleIndex = 0,
   getValues,
   name,
   errors,
@@ -60,19 +77,17 @@ const AutoComplete = React.memo(({
       const userInput = e.currentTarget.value;
       
       // Filter our suggestions that don't contain the user's input
-      let filteredSuggestions;
-      if(filterValues){
-        if(howToFilter){
-          filteredSuggestions = howToFilter(suggestions);
-        }else {
-          filteredSuggestions = suggestions.filter(
-            suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-            );
-          }
-        }else {
-          filteredSuggestions = suggestions;
-        }
-        
+      let filteredSuggestions;     
+      if(howToFilter){
+          filteredSuggestions = howToFilter(suggestions);        
+      } else {
+        filteredSuggestions = suggestions;
+      }
+      
+      if(useDefaultFilter && !howToFilter){
+        filteredSuggestions = suggestions.filter(suggestion => suggestion[0].toLowerCase().indexOf(userInput.toLowerCase()) > -1);
+      }
+
         setSuggestionState({
           activeSuggestion: 0,
           filteredSuggestions,
@@ -85,8 +100,7 @@ const AutoComplete = React.memo(({
         }
       };
 
-    const handleSelect = e => {
-      
+    const handleSelect = (e, index) => {
       e.stopPropagation();
       setSuggestionState({
         activeSuggestion: 0,
@@ -96,7 +110,7 @@ const AutoComplete = React.memo(({
       });
 
       if(onSelect){
-        onSelect(e)
+        onSelect(e, index)
       }
     };
 
@@ -122,7 +136,7 @@ const AutoComplete = React.memo(({
         if (activeSuggestion === 0) {
           return;
         }
-        setSuggestionState(state => { 
+        setSuggestionState(state => {
           return { ...state, activeSuggestion: activeSuggestion - 1} 
         });
       }
@@ -136,7 +150,7 @@ const AutoComplete = React.memo(({
         }
       
         
-        setSuggestionState(state => { 
+        setSuggestionState(state => {
           return { ...state, activeSuggestion: activeSuggestion + 1} 
         });
       };
@@ -144,12 +158,13 @@ const AutoComplete = React.memo(({
     };
 
     const handleOnFocus = () => {
-      setSuggestionState({
+      setSuggestionState(state => {
+        return {
+        ...state,
         activeSuggestion: 0,
         filteredSuggestions: suggestions,
-        showSuggestions: true,
-        userInput: "",
-      });
+        showSuggestions: false,
+      }});
     }
 
     const suggestionsListComponent = () => {
@@ -169,7 +184,7 @@ const AutoComplete = React.memo(({
                     }
       
                     return (
-                      <li className={className} key={suggestion} onClick={handleSelect}>
+                      <li className={className} key={`${suggestion}.${index}`} onClick={(e) => handleSelect(e, index)}>
                         {suggestion}
                       </li>
                     );

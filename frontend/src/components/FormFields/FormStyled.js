@@ -79,7 +79,8 @@ export const MultiContainer = styled.div`
     
 `;
 
-// Should only be used when inside MultiContainer
+// TODO: Refactor to AutoComplete Wrapper
+//****Should only be used when inside MultiContainer****
 export const AddressWrapper = styled.div`
     padding-left: 1rem;
     @media only screen and (max-device-width : 425px) {

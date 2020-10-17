@@ -99,6 +99,18 @@ const AdditionalInformation = () => {
                     </S.FieldTitle>
                 </S.FieldWrapper>
                 {renderHasReferral()}
+                <S.FieldWrapper>
+                    <S.FieldTitle>Is there any additional information I should know?</S.FieldTitle>
+                    <div>
+                        <InputField 
+                            register={register}
+                            getValues={getValues}
+                            name="additionalInformation.additionalNotes"
+                            label="Notes"
+                            required={false}
+                        />
+                    </div>
+                </S.FieldWrapper>
                 <Back />
                 <Next />
             </form>
