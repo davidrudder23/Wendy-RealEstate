@@ -15,6 +15,8 @@ const Testing = () => {
         push(handleDeploymentPath("/result"));
     }
 
+    const [controlData, setControlData] = React.useState("")
+
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -22,9 +24,12 @@ const Testing = () => {
                 <S.FieldWrapper>
                     <S.FieldTitle>Google Sheet AutoComplete Test</S.FieldTitle>
                     <LenderTest />
-                    <AutoComplete 
+                    <AutoComplete
+                        label="control group"
                         suggestions={["george", "kate", "luna", "finnick"]}
                         useDefaultFilter={true}
+                        value={controlData}
+                        onChange={(e) => setControlData(e.currentTarget.value)}
                     />
                 </S.FieldWrapper>
                 <br />

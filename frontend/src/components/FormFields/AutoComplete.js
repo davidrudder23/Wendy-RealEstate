@@ -4,7 +4,7 @@ import * as S from "./AutoCompleteStyled";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 // TODO: Add auto scrolling to keep active item into focus
-const AutoComplete = React.memo(({
+const AutoComplete = ({
 
   /** A list of items to sort and display as suggestions */
   suggestions = [],
@@ -30,12 +30,9 @@ const AutoComplete = React.memo(({
   useDefaultFilter,
   /* If the array that was passed is a tuple you can indicate which column in the tuple you which to search and sort with */
   setTupleIndex = 0,
+  value,
   getValues,
   name,
-  errors,
-  register,
-  required,
-  label,
   ...props }) => {
     const ref = useOnclickOutside(() => {
       handleOnBlur();
@@ -49,8 +46,17 @@ const AutoComplete = React.memo(({
         // Whether or no the suggestion list is shown
         showSuggestions: false,
         // What the user has entered
-        userInput: '',
+        userInput: value? value :"",
     });
+
+    React.useEffect(() => {
+      setSuggestionState(state => {
+        return{
+          ...state,
+          userInput: value
+        }
+      })
+    }, [value])
 
     // This is required because AutoComplete is using InputField as a controlled component
     React.useEffect(() => {
@@ -75,42 +81,48 @@ const AutoComplete = React.memo(({
     const handleOnChange = e => {
       e.stopPropagation();
       const userInput = e.currentTarget.value;
-      
+      console.log("calling on change as well?")
+
       // Filter our suggestions that don't contain the user's input
       let filteredSuggestions;     
       if(howToFilter){
-          filteredSuggestions = howToFilter(suggestions);        
+        filteredSuggestions = howToFilter(suggestions);        
       } else {
         filteredSuggestions = suggestions;
       }
       
       if(useDefaultFilter && !howToFilter){
-        filteredSuggestions = suggestions.filter(suggestion => suggestion[0].toLowerCase().indexOf(userInput.toLowerCase()) > -1);
+        console.log(suggestions)
+        filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1);
+        console.log(filteredSuggestions)
       }
-
-        setSuggestionState({
-          activeSuggestion: 0,
-          filteredSuggestions,
-          showSuggestions: true,
-          userInput: userInput,
-        });
-        
-        if(onChange){
-          onChange(e);
-        }
+      
+      setSuggestionState({
+        activeSuggestion: 0,
+        filteredSuggestions,
+        showSuggestions: true,
+        userInput: userInput,
+      });
+      
+      if(onChange){
+        onChange(e);
+      }
+      e.persist();
       };
 
-    const handleSelect = (e, index) => {
+    const handleSelect = (e) => {
       e.stopPropagation();
+      let text = e.currentTarget.innerText;
+      
       setSuggestionState({
         activeSuggestion: 0,
         filteredSuggestions: [],
         showSuggestions: false,
-        userInput: e.currentTarget.innerText,
+        userInput: text,
       });
 
       if(onSelect){
-        onSelect(e, index)
+        onSelect(e, suggestions.indexOf(text));
       }
     };
 
@@ -163,7 +175,7 @@ const AutoComplete = React.memo(({
         ...state,
         activeSuggestion: 0,
         filteredSuggestions: suggestions,
-        showSuggestions: false,
+        showSuggestions: true,
       }});
     }
 
@@ -184,7 +196,7 @@ const AutoComplete = React.memo(({
                     }
       
                     return (
-                      <li className={className} key={`${suggestion}.${index}`} onClick={(e) => handleSelect(e, index)}>
+                      <li className={className} key={`${suggestion}.${index}`} onClick={handleSelect}>
                         {suggestion}
                       </li>
                     );
@@ -205,21 +217,17 @@ const AutoComplete = React.memo(({
     return (
         <S.AutoCompleteWrapper ref={ref}>
           <InputField
-            value={suggestionState.userInput}
+            value={suggestionState.userInput || value}
             onChange={handleOnChange}
             onKeyDown={handleOnKeyDown}
             onFocus={handleOnFocus}
             getValues={getValues}
             name={name}
-            errors={errors}
-            register={register}
-            required={required}
-            label={label}
             {...props}
           />
           {suggestionsListComponent()}
       </S.AutoCompleteWrapper>
     )
-})
+}
 
 export default AutoComplete
