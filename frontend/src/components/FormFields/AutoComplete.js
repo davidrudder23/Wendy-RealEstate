@@ -141,6 +141,10 @@ const AutoComplete = ({
             userInput: filteredSuggestions[activeSuggestion]
           }
         });
+
+        if(onSelect){
+          onSelect(e, suggestions.indexOf(filteredSuggestions[activeSuggestion]))
+        }
       }
       
       // User pressed the up arrow
