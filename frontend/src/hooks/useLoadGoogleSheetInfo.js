@@ -11,8 +11,8 @@ const useLoadGoogleSheetInfo = (
     /** A function is expected here and is passed the sheet object. This allows each component
      *  to decide how it wants to handle the data retrieved from the sheet.
      */
-    handleSheetData, 
-    // By defining the values object at initialization we can avoid switching between controlled and uncontrolled components.
+    handleSheetData,
+    /**  By defining the values object at initialization we can avoid switching between controlled and uncontrolled components. */
     valuesObj) => {
     const [ready, setReady] = React.useState(false);
     const [sheet, setSheet] = React.useState();

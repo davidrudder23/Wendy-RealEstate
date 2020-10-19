@@ -5,7 +5,6 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from '../../hooks/useCustomFormHook';
 import { ClientValidation } from "../../validation";
 import { handleDeploymentPath } from "../../shared";
-import LenderTest from './LenderTest';
 import AutoComplete from '../FormFields/AutoComplete';
 
 const Testing = () => {
@@ -23,7 +22,6 @@ const Testing = () => {
                 <FormHeader />
                 <S.FieldWrapper>
                     <S.FieldTitle>Google Sheet AutoComplete Test</S.FieldTitle>
-                    <LenderTest />
                     <AutoComplete
                         label="control group"
                         suggestions={["george", "kate", "luna", "finnick"]}
