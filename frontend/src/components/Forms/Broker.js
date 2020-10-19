@@ -2,6 +2,7 @@ import React from 'react'
 import * as S from "../FormFields/FormStyled";
 import AutoComplete from "../FormFields/AutoComplete";
 import useLoadGoogleSheetInfo from "../../hooks/useLoadGoogleSheetInfo";
+import Address from "../FormFields/Address";
 
 const Broker = React.memo(({ getValues, errors, register, represents, ...props}) => {
     const handleSheetData = (brokerSheet) => {
@@ -71,24 +72,15 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
                     {...props}
                 />
                 <S.AddressWrapper>
-                <AutoComplete 
+                <Address
                     name={`${represents}.broker.address`}
                     errors={errors[`${represents}`]?.broker?.address}
                     register={register}
                     getValues={getValues}
                     label="Address"
-                    onSelect={handleOnSelect}
                     useDefaultFilter={true}
-                    onChange={(e) => setValues(state => {
-                        e.persist();
-                        return {
-                            ...state,
-                            Address: e.currentTarget?.value ? e.currentTarget?.value : "",
-                        }
-                    })}
-                    suggestions={arrayData.Address}
                     status={ready}
-                    value={values.Address}
+                    text={values.Address}
                     {...props}
                 />
                 </S.AddressWrapper>

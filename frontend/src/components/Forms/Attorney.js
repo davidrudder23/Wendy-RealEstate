@@ -9,15 +9,81 @@ import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
+import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
+import AutoComplete from "../FormFields/AutoComplete";
 
-// TODO Create recommendation fields once google sheet complete is done
-// If introduction give list of attorneys. ( cleint choose and send email to this attorney)
+
+// TODO: If introduction give list of attorneys. ( cleint choose and send email to this attorney)
 // I think a drop down list would be the best choice
 const Attorney = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(TestAttorneyValidation);
     const { represents } = useParams();
     const [hasAttorney, sethasAttorney] = React.useState(true);
     const [wantsRecommendation, setWantsRecommendation] = React.useState(false);
+
+    const handleSheetData = (agentSheet) => {
+        const emails = [];
+        const names = [];
+        const addresses = [];
+        const firmNames = [];
+        const phoneNumbers = [];
+
+        let index = 1;
+        while(agentSheet.getCell(index, 0).value !== null) {
+            names.push(agentSheet.getCell(index, 0).value);
+            emails.push(agentSheet.getCell(index, 1).value);
+            phoneNumbers.push(agentSheet.getCell(index, 2).value);
+            addresses.push(agentSheet.getCell(index, 3).value);
+            firmNames.push(agentSheet.getCell(index, 4).value);
+            index++;
+        }
+
+        const emailVerification = emails;
+
+        setArrayData({
+            Emails: emails,
+            EmailVerifications: emailVerification,
+            Names: names,
+            PhoneNumbers: phoneNumbers,
+            FirmNames: firmNames,
+            Addresses: addresses,
+        });
+    }
+    
+    const spreadSheetKey = "1ffex1Am_wSX_Rebav49Sf2plvujBbPBRkA1wPagvXL8";
+    const {
+        ready,
+        values,
+        setValues,
+        arrayData,
+        setArrayData
+    } = useLoadGoogleSheetInfo(
+        spreadSheetKey,
+        0,
+        'A:E',
+        handleSheetData,
+        {
+            Email: "",
+            EmailVerification: "",
+            Name: "",
+            PhoneNumber: "",
+            FirmName: "",
+            Address: "",
+        }
+    );
+
+    const handleOnSelect = (e, index) => {
+        setValues(data => {
+            return {
+                Email: arrayData.Emails[index] ? arrayData.Emails[index] : "",
+                EmailVerification: arrayData.EmailVerifications[index] ? arrayData.EmailVerifications[index] : "",
+                Name: arrayData.Names[index] ? arrayData.Names[index] : "",
+                PhoneNumber: arrayData.PhoneNumbers[index] ? arrayData.PhoneNumbers[index] : "",
+                FirmName: arrayData.FirmNames[index] ? arrayData.FirmNames[index] : "",
+                Address: arrayData.Addresses[index] ? arrayData.Addresses[index] : "",
+            }
+        })
+    }
 
     const onSubmit = data => {
         action({ attorney: data });
@@ -79,33 +145,57 @@ const Attorney = () => {
             <S.FieldWrapper>
                 <S.FieldTitle>{represents}'s Attorney Information</S.FieldTitle>
                 <S.MultiContainer>
-                    <InputField
+                    <AutoComplete
+                        value={values.Name}
+                        suggestions={arrayData.Names}
+                        onChange={(e) => setValues(state => {
+                            e.persist();
+                            return {
+                                ...state,
+                                Name: e.currentTarget?.value ? e.currentTarget?.value : "",
+                            }
+                        })}
                         getValues={getValues}
-                        name={`${represents}.firstName`}
-                        label="First Name"
-                        errors={errors[represents]?.firstName}
+                        name={`${represents}.Name`}
+                        label="Full Name"
+                        errors={errors[represents]?.Name}
                         required={true}
                         register={register}
+                        onSelect={handleOnSelect}
+                        status={ready}
                     />
                     <InputField
+                        value={values.FirmName}
                         getValues={getValues}
-                        name={`${represents}.lastName`}
-                        label="Last Name"
-                        errors={errors[represents]?.lastName}
-                        required={true}
+                        name={`${represents}.firmName`}
+                        label="Attorney Firm Name"
+                        errors={errors[represents]?.firmName}
+                        required={false}
                         register={register}
                     />
                 </S.MultiContainer>
                 <S.MultiContainer>
-                    <InputField
+                    <AutoComplete
+                        value={values.Email}
+                        suggestions={arrayData.Emails}
+                        onChange={(e) => setValues(state => {
+                            e.persist();
+                            return {
+                                ...state,
+                                Email: e.currentTarget?.value ? e.currentTarget?.value : "",
+                            }
+                        })}
                         getValues={getValues}
                         name={`${represents}.emailAddress`}
                         label="Email"
                         errors={errors[represents]?.emailAddress}
                         required={true}
                         register={register}
+                        onSelect={handleOnSelect}
+                        status={ready}
                     />
                     <InputField
+                        value={values.EmailVerification}
                         getValues={getValues}
                         name={`${represents}.emailAddressVerification`}
                         label="Email Verification"
@@ -114,15 +204,7 @@ const Attorney = () => {
                         register={register}
                     />
                 </S.MultiContainer>
-                <S.MultiContainer>
-                    <InputField
-                        getValues={getValues}
-                        name={`${represents}.firmName`}
-                        label="Attorney Firm Name"
-                        errors={errors[represents]?.firmName}
-                        required={false}
-                        register={register}
-                    />
+                <div>
                     <InputField
                         getValues={getValues}
                         name={`${represents}.phoneNumber`}
@@ -131,7 +213,7 @@ const Attorney = () => {
                         required={false}
                         register={register}
                     />
-                </S.MultiContainer>
+                </div>
             </S.FieldWrapper>
             )
         }

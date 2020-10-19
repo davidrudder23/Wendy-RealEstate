@@ -7,20 +7,23 @@ import AutoComplete from './AutoComplete';
   to generate dropdown list of choices to select from.
 */
 
-const Address = ({ disable=false, value, ...props }) => {
+const Address = ({ disable=false, text, ...props }) => {
     const {
         ready,
         suggestions: { status, data },
+        value,
         setValue,
         clearSuggestions,
       } = usePlacesAutocomplete();
    
+      React.useEffect(() => {
+        if(text){
+          setValue(text);
+        }
+      }, [text, setValue])
+
       const handleInput = (e) => {
         setValue(e.target.value);
-        if(value){
-          setValue(value);
-          return;
-        }
       };
      
       const handleSelect = (e) => () => {
@@ -36,13 +39,13 @@ const Address = ({ disable=false, value, ...props }) => {
 
       return (
           <AutoComplete
+            value={value}
             onSelect={handleSelect}
             onChange={handleInput}
             disabled={disable || !ready}
             handleonblur={handleOnBlur}
             suggestions={getDescriptions}
             status={status}
-            filterValues={false}
             {...props}
           />
       );

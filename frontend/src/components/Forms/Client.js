@@ -12,8 +12,6 @@ const Client = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(ClientValidation);
     const { clientType } = useParams();
 
-    console.log("client re rendered")
-
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {

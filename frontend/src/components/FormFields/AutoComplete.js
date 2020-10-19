@@ -27,7 +27,7 @@ const AutoComplete = ({
   /** Can pass a function that is triggered on selection of an item in the list of suggestions. The possible params are (event , tuple) */
   onSelect,
   /** If you do not wish to pass a sorting method you can use the default one provided in onChange */
-  useDefaultFilter,
+  useDefaultFilter = true,
   /* If the array that was passed is a tuple you can indicate which column in the tuple you which to search and sort with */
   setTupleIndex = 0,
   value,
@@ -81,7 +81,6 @@ const AutoComplete = ({
     const handleOnChange = e => {
       e.stopPropagation();
       const userInput = e.currentTarget.value;
-      console.log("calling on change as well?")
 
       // Filter our suggestions that don't contain the user's input
       let filteredSuggestions;     
@@ -92,9 +91,7 @@ const AutoComplete = ({
       }
       
       if(useDefaultFilter && !howToFilter){
-        console.log(suggestions)
         filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1);
-        console.log(filteredSuggestions)
       }
       
       setSuggestionState({

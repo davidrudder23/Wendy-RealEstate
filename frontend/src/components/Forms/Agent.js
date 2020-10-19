@@ -226,7 +226,7 @@ const Agent = () => {
                     </S.MultiContainer>
                     {loadFieldsBasedOnAgent()}
                 </S.FieldWrapper>
-                <Broker 
+                <Broker
                     getValues={getValues}
                     errors={errors}
                     register={register}
