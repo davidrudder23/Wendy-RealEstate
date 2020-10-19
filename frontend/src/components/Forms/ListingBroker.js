@@ -51,7 +51,8 @@ const ListingBroker = () => {
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <Broker 
+                <Broker
+                    represents={AGENT_TYPES.SELLERS}
                     getValues={getValues}
                     register={register}
                     errors={errors}
