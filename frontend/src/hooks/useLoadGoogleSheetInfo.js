@@ -5,15 +5,16 @@ const useLoadGoogleSheetInfo = (
     /** The key found on a google sheet which will give access to the sheet */
     sheetKey,
     /** What sheet index would you like to load. This correlates to the sheet tabs at the bottom of google sheets */
-    sheetIndex, 
+    sheetIndex,
     /** Defines what cell range to load from the sheet. E.g., 'A:B' while load columns A and B */
-    cellRange, 
+    cellRange,
     /** A function is expected here and is passed the sheet object. This allows each component
      *  to decide how it wants to handle the data retrieved from the sheet.
      */
     handleSheetData,
     /**  By defining the values object at initialization we can avoid switching between controlled and uncontrolled components. */
-    valuesObj) => {
+    valuesObj,
+    ) => {
     const [ready, setReady] = React.useState(false);
     const [sheet, setSheet] = React.useState();
     const [values, setValues] = React.useState(valuesObj);

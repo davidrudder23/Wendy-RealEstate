@@ -183,16 +183,26 @@ const AutoComplete = ({
       }});
     }
 
+    const noSuggestions = () => {
+      return (
+        <div className="no-suggestions">
+          <em>No suggestions</em>
+        </div>
+      );
+    }
+
     const suggestionsListComponent = () => {
-      const { showSuggestions, filteredSuggestions, activeSuggestion } = suggestionState; 
+      const { showSuggestions, filteredSuggestions, activeSuggestion } = suggestionState;
 
       if (showSuggestions) {
         if (filteredSuggestions.length) {
-
-
+          if(!filteredSuggestions.some(suggestion => suggestion !== null)){
+            return noSuggestions();
+          }
           return (
             <ul className="suggestions">
                   {filteredSuggestions.map((suggestion, index) => {
+                    if(suggestion) {
                     let className;
 
                     if (index === activeSuggestion) {
@@ -204,16 +214,15 @@ const AutoComplete = ({
                         {suggestion}
                       </li>
                     );
+                  }else{
+                    return null
+                  };
                   })}
                 </ul>
               );
-            } else {
-              return (
-                <div className="no-suggestions">
-                  <em>No suggestions</em>
-                </div>
-              );
-            }
+          } else {
+            noSuggestions();
+          }
         }    
     }
     

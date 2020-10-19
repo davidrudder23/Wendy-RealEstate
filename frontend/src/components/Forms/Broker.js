@@ -19,7 +19,7 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
             Address: address
         });
     }
-    const speadSheetKey = "1t5vhaok4dHE0H40hDd0B75mRisNf7cHDHa84Vp-aNN4";
+    const spreadSheetKey = "1t5vhaok4dHE0H40hDd0B75mRisNf7cHDHa84Vp-aNN4";
     const {
         ready,
         values,
@@ -27,7 +27,7 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
         arrayData,
         setArrayData 
     } = useLoadGoogleSheetInfo(
-        speadSheetKey,
+        spreadSheetKey,
         0,
         'A:B',
         handleSheetData,
