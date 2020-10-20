@@ -16,7 +16,7 @@ const Mortgage = () => {
     const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(BuyerFormOneValidation);
 
     const onSubmit = data => {
-        action({ mortgage: data });
+        action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
@@ -30,19 +30,20 @@ const Mortgage = () => {
     }
 
     const [currMortgageType, setCurrMortgageType] = React.useState("");
+    //TODO: State doesn't persist on return
     const [isConcessions, setIsConcessions] = React.useState(false);
 
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <S.FieldWrapper error={errors?.typeOfMortgage}>
+                <S.FieldWrapper error={errors['mortgage']?.typeOfMortgage}>
                     <S.FieldTitle>What Type of Mortgage</S.FieldTitle>
                     <DropDownList
                         placeholder="Mortgage Types"
-                        name="typeOfMortgage"
+                        name="mortgage.typeOfMortgage"
                         label="Select a Mortgage Type"
-                        errors={errors?.typeOfMortgage}
+                        errors={errors['mortgage']?.typeOfMortgage}
                         options={Object.values(MORTGAGE_TYPES)}
                         register={register}
                         isValue={currMortgageType}
@@ -54,41 +55,41 @@ const Mortgage = () => {
                     <div>
                         <InputField
                             getValues={getValues}
-                            name="purchasePrice"
+                            name="mortgage.purchasePrice"
                             label="Purchase price?"
-                            errors={errors?.purchasePrice}
+                            errors={errors['mortgage']?.purchasePrice}
                             register={register}
                             required={true}
                         />
                     </div>
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors?.firstDeposit || errors?.secondDeposit}>
+                <S.FieldWrapper error={errors['mortgage']?.firstDeposit || errors['mortgage']?.secondDeposit}>
                     <S.FieldTitle>Deposit Information</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
                             getValues={getValues}
-                            name="firstDeposit"
+                            name="mortgage.firstDeposit"
                             label="First Deposit Amount?"
-                            errors={errors?.firstDeposit}
+                            errors={errors['mortgage']?.firstDeposit}
                             register={register}
                             required={true}
                         />
                         <InputField
                             getValues={getValues}
-                            name="secondDeposit"
+                            name="mortgage.secondDeposit"
                             label="Second Deposit Amount?"
-                            errors={errors.secondDeposit}
+                            errors={errors['mortgage']?.secondDeposit}
                             register={register}
                             required={false}
                         />
                     </S.MultiContainer>
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors?.areConcessions || errors?.concessions}>
+                <S.FieldWrapper error={errors['mortgage']?.areConcessions || errors['mortgage']?.concessions}>
                     <S.FieldTitle>Are there concessions?
                         <Slider
                             isChecked={isConcessions}
                             setIsChecked={setIsConcessions}
-                            name="areConcessions"
+                            name="mortgage.areConcessions"
                             required={false}
                             register={register}
                         />
@@ -97,33 +98,33 @@ const Mortgage = () => {
                         <div>
                             <InputField
                                 getValues={getValues}
-                                name="concessions"
+                                name="mortgage.concessions"
                                 label="What are the concessions?"
-                                errors={errors?.concessions}
+                                errors={errors['mortgage']?.concessions}
                                 register={register}
                                 required={true}
                             />
                         </div>
                         : null}
                 </S.FieldWrapper>
-                {getValues(`typeOfMortgage`) !== MORTGAGE_TYPES.CASH ?
-                    <S.FieldWrapper error={errors?.mortgageCommitmentDeadline}>
+                {getValues(`mortgage.typeOfMortgage`) !== MORTGAGE_TYPES.CASH ?
+                    <S.FieldWrapper error={errors['mortgage']?.mortgageCommitmentDeadline}>
                         <S.FieldTitle>Mortgage Commitment Deadline</S.FieldTitle>
                         <CustomDatePicker
                             control={control}
                             getValues={getValues}
-                            name="mortgageCommitmentDeadline"
+                            name="mortgage.mortgageCommitmentDeadline"
                             label="Select Mortgage Commitment Date"
                             required={true}
                         />
                     </S.FieldWrapper>
                     : null}
-                <S.FieldWrapper error={errors?.houseClosingDate}>
+                <S.FieldWrapper error={errors['mortgage']?.houseClosingDate}>
                     <S.FieldTitle>Closing Date</S.FieldTitle>
                     <CustomDatePicker
                         control={control}
                         getValues={getValues}
-                        name="houseClosingDate"
+                        name="mortgage.houseClosingDate"
                         label="Select Closing Date"
                         required={true}
                     />

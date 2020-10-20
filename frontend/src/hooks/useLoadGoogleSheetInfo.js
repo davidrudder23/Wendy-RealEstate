@@ -21,24 +21,33 @@ const useLoadGoogleSheetInfo = (
     const [arrayData, setArrayData] = React.useState({});
 
     React.useEffect(() => {
-        loadSpreadSheetInformation();
+        let componentIsMounted = true;
+        if(componentIsMounted){
+            loadSpreadSheetInformation(componentIsMounted)
+            .then(sheet => componentIsMounted ? setSheet(sheet) : null)
+            .catch(error => {
+                console.log(error);
+            });
+            setReady(ready);
+        }
+
+        return () => (componentIsMounted = false);
     // eslint-disable-next-line
     }, []);
 
-    const loadSpreadSheetInformation = async () => {
+    const loadSpreadSheetInformation = async (componentIsMounted) => {
         const doc = new GoogleSpreadsheet(sheetKey);
         /** This json is a service account from google developer console: https://console.developers.google.com/ */
-        await doc.useServiceAccountAuth(require("../wendy-realestate-3f1741a1359f.json"));
-        await doc.loadInfo();
+        await doc.useServiceAccountAuth(require("../wendy-realestate-3f1741a1359f.json")).catch(error => console.log(error));
+        await doc.loadInfo().catch(error => console.log(error));
         const sheet = doc.sheetsByIndex[sheetIndex];
-        await sheet.loadCells(cellRange);
+        await sheet.loadCells(cellRange).catch(error => console.log(error));
 
         if(handleSheetData){
-            handleSheetData(sheet);
+            await handleSheetData(sheet, componentIsMounted);
         }
 
-        setSheet(sheet);
-        setReady(true);
+        return sheet;
     }
 
     return {

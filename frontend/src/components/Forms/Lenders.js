@@ -13,7 +13,8 @@ import AutoComplete from "../FormFields/AutoComplete";
 const Lenders = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(LendersValidation);
 
-    const handleSheetData = (agentSheet) => {
+    const handleSheetData = (agentSheet, componentIsMounted) => {
+        if(componentIsMounted){
         const names = [];
         const organizations = [];
         const emails = [];
@@ -26,14 +27,15 @@ const Lenders = () => {
             index++;
         }
 
-        const emailVerification = emails;
+        const emailVerifications = emails;
 
         setArrayData({
             Emails: emails,
-            EmailVerifications: emailVerification,
+            EmailVerifications: emailVerifications,
             Names: names,
             Organizations: organizations,
         });
+        }
     }
     
     const spreadSheetKey = "1aRrvpEn8Qe-VugV9Qbg9U9eIYPQdku_cWM2eOMkCOj4";
@@ -69,6 +71,7 @@ const Lenders = () => {
 
     const onSubmit = data => {
         action(data);
+        console.log(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {

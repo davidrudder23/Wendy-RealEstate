@@ -5,7 +5,8 @@ import useLoadGoogleSheetInfo from "../../hooks/useLoadGoogleSheetInfo";
 import Address from "../FormFields/Address";
 
 const Broker = React.memo(({ getValues, errors, register, represents, ...props}) => {
-    const handleSheetData = (brokerSheet) => {
+    const handleSheetData = (brokerSheet, componentIsMounted) => {
+        if(componentIsMounted){
         const companyName = [];
         const address = [];
         let index = 1;
@@ -18,7 +19,7 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
         setArrayData({
             CompanyName: companyName,
             Address: address
-        });
+        });}
     }
     const spreadSheetKey = "1t5vhaok4dHE0H40hDd0B75mRisNf7cHDHa84Vp-aNN4";
     const {

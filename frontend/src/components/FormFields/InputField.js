@@ -4,8 +4,8 @@ import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 
 const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, value, onKeyDown, ...props }) => {
     const classVal = required ? `${className} required-field` : className;
-    const { isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
-    
+    const { text, isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
+        
     const handleOnKeyPress = e => {
         setIsEmpty(true)
         if (props.handleonkeypress) {
@@ -31,7 +31,7 @@ const InputField = React.memo(({ name, label, className, style, required, regist
     return (
         <S.InputField style={style} isEmpty={isEmpty || value}>
             <input
-                value={value}
+                value={value || text}
                 name={name}
                 ref={register}
                 onKeyPress={handleOnKeyPress}

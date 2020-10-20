@@ -15,7 +15,8 @@ import AutoComplete from "../FormFields/AutoComplete";
 const Agent = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(AgentAndBrokerValidation);
     const { represents } = useParams();
-    const handleSheetData = (agentSheet) => {
+    const handleSheetData = (agentSheet, componentIsMounted) => {
+        if(componentIsMounted){
         const emails = [];
         const names = [];
         const mlsNumbers = [];
@@ -42,6 +43,7 @@ const Agent = () => {
             Organizations: organizations,
             MLSNumbers: mlsNumbers,
         });
+        }
     }
     
     const spreadSheetKey = "1Ra6DMJkEw0BN_XBShvL-Cs-zKzBtj4ilPK7WNGLbk8Y";
@@ -76,7 +78,7 @@ const Agent = () => {
                 Organization: arrayData.Organizations[index] ? arrayData.Organizations[index] : "",
                 MLSNumber: arrayData.MLSNumbers[index] ? arrayData.MLSNumbers[index] : "",
             }
-        })
+        });
     }
 
     const onSubmit = data => {

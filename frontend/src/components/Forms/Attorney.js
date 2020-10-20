@@ -21,7 +21,8 @@ const Attorney = () => {
     const [hasAttorney, sethasAttorney] = React.useState(true);
     const [wantsRecommendation, setWantsRecommendation] = React.useState(false);
 
-    const handleSheetData = (agentSheet) => {
+    const handleSheetData = (agentSheet, componentIsMounted) => {
+        if(componentIsMounted){
         const emails = [];
         const names = [];
         const addresses = [];
@@ -48,6 +49,7 @@ const Attorney = () => {
             FirmNames: firmNames,
             Addresses: addresses,
         });
+        }
     }
     
     const spreadSheetKey = "1ffex1Am_wSX_Rebav49Sf2plvujBbPBRkA1wPagvXL8";
@@ -86,7 +88,7 @@ const Attorney = () => {
     }
 
     const onSubmit = data => {
-        action({ attorney: data });
+        action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.SELLERS) {
@@ -114,7 +116,7 @@ const Attorney = () => {
                             <Slider
                                 isChecked={hasAttorney}
                                 setIsChecked={sethasAttorney}
-                                name={`${represents}.hasAttorney`}
+                                name={`attorney.${represents}.hasAttorney`}
                                 register={register}
                                 required={false}
                             />
@@ -127,7 +129,7 @@ const Attorney = () => {
                             <Slider 
                                 isChecked={wantsRecommendation}
                                 setIsChecked={setWantsRecommendation}
-                                name={`${represents}.wantsRecommendationAndIntroduction`}
+                                name={`attorney.${represents}.wantsRecommendationAndIntroduction`}
                                 register={register}
                                 required={false}
                             />
@@ -156,9 +158,9 @@ const Attorney = () => {
                             }
                         })}
                         getValues={getValues}
-                        name={`${represents}.Name`}
+                        name={`attorney.${represents}.Name`}
                         label="Full Name"
-                        errors={errors[represents]?.Name}
+                        errors={errors?.attorney?.[represents]?.Name}
                         required={true}
                         register={register}
                         onSelect={handleOnSelect}
@@ -175,9 +177,9 @@ const Attorney = () => {
                             }
                         })}}
                         getValues={getValues}
-                        name={`${represents}.firmName`}
+                        name={`attorney.${represents}.firmName`}
                         label="Attorney Firm Name"
-                        errors={errors[represents]?.firmName}
+                        errors={errors?.attorney?.[represents]?.firmName}
                         required={false}
                         register={register}
                     />
@@ -194,9 +196,9 @@ const Attorney = () => {
                             }
                         })}
                         getValues={getValues}
-                        name={`${represents}.emailAddress`}
+                        name={`attorney.${represents}.emailAddress`}
                         label="Email"
-                        errors={errors[represents]?.emailAddress}
+                        errors={errors?.attorney?.[represents]?.emailAddress}
                         required={true}
                         register={register}
                         onSelect={handleOnSelect}
@@ -213,9 +215,9 @@ const Attorney = () => {
                             }
                         })}}
                         getValues={getValues}
-                        name={`${represents}.emailAddressVerification`}
+                        name={`attorney.${represents}.emailAddressVerification`}
                         label="Email Verification"
-                        errors={errors[represents]?.emailAddressVerification}
+                        errors={errors?.attorney?.[represents]?.emailAddressVerification}
                         required={true}
                         register={register}
                     />
@@ -223,9 +225,9 @@ const Attorney = () => {
                 <div>
                     <InputField
                         getValues={getValues}
-                        name={`${represents}.phoneNumber`}
+                        name={`attorney.${represents}.phoneNumber`}
                         label="Phone number"
-                        errors={errors[represents]?.phoneNumber}
+                        errors={errors?.attorney?.[represents]?.phoneNumber}
                         required={false}
                         register={register}
                     />
