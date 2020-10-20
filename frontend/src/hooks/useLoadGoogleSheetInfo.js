@@ -14,7 +14,7 @@ const useLoadGoogleSheetInfo = (
     handleSheetData,
     /**  By defining the values object at initialization we can avoid switching between controlled and uncontrolled components. */
     valuesObj,
-    ) => {
+) => {
     const [ready, setReady] = React.useState(false);
     const [sheet, setSheet] = React.useState();
     const [values, setValues] = React.useState(valuesObj);
@@ -22,28 +22,28 @@ const useLoadGoogleSheetInfo = (
 
     React.useEffect(() => {
         let componentIsMounted = true;
-        if(componentIsMounted){
+        if (componentIsMounted) {
             loadSpreadSheetInformation(componentIsMounted)
-            .then(sheet => componentIsMounted ? setSheet(sheet) : null)
-            .catch(error => {
-                console.log(error);
-            });
+                .then(sheet => componentIsMounted ? setSheet(sheet) : null)
+                .catch(error => {
+                    console.log(error);
+                });
             setReady(ready);
         }
 
         return () => (componentIsMounted = false);
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, []);
 
     const loadSpreadSheetInformation = async (componentIsMounted) => {
         const doc = new GoogleSpreadsheet(sheetKey);
         /** This json is a service account from google developer console: https://console.developers.google.com/ */
-        await doc.useServiceAccountAuth(require("../wendy-realestate-3f1741a1359f.json")).catch(error => console.log(error));
+        await doc.useServiceAccountAuth(require("../wendy-realestate.json")).catch(error => console.log(error));
         await doc.loadInfo().catch(error => console.log(error));
         const sheet = doc.sheetsByIndex[sheetIndex];
         await sheet.loadCells(cellRange).catch(error => console.log(error));
 
-        if(handleSheetData){
+        if (handleSheetData) {
             await handleSheetData(sheet, componentIsMounted);
         }
 
