@@ -1,4 +1,5 @@
 TODO: Ensure all validation is functioning correctly
+TODO: Update .env to include wendy-realestate.json credentials path
 TODO: Build pdf page with download and submit option
 TODO: Change Tab display Icon and Name
 TODO: Server and Database
