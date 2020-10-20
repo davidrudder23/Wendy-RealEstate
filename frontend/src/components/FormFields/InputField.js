@@ -5,6 +5,7 @@ import useCheckFieldValue from "../../hooks/useCheckFieldValue";
 const InputField = React.memo(({ name, label, className, style, required, register, getValues, errors, value, onKeyDown, ...props }) => {
     const classVal = required ? `${className} required-field` : className;
     const { isEmpty, isFieldEmpty, setIsEmpty } = useCheckFieldValue(name, getValues);
+    const [text, setText] = React.useState(initState)
 
     const handleOnKeyPress = e => {
         setIsEmpty(true)
