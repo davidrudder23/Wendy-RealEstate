@@ -166,6 +166,14 @@ const Attorney = () => {
                     />
                     <InputField
                         value={values.FirmName}
+                        onChange={(e) => {
+                            e.persist();
+                            setValues(state => {
+                            return {
+                                ...state,
+                                FirmName: e?.target?.value
+                            }
+                        })}}
                         getValues={getValues}
                         name={`${represents}.firmName`}
                         label="Attorney Firm Name"
@@ -196,6 +204,14 @@ const Attorney = () => {
                     />
                     <InputField
                         value={values.EmailVerification}
+                        onChange={(e) => {
+                            e.persist();
+                            setValues(state => {
+                            return {
+                                ...state,
+                                EmailVerification: e?.target?.value
+                            }
+                        })}}
                         getValues={getValues}
                         name={`${represents}.emailAddressVerification`}
                         label="Email Verification"
