@@ -11,7 +11,7 @@ import Broker from "./Broker";
 
 // In my notes ListingBroker === ListingBroker and ListingAgent pages
 const ListingBroker = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation);
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state, setValue } = useCustomFormHook(ListingBrokerValidation);
 
     const onSubmit = data => {
         action(data);
@@ -52,6 +52,7 @@ const ListingBroker = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <Broker
+                    setValue={setValue}
                     represents={AGENT_TYPES.SELLERS}
                     getValues={getValues}
                     register={register}

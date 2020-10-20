@@ -10,7 +10,7 @@ const useCustomFormHook =  (validationRules ) => {
     const { state, action } = useStateMachine(updateAction);
     const agentType = state.details.agentType ? state.details.agentType : null
     const { push } = useHistory();
-    const { register, handleSubmit, getValues, errors, control, watch } = useForm({
+    const { register, handleSubmit, getValues, errors, control, watch, setValue } = useForm({
         defaultValues: state.details,
         mode: 'onChange',
         reValidateMode: 'onChange',
@@ -21,10 +21,10 @@ const useCustomFormHook =  (validationRules ) => {
         return () => {
             
         }
-
     }, [])
     
     return {
+        setValue,
         register,
         control,
         handleSubmit,

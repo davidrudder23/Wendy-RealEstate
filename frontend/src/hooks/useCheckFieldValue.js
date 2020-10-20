@@ -2,7 +2,6 @@ import React from "react";
 
 const useCheckFieldValue = (name, getValues) => {
     
-    const [text, setText] = React.useState("");
     const [isEmpty, setIsEmpty] = React.useState(false);
     
     const isFieldEmpty = (value) => {
@@ -15,16 +14,15 @@ const useCheckFieldValue = (name, getValues) => {
 
     React.useEffect(() => {
         let componentIsMounted = true;
+        
         if(componentIsMounted && getValues && getValues(`${name}`)) {
             setIsEmpty(true);
-            setText(state => getValues(`${name}`));
         }
 
         return () => (componentIsMounted = false);
     }, [name, getValues]);
 
     return {
-        text,
         isFieldEmpty,
         setIsEmpty,
         isEmpty

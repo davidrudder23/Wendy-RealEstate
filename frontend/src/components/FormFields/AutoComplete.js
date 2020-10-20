@@ -19,7 +19,7 @@ const AutoComplete = ({
   handleonkeypress,
 
   /** Can be used when you want to disable the field during loading or other reasons */
-  status = true,
+  status,
 
   /** Allows for onChange effect with params of (event) */
   onChange,
@@ -28,8 +28,6 @@ const AutoComplete = ({
   onSelect,
   /** If you do not wish to pass a sorting method you can use the default one provided in onChange */
   useDefaultFilter = true,
-  /* If the array that was passed is a tuple you can indicate which column in the tuple you which to search and sort with */
-  setTupleIndex = 0,
   value,
   getValues,
   name,
@@ -46,12 +44,12 @@ const AutoComplete = ({
         // Whether or no the suggestion list is shown
         showSuggestions: false,
         // What the user has entered
-        userInput: value? value :"",
+        userInput: value ? value : "",
     });
-
+    
     React.useEffect(() => {
       setSuggestionState(state => {
-        return{
+        return {
           ...state,
           userInput: value
         }
@@ -77,10 +75,16 @@ const AutoComplete = ({
         showSuggestions: false,
       }});
     }
-
+    
+    
     const handleOnChange = e => {
       e.stopPropagation();
-      const userInput = e.currentTarget.value;
+      const userInput = e.target.value;
+      
+      if(onChange){
+        onChange(e);
+      }
+      e.persist();
 
       // Filter our suggestions that don't contain the user's input
       let filteredSuggestions;     
@@ -100,11 +104,6 @@ const AutoComplete = ({
         showSuggestions: true,
         userInput: userInput,
       });
-      
-      if(onChange){
-        onChange(e);
-      }
-      e.persist();
       };
 
     const handleSelect = (e) => {
@@ -227,7 +226,7 @@ const AutoComplete = ({
     return (
         <S.AutoCompleteWrapper ref={ref}>
           <InputField
-            value={suggestionState.userInput || value}
+            value={suggestionState.userInput}
             onChange={handleOnChange}
             onKeyDown={handleOnKeyDown}
             onFocus={handleOnFocus}

@@ -20,7 +20,7 @@ const AgentType = () => {
     }
 
     const handleTestingButton = () => {
-        push(handleDeploymentPath("/Testing"))
+        push(handleDeploymentPath("/Testing"));
     }
 
     return (

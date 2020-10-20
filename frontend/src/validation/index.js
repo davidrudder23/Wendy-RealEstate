@@ -16,11 +16,12 @@ export const AgentTypeValidation = (agentType) => yup.object().shape({
     agentType: yup.string().required(REQUIRED),
 });
 
-export const BuyerFormOneValidation = (agentType) => yup.object().shape({
+export const PropertyValidation = (agentType) => yup.object().shape({
     property: yup.object().shape({
-        address: yup.string().required(REQUIRED),
-        mlsNumber: yup.string().test('len', 'Must be exactly 7 digits', val => val.length === 7),
+        mapReferences: (agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH) ?  yup.string().required(REQUIRED) : yup.string().notRequired(),
         deedReference: yup.string().required(REQUIRED).test('len', 'Must be in format XXXX-XXXXXXX', val => val.length === 11).required(REQUIRED),
+        mlsNumber: yup.string().test('len', 'Must be exactly 7 digits', val => val.length === 7).required(REQUIRED),
+        address: yup.string().required(REQUIRED),
         propertyType: yup.string().required(REQUIRED).oneOf([...Object.values(PROPERTY_TYPES)], "Select a valid Property type."),
         condoManagementCompany: yup.string()
         .when(
@@ -28,14 +29,16 @@ export const BuyerFormOneValidation = (agentType) => yup.object().shape({
         { is: val => val === PROPERTY_TYPES.CONDO,
             then: yup.string().required(REQUIRED)
         }),
+        vacentOrOccupied: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
         dateHouseBuilt: yup.string().required(REQUIRED),
         titleOrTownSewer: yup.string().required(REQUIRED),
         publicOrTownWater: yup.string().required(REQUIRED),
         inspectionDeadline: yup.string().required(REQUIRED),
         buyerhasSubmittedAdditionalOffer: agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
         loxBoxCode: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
-        vacentOrOccupied: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
 })});
+
+export const MortgageValidation = (agentType) => {}
 
 export const AttorneyValidation = (agentType) => yup.object().shape({
     firstName: yup.string().required(REQUIRED),

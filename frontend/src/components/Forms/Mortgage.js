@@ -1,5 +1,5 @@
 import React from 'react'
-import { BuyerFormOneValidation } from "../../validation";
+import { MortgageValidation } from "../../validation";
 import * as S from "../FormFields/FormStyled";
 import DropDownList from "../FormFields/DropDownList";
 import { MORTGAGE_TYPES } from "../../shared";
@@ -13,7 +13,7 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 
 const Mortgage = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(BuyerFormOneValidation);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(MortgageValidation);
 
     const onSubmit = data => {
         action(data);

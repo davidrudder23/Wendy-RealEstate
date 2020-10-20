@@ -7,14 +7,13 @@ import Slider from "../FormFields/Slider";
 import PropertyInfo from "../FormFields/PropertyInfo";
 import CustomDatePicker from '../FormFields/DatePicker';
 import RadioSelector from "../FormFields/RadioSelector";
-import { BuyerFormOneValidation } from "../../validation";
+import { PropertyValidation } from "../../validation";
 import { PROPERTY_TYPES, AGENT_TYPES, handleDeploymentPath } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 
 const Property = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(BuyerFormOneValidation);
-
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(PropertyValidation);
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
     const [inspectionWaved, setInspectionWaved] = React.useState(false);
@@ -86,7 +85,7 @@ const Property = () => {
                         dateFormat="yyyy"
                     />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors["property"]?.titleOrTownSewer} >
+                <S.FieldWrapper error={errors["property"]?.titleOrTownSewer}>
                     <S.FieldTitle>Is there a Title V or Town Sewer</S.FieldTitle>
                     <RadioSelector
                         register={register}
@@ -94,7 +93,7 @@ const Property = () => {
                         array={["Title V", "Public Sewer"]}
                     />
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors["property"]?.publicOrTownWater} >
+                <S.FieldWrapper error={errors["property"]?.publicOrTownWater}>
                     <S.FieldTitle>Public or Town Water</S.FieldTitle>
                     <RadioSelector
                         register={register}

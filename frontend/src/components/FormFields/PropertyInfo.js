@@ -4,8 +4,12 @@ import InputField from "./InputField";
 import { AGENT_TYPES } from "../../shared";
 import Address from "../FormFields/Address";
 
-const PropertyInfo = ({ register, errors, getValues, agentType }) => {
-
+const PropertyInfo = ({ 
+    register, 
+    errors, 
+    getValues, 
+    agentType, 
+    }) => {
     const propertyInformation =
     errors["property"]?.mlsNumber ||
     errors["property"]?.deedReference ||
@@ -16,7 +20,7 @@ const PropertyInfo = ({ register, errors, getValues, agentType }) => {
         if(agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH){
             return (
                 <S.MultiContainer>
-                     <InputField
+                    <InputField
                     getValues={getValues}
                     name="property.mapReferences"
                     label="Map References (Page)"
@@ -55,9 +59,9 @@ const PropertyInfo = ({ register, errors, getValues, agentType }) => {
                     getValues={getValues}
                     name="property.mlsNumber"
                     label="MLS Number" 
-                    errors={errors["property"]?.mlsNumber} 
+                    errors={errors["property"]?.mlsNumber}
                     register={register} 
-                    required={true}/>
+                    required={true} />
                 <S.AddressWrapper>
                     <Address
                     getValues={getValues}
