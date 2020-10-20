@@ -106,6 +106,14 @@ const Lenders = () => {
                         />
                         <InputField
                             value={values.Organization}
+                            onChange={(e) => {
+                                e.persist();
+                                setValues(state => {
+                                return {
+                                    ...state,
+                                    Organization: e?.target?.value
+                                }
+                            })}}
                             getValues={getValues}
                             name="lender.Organization"
                             label="Organization Name"
@@ -136,6 +144,14 @@ const Lenders = () => {
                         />
                         <InputField
                             value={values.EmailVerification}
+                            onChange={(e) => {
+                                e.persist();
+                                setValues(state => {
+                                return {
+                                    ...state,
+                                    EmailVerification: e?.target?.value
+                                }
+                            })}}
                             getValues={getValues}
                             name="lender.emailVerification"
                             label="Email Verification"
