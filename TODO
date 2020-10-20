@@ -1,7 +1,3 @@
-TODO: Update Address Fields to fix filterValues error
-TODO: Google sheet lookup autocomplete
-TODO: Reformat Broker google sheet
-TODO: Finish additional information page
 TODO: Ensure all validation is functioning correctly
 TODO: Build pdf page with download and submit option
 TODO: Change Tab display Icon and Name
@@ -14,3 +10,4 @@ TODO: Add improved validation for deed reference number
 TODO: Validate deadlines against each other
 TODO: All pages should redirect if they were not accessed correctly. E.g., attempting to skip the first page or not being redirected there by the correct page
 TODO: Add PDF for final page ( See email for PDF format ) Verify Button
+TODO: Display Fields that are loading google sheet information or find way around loading issue?

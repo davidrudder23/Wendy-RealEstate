@@ -72,7 +72,7 @@ const Agent = () => {
                 Email: arrayData.Emails[index] ? arrayData.Emails[index] : "",
                 EmailVerification: arrayData.EmailVerifications[index] ? arrayData.EmailVerifications[index] : "",
                 Name: arrayData.Names[index] ? arrayData.Names[index] : "",
-                PhoneNumber: arrayData.PhoneNumbers[index] ? arrayData.PhoneNumbers[index] : "",
+                PhoneNumber: arrayData.PhoneNumbers[index] ? arrayData.PhoneNumbers[index] : values.PhoneNumber,
                 Organization: arrayData.Organizations[index] ? arrayData.Organizations[index] : "",
                 MLSNumber: arrayData.MLSNumbers[index] ? arrayData.MLSNumbers[index] : "",
             }
@@ -87,18 +87,19 @@ const Agent = () => {
             push(handleDeploymentPath(`/Attorney/${AGENT_TYPES.BUYERS}`));
         }
     }
-
+    
     const loadAgentPhoneNumber = () => {
         return (
             <InputField
                 value={values.PhoneNumber}
-                onChange={(e) => setValues(state => {
+                onChange={(e) => {
                     e.persist();
+                    setValues(state => {
                     return {
                         ...state,
-                        PhoneNumber: e.currentTarget?.value ? e.currentTarget?.value : "",
+                        PhoneNumber: e?.target?.value
                     }
-                })}
+                })}}
                 getValues={getValues}
                 name={`agent.${represents}.phoneNumber`}
                 label="Phone Number"
