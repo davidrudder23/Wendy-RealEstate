@@ -63,7 +63,7 @@ const Mortgage = () => {
                         />
                     </div>
                 </S.FieldWrapper>
-                <S.FieldWrapper error={errors['mortgage']?.firstDeposit || errors['mortgage']?.secondDeposit}>
+                <S.FieldWrapper error={errors['mortgage']?.firstDeposit}>
                     <S.FieldTitle>Deposit Information</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField

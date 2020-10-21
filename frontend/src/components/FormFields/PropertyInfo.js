@@ -6,7 +6,7 @@ import Address from "../FormFields/Address";
 
 const PropertyInfo = ({ 
     register, 
-    errors, 
+    errors,
     getValues, 
     agentType, 
     }) => {
@@ -62,15 +62,15 @@ const PropertyInfo = ({
                     errors={errors["property"]?.mlsNumber}
                     register={register} 
                     required={true} />
-                <S.AddressWrapper>
+                     <S.AddressWrapper>
                     <Address
                     getValues={getValues}
                     name="property.address"
                     label="Address" 
-                    errors={errors["property"]?.address} 
+                    errors={errors["property"]?.address}
                     register={register} 
                     required={true} />
-                </S.AddressWrapper>
+                    </S.AddressWrapper>
             </S.MultiContainer>
             {handleConditionalFields()}
         </S.FieldWrapper>

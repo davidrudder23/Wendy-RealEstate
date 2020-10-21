@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { AGENT_TYPES, PROPERTY_TYPES } from "../shared";
+import { AGENT_TYPES, MORTGAGE_TYPES, PROPERTY_TYPES } from "../shared";
 
 // This is used in lazy validation rules found here: https://github.com/jquense/yup/issues/130#issuecomment-578392176
 const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...newMap, [key]: rule}), {});
@@ -8,6 +8,7 @@ const mapRules = (map, rule) => Object.keys(map).reduce((newMap, key) => ({...ne
 // Regular Express to Verify phone numbers taken from: https://www.sitepoint.com/community/t/phone-number-regular-expression-validation/2204/4
 const PHONE_REG_EXP = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const REQUIRED = "Required";
+const NOT_REQUIRED = "Not Required"
 const VALID_EMAIL = "Must be a Valid Email!";
 const NUMBER_ERROR_MESSAGE = "Can only contain numbers";
 
@@ -38,7 +39,29 @@ export const PropertyValidation = (agentType) => yup.object().shape({
         loxBoxCode: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
 })});
 
-export const MortgageValidation = (agentType) => {}
+export const MortgageValidation = (agentType) => yup.object().shape({
+    mortgage: yup.object().shape({
+        typeOfMortgage: yup.string().required(REQUIRED),
+        purchasePrice: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
+        firstDeposit: yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE),
+        secondDeposit: yup.string().notRequired(NOT_REQUIRED),
+        areConcessions: yup.string().notRequired(NOT_REQUIRED),
+        concessions: yup.string()
+        .when(
+            "areConcessions",
+            { is: val => val === true,
+              then: yup.string().required(REQUIRED)
+        }),
+        mortgageCommitmentDeadline: yup.string().when(
+            "typeOfMortgage",
+            {
+                is: val => val !== MORTGAGE_TYPES.CASH,
+                then: yup.string().required(REQUIRED)
+            }
+        ),
+        houseClosingDate: yup.string().required(REQUIRED),
+    })
+})
 
 export const AttorneyValidation = (agentType) => yup.object().shape({
     firstName: yup.string().required(REQUIRED),

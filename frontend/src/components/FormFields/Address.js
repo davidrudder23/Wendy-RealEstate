@@ -46,6 +46,7 @@ const Address = ({ disable=false, text, name, ...props }) => {
             handleonblur={handleOnBlur}
             suggestions={getDescriptions}
             status={status}
+            useDefaultFilter={false}
             name={name}
             {...props}
           />

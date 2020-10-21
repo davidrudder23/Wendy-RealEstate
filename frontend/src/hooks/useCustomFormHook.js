@@ -1,4 +1,3 @@
-import React from "react"
 import { useHistory } from "react-router-dom";
 import { useStateMachine } from 'little-state-machine';
 import updateAction from '../state/updateState';
@@ -12,16 +11,10 @@ const useCustomFormHook =  (validationRules ) => {
     const { push } = useHistory();
     const { register, handleSubmit, getValues, errors, control, watch, setValue } = useForm({
         defaultValues: state.details,
-        mode: 'onChange',
-        reValidateMode: 'onChange',
+        mode: 'onBlur',
+        reValidateMode: 'onBlur',
         resolver: validationRules && process.env.REACT_APP_ENABLE_VALIDATION === 'true' ? yupResolver(validationRules(agentType)) : null
     });
-
-    React.useEffect(() => {
-        return () => {
-            
-        }
-    }, [])
     
     return {
         setValue,
