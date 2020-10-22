@@ -15,6 +15,7 @@ import AutoComplete from "../FormFields/AutoComplete";
 const Agent = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(AgentAndBrokerValidation);
     const { represents } = useParams();
+
     const handleSheetData = (agentSheet, componentIsMounted) => {
         if(componentIsMounted){
         const emails = [];
@@ -145,6 +146,48 @@ const Agent = () => {
                     <S.FieldTitle>{represents}'s Agent</S.FieldTitle>
                     <S.MultiContainer>
                         <AutoComplete
+                            suggestions={arrayData.Names}
+                            value={values.Name}
+                            onChange={(e) => setValues(state => {
+                                e.persist();
+                                return {
+                                    ...state,
+                                    Name: e.currentTarget?.value ? e.currentTarget?.value : "",
+                                }
+                            })}
+                            getValues={getValues}
+                            name={`agent.${represents}.name`}
+                            label="Name"
+                            errors={errors?.agent?.[represents]?.name}
+                            required={true}
+                            register={register}
+                            onSelect={handleOnSelect}
+                            status={ready}
+                        />
+                        <S.AddressWrapper>
+                        <AutoComplete
+                            suggestions={arrayData.MLSNumbers}
+                            value={values.MLSNumber}
+                            onChange={(e) => setValues(state => {
+                                e.persist();
+                                return {
+                                    ...state,
+                                    MLSNumber: e.currentTarget?.value ? e.currentTarget?.value : "",
+                                }
+                            })}
+                            getValues={getValues}
+                            name={`agent.${represents}.MLSNumber`}
+                            label="MLS Number"
+                            errors={errors?.agent?.[represents]?.MLSNumber}
+                            required={true}
+                            register={register}
+                            onSelect={handleOnSelect}
+                            status={ready}
+                        />
+                        </S.AddressWrapper>
+                    </S.MultiContainer>
+                    <S.MultiContainer>
+                        <AutoComplete
                             value={values.Email}
                             suggestions={arrayData.Emails}
                             onChange={(e) => setValues(state => {
@@ -184,48 +227,7 @@ const Agent = () => {
                         />
                         </S.AddressWrapper>
                     </S.MultiContainer>
-                    <S.MultiContainer>
-                        <AutoComplete
-                            suggestions={arrayData.Names}
-                            value={values.Name}
-                            onChange={(e) => setValues(state => {
-                                e.persist();
-                                return {
-                                    ...state,
-                                    Name: e.currentTarget?.value ? e.currentTarget?.value : "",
-                                }
-                            })}
-                            getValues={getValues}
-                            name={`agent.${represents}.Name`}
-                            label="Name"
-                            errors={errors?.agent?.[represents]?.Name}
-                            required={true}
-                            register={register}
-                            onSelect={handleOnSelect}
-                            status={ready}
-                        />
-                        <S.AddressWrapper>
-                        <AutoComplete
-                            suggestions={arrayData.MLSNumbers}
-                            value={values.MLSNumber}
-                            onChange={(e) => setValues(state => {
-                                e.persist();
-                                return {
-                                    ...state,
-                                    MLSNumber: e.currentTarget?.value ? e.currentTarget?.value : "",
-                                }
-                            })}
-                            getValues={getValues}
-                            name={`agent.${represents}.MLSNumber`}
-                            label="MLS Number"
-                            errors={errors?.agent?.[represents]?.MLSNumber}
-                            required={true}
-                            register={register}
-                            onSelect={handleOnSelect}
-                            status={ready}
-                        />
-                        </S.AddressWrapper>
-                    </S.MultiContainer>
+                    
                     {loadFieldsBasedOnAgent()}
                 </S.FieldWrapper>
                 <Broker

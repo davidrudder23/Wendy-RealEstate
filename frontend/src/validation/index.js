@@ -100,7 +100,7 @@ export const FSBOValidation = (agentType) => yup.object().shape({
 export const BrokerValidation = (agentType) => yup.object().shape({
     broker: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
         address: yup.string().required(REQUIRED),
-        companyName: yup.string().required(REQUIRED),
+        company: yup.string().required(REQUIRED),
     }))))
 });
 
@@ -167,10 +167,10 @@ export const ClientValidation = (agentType) => yup.object().shape({
 export const AgentAndBrokerValidation = (agentType) =>  yup.object().shape({
     broker: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
         address: yup.string().required(REQUIRED),
-        companyName: yup.string().required(REQUIRED),
+        company: yup.string().required(REQUIRED),
     })))),
     agent: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
-        firstName: yup.string().required(REQUIRED),
+        name: yup.string().required(REQUIRED),
         MLSNumber: yup.string().required(REQUIRED),
         email: yup.string().email(VALID_EMAIL).required(REQUIRED),
         emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"), 
