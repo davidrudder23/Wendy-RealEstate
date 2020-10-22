@@ -12,7 +12,6 @@ import { handleDeploymentPath } from "../../shared";
 import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
 import AutoComplete from "../FormFields/AutoComplete";
 
-
 // TODO: If introduction give list of attorneys. ( cleint choose and send email to this attorney)
 // I think a drop down list would be the best choice
 const Attorney = () => {
@@ -92,7 +91,6 @@ const Attorney = () => {
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.SELLERS) {
-
             if (represents === AGENT_TYPES.SELLERS) {
                 push(handleDeploymentPath(`/Client/${AGENT_TYPES.BUYERS}`));
 
@@ -126,7 +124,7 @@ const Attorney = () => {
                     <S.FieldWrapper>
                         <S.FieldTitle>
                             Would you like a recommendation and introduction?
-                            <Slider 
+                            <Slider
                                 isChecked={wantsRecommendation}
                                 setIsChecked={setWantsRecommendation}
                                 name={`attorney.${represents}.wantsRecommendationAndIntroduction`}
@@ -158,31 +156,34 @@ const Attorney = () => {
                             }
                         })}
                         getValues={getValues}
-                        name={`attorney.${represents}.Name`}
+                        name={`attorney.${represents}.name`}
                         label="Full Name"
-                        errors={errors?.attorney?.[represents]?.Name}
+                        errors={errors?.attorney?.[represents]?.name}
                         required={true}
                         register={register}
                         onSelect={handleOnSelect}
                         status={ready}
                     />
-                    <InputField
-                        value={values.FirmName}
-                        onChange={(e) => {
-                            e.persist();
-                            setValues(state => {
-                            return {
-                                ...state,
-                                FirmName: e?.target?.value
-                            }
-                        })}}
-                        getValues={getValues}
-                        name={`attorney.${represents}.firmName`}
-                        label="Attorney Firm Name"
-                        errors={errors?.attorney?.[represents]?.firmName}
-                        required={false}
-                        register={register}
-                    />
+                    <S.AddressWrapper>
+                        <AutoComplete
+                            value={values.FirmName}
+                            onChange={(e) => {
+                                e.persist();
+                                setValues(state => {
+                                    return {
+                                        ...state,
+                                        FirmName: e.currentTarget?.value ? e.currentTarget?.value : "",
+                                    }
+                                })
+                            }}
+                            getValues={getValues}
+                            name={`attorney.${represents}.firmName`}
+                            label="Attorney Firm Name"
+                            errors={errors?.attorney?.[represents]?.firmName}
+                            required={false}
+                            register={register}
+                        />
+                    </S.AddressWrapper>
                 </S.MultiContainer>
                 <S.MultiContainer>
                     <AutoComplete
@@ -196,31 +197,33 @@ const Attorney = () => {
                             }
                         })}
                         getValues={getValues}
-                        name={`attorney.${represents}.emailAddress`}
+                        name={`attorney.${represents}.email`}
                         label="Email"
-                        errors={errors?.attorney?.[represents]?.emailAddress}
+                        errors={errors?.attorney?.[represents]?.email}
                         required={true}
                         register={register}
                         onSelect={handleOnSelect}
                         status={ready}
                     />
-                    <InputField
-                        value={values.EmailVerification}
-                        onChange={(e) => {
-                            e.persist();
-                            setValues(state => {
-                            return {
-                                ...state,
-                                EmailVerification: e?.target?.value
-                            }
-                        })}}
-                        getValues={getValues}
-                        name={`attorney.${represents}.emailAddressVerification`}
-                        label="Email Verification"
-                        errors={errors?.attorney?.[represents]?.emailAddressVerification}
-                        required={true}
-                        register={register}
-                    />
+                    <S.AddressWrapper>
+                        <AutoComplete
+                            value={values.EmailVerification}
+                            onChange={(e) => {
+                                e.persist();
+                                setValues(state => {
+                                return {
+                                    ...state,
+                                    EmailVerification: e.currentTarget?.value ? e.currentTarget?.value : "",
+                                }
+                            })}}
+                            getValues={getValues}
+                            name={`attorney.${represents}.emailVerification`}
+                            label="Email Verification"
+                            errors={errors?.attorney?.[represents]?.emailVerification}
+                            required={true}
+                            register={register}
+                        />
+                    </S.AddressWrapper>
                 </S.MultiContainer>
                 <div>
                     <InputField

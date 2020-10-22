@@ -66,22 +66,23 @@ export const MortgageValidation = (agentType) => yup.object().shape({
 export const AttorneyValidation = (agentType) => yup.object().shape({
     firstName: yup.string().required(REQUIRED),
     lastName: yup.string().required(REQUIRED),
-    emailAddress: yup.string().required(REQUIRED),
-    emailAddressVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('emailAddress'), null], "Email Addresses Must Match"),
+    email: yup.string().required(REQUIRED),
+    emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
     firmName: yup.string().notRequired(),
     phoneNumber: yup.string().notRequired().matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
 });
 
-export const TestAttorneyValidation = (agentType) => yup.lazy(obj => 
-    yup.object(mapRules(obj, yup.object({
-        firstName: yup.string().required(REQUIRED),
-        lastName: yup.string().required(REQUIRED),
-        emailAddress: yup.string().email(VALID_EMAIL).required(REQUIRED),
-        emailAddressVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('emailAddress'), null], "Email Addresses Must Match"),
-        firmName: yup.string().required(REQUIRED),
-        phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
-    })))
-)
+export const TestAttorneyValidation = (agentType) => yup.object().shape({
+    attorney: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
+        name: yup.string().required(REQUIRED),
+        email: yup.string().required(REQUIRED),
+        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
+        firmName: yup.string().notRequired(NOT_REQUIRED),
+        phoneNumber: yup.string().notRequired(NOT_REQUIRED),
+        hasAttorney: yup.string().notRequired(NOT_REQUIRED),
+        wantsRecommendationAndIntroduction: yup.string().notRequired(NOT_REQUIRED),
+    }))))
+})
 
 export const FSBOValidation = (agentType) => yup.object().shape({
     forSaleByOwner: yup.string().required(REQUIRED),

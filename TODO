@@ -1,4 +1,6 @@
 TODO: Ensure all validation is functioning correctly
+TODO: Create a controlled Inputfield that replicates AutoComplete without the additional functionality.
+TODO: Migrate any autocomplete field that doesnt have suggestions to new Controlled Inputfield
 TODO: Update .env to include wendy-realestate.json credentials path
 TODO: Build pdf page with download and submit option
 TODO: Change Tab display Icon and Name

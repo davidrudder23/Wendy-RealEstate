@@ -92,7 +92,7 @@ const Agent = () => {
     
     const loadAgentPhoneNumber = () => {
         return (
-            <InputField
+            <AutoComplete
                 value={values.PhoneNumber}
                 onChange={(e) => {
                     e.persist();
@@ -166,7 +166,6 @@ const Agent = () => {
                         <S.AddressWrapper>
                         <AutoComplete
                             value={values.EmailVerification}
-                            suggestions={arrayData.EmailVerifications}
                             onChange={(e) => setValues(state => {
                                 e.persist();
                                 return {
