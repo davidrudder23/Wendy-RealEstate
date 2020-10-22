@@ -9,10 +9,9 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 import Broker from "./Broker";
 
-// In my notes ListingBroker === ListingBroker and ListingAgent pages
 const ListingBroker = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType, state, setValue } = useCustomFormHook(ListingBrokerValidation);
-
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation);
+    
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
@@ -31,33 +30,39 @@ const ListingBroker = () => {
         }
     }
 
-    // This was done because the field will be wrapped different html elements depending on agentType
+    let firstNameError = errors?.listing?.agent?.firstName;
+    let lastNameError = errors?.listing?.agent?.lastName;
+    let emailError = errors?.listing?.agent?.email;
+    let emailVerificationError = errors?.listing?.agent?.emailVerification;
+    let mlsIDError = errors?.listing?.agent?.mlsID;
+    let phoneNumberError = errors?.listing?.agent?.phoneNumber;
+    let generalError = firstNameError || lastNameError || emailError || emailVerificationError || mlsIDError || phoneNumberError;
+
     const phoneNumberField = () => {
         return (
             <InputField
                 getValues={getValues}
                 name="listing.agent.phoneNumber"
                 label="Phone Number"
-                errors={errors?.listing?.Agent?.phoneNumber}
+                errors={phoneNumberError}
                 register={register}
                 required={true}
             />
         )
     }
-
-
-
+    
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <Broker
+                    // TODO: Does the listing broker always represent the seller?
                     represents={AGENT_TYPES.SELLERS}
                     getValues={getValues}
                     register={register}
                     errors={errors}
                 />
-                <S.FieldWrapper>
+                <S.FieldWrapper error={generalError}>
                     <S.FieldTitle>Listing Agent</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
@@ -65,7 +70,7 @@ const ListingBroker = () => {
                             getValues={getValues}
                             name="listing.agent.firstName"
                             label="First Name"
-                            errors={errors?.listing?.agent?.firstName}
+                            errors={firstNameError}
                             register={register}
                         />
                         <InputField
@@ -73,7 +78,7 @@ const ListingBroker = () => {
                             getValues={getValues}
                             name="listing.agent.lastName"
                             label="Last Name"
-                            errors={errors?.listing?.agent?.lastName}
+                            errors={lastNameError}
                             register={register}
                         />
                     </S.MultiContainer>
@@ -83,7 +88,7 @@ const ListingBroker = () => {
                             getValues={getValues}
                             name="listing.agent.email"
                             label="Email"
-                            errors={errors?.listing?.Agent?.email}
+                            errors={emailError}
                             register={register}
                         />
                         <InputField
@@ -91,11 +96,11 @@ const ListingBroker = () => {
                             getValues={getValues}
                             name="listing.agent.emailVerification"
                             label="Email Verification"
-                            errors={errors?.listing?.agent?.emailVerification}
+                            errors={emailVerificationError}
                             register={register}
                         />
                     </S.MultiContainer>
-                    {state.details.agentType === AGENT_TYPES.SELLERS || state.details.agentType === AGENT_TYPES.BOTH ?
+                    {agentType === AGENT_TYPES.SELLERS || state.details.agentType === AGENT_TYPES.BOTH ?
                         <S.MultiContainer>
                             {phoneNumberField()}
                             <InputField
@@ -103,7 +108,7 @@ const ListingBroker = () => {
                                 getValues={getValues}
                                 name="listing.agent.mlsID"
                                 label="MLS ID"
-                                errors={errors?.listing?.agent?.mlsID}
+                                errors={mlsIDError}
                                 register={register}
                             />
                         </S.MultiContainer>

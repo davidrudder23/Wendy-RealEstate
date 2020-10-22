@@ -48,13 +48,17 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
         })
     }
 
+    let companyError = errors?.broker?.[represents]?.company;
+    let addressError = errors?.broker?.[represents]?.address;
+    let generalError = companyError || addressError;
+
     return (
-        <S.FieldWrapper>
+        <S.FieldWrapper error={generalError}>
             <S.FieldTitle>Broker Information</S.FieldTitle>
             <S.MultiContainer>
                 <AutoComplete
-                    name={`${represents}.broker.company`}
-                    errors={errors[`${represents}`]?.broker?.company}
+                    name={`broker.${represents}.company`}
+                    errors={companyError}
                     register={register}
                     getValues={getValues}
                     label="Broker Name"
@@ -74,8 +78,8 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
                 />
                 <S.AddressWrapper>
                 <Address
-                    name={`${represents}.broker.address`}
-                    errors={errors[`${represents}`]?.broker?.address}
+                    name={`broker.${represents}.address`}
+                    errors={addressError}
                     register={register}
                     getValues={getValues}
                     label="Address"

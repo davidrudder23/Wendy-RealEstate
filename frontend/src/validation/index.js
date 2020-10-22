@@ -96,19 +96,28 @@ export const FSBOValidation = (agentType) => yup.object().shape({
     attorneyPhoneNumber: yup.string().notRequired(),
 });
 
+export const BrokerValidation = (agentType) => yup.object().shape({
+    broker: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
+        address: yup.string().required(REQUIRED),
+        companyName: yup.string().required(REQUIRED),
+    }))))
+});
+
 export const ListingBrokerValidation = (agentType) => yup.object().shape({
-    listingBroker: yup.object().shape({
+    broker: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
+        address: yup.string().required(REQUIRED),
         company: yup.string().required(REQUIRED),
-        address: yup.string().notRequired(),
-    }),
-    listingAgent: yup.object().shape({
-        firstName: yup.string().required(REQUIRED),
-        lastName: yup.string().required(REQUIRED),
-        email: yup.string().email(VALID_EMAIL).required(REQUIRED),
-        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
-        phoneNumber: yup.string().required(REQUIRED),
-        mlsID: yup.string().required(REQUIRED)
-    }),
+    })))),
+    listing: yup.object().shape({
+        agent: yup.object().shape({
+            firstName: yup.string().required(REQUIRED),
+            lastName: yup.string().required(REQUIRED),
+            email: yup.string().email(VALID_EMAIL).required(REQUIRED),
+            emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
+            phoneNumber: yup.string().required(REQUIRED),
+            mlsID: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.mixed().notRequired(NOT_REQUIRED)
+        }),
+    })
 });
 
 export const LendersValidation = (agentType) => yup.object().shape({
