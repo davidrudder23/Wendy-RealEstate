@@ -9,9 +9,9 @@ import { ClientValidation } from "../../validation";
 import { AGENT_TYPES, handleDeploymentPath } from "../../shared";
 
 const Client = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(ClientValidation);
+    const { register, handleSubmit, errors, action, state, push, getValues, agentType } = useCustomFormHook(ClientValidation);
     const { clientType } = useParams();
-
+    
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
@@ -31,7 +31,7 @@ const Client = () => {
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
-                <GeneralClientInformation title={clientType} getValues={getValues} errors={errors} register={register} />
+                <GeneralClientInformation title={clientType} getValues={getValues} errors={errors} register={register} action={action} state={state} />
                 <br />
                 <Back />
                 <Next />

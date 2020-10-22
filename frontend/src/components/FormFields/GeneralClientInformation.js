@@ -5,15 +5,14 @@ import { ordinal_suffix_of } from "../../shared";
 import Address from "../FormFields/Address";
 
 const MAX_BUYERS = 5;
-const GeneralClientInformation = ({ errors, register, getValues, title }) => {
-    const [count, setCount] = React.useState(1);
+const GeneralClientInformation = ({ errors, register, getValues, title, state }) => {
+    const [count, setCount] = React.useState(state?.details?.client?.[title].length ? state?.details?.client?.[title].length : 1);
 
     React.useEffect(() => {
-        let newCount;
-        if (getValues && (newCount = parseInt(getValues(`client.${title}.count`))) !== undefined) {
-            setCount(newCount);
+        let array;
+        if(getValues && (array = getValues(`client.${title}`)) !== undefined){
         }
-    }, [getValues, title]);
+    }, [getValues, title])
 
     const increaseCount = (event) => {
         event.preventDefault();
@@ -35,12 +34,12 @@ const GeneralClientInformation = ({ errors, register, getValues, title }) => {
             if (i === MAX_BUYERS) break;
 
             let error =
-                errors[title]?.[i]?.firstName ||
-                errors[title]?.[i]?.lastName ||
-                errors[title]?.[i]?.email ||
-                errors[title]?.[i]?.emailVerification ||
-                errors[title]?.[i]?.phoneNumber ||
-                errors[title]?.[i]?.fullAddress;
+                errors?.client?.[title]?.[i]?.firstName ||
+                errors?.client?.[title]?.[i]?.lastName ||
+                errors?.client?.[title]?.[i]?.email ||
+                errors?.client?.[title]?.[i]?.emailVerification ||
+                errors?.client?.[title]?.[i]?.phoneNumber ||
+                errors?.client?.[title]?.[i]?.fullAddress;
 
             fields.push(
                 <S.FieldWrapper key={i} error={error}>
@@ -49,7 +48,7 @@ const GeneralClientInformation = ({ errors, register, getValues, title }) => {
                         <InputField
                             name={`client.${title}.${i}.firstName`}
                             label="First Name"
-                            errors={errors[`client`]?.[title]?.[i]?.firstName}
+                            errors={errors?.client?.[title]?.[i]?.firstName}
                             register={register}
                             required={true}
                             getValues={getValues} />
@@ -104,16 +103,6 @@ const GeneralClientInformation = ({ errors, register, getValues, title }) => {
 
     return (
         <>
-            <div style={{ display: "none" }}>
-                <input
-                    value={count}
-                    onChange={(e) => {
-                        e.stopPropagation();
-                    }}
-                    name={`client.${title}.count`}
-                    ref={register}
-                />
-            </div>
             {fieldCount().map(value => value)}
             { count === MAX_BUYERS ? <S.Button>Max Buyer Count Reached</S.Button> : <S.Button onClick={increaseCount}>Add {title}</S.Button>}
             { count > 0 || MAX_BUYERS === count ? <S.Button style={{ float: "right" }} onClick={decreaseCount}>Remove {title}</S.Button> : null}
