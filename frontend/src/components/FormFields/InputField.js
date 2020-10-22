@@ -28,7 +28,7 @@ const InputField = React.memo(({ name, label, className, style, required, regist
     }
 
     return (
-        <S.InputField style={style} isEmpty={isEmpty}>
+        <S.InputField style={style} isEmpty={isEmpty || props.value}>
             <input
                 name={name}
                 ref={register}

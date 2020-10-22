@@ -52,7 +52,6 @@ const ListingBroker = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <Broker
-                    setValue={setValue}
                     represents={AGENT_TYPES.SELLERS}
                     getValues={getValues}
                     register={register}

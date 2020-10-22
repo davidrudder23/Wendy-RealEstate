@@ -130,25 +130,22 @@ export const AdditionalInformationValidation = (agentType) => yup.object().shape
     This object validation rule can be utilized to define a lazy array
 */
 export const ClientValidation = (agentType) => yup.object().shape({
-    client: yup.lazy(obj => {
-        return yup.object(mapRules(obj, yup.lazy(obj2 => {
-            return yup.object(mapRules(obj2, yup.object({
+    client: yup.lazy(obj => {     
+                    return yup.object(mapRules(obj, yup.lazy(obj2 => {
+                    if(Array.isArray(obj2)){
+                        return yup.array().of(yup.object().shape({
                         firstName: yup.string().required(REQUIRED),
                         lastName: yup.string().required(REQUIRED),
                         address: yup.string().required(REQUIRED),
                         phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
                         email: yup.string().email(VALID_EMAIL).required(REQUIRED),
                         emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"), 
-                    })
-                )) 
-            })
+                    }));
+                    }
+                    return yup.mixed().notRequired(NOT_REQUIRED).nullable();
+                }
+            )
         ))
-    }),
-    count: yup.object({
-        client: yup.lazy(obj => {
-            console.log(obj)
-            return yup.mixed().notRequired().nullable()
-        })
     })
 })
 

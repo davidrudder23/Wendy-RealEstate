@@ -6,13 +6,7 @@ import Address from "../FormFields/Address";
 
 const MAX_BUYERS = 5;
 const GeneralClientInformation = ({ errors, register, getValues, title, state }) => {
-    const [count, setCount] = React.useState(state?.details?.client?.[title].length ? state?.details?.client?.[title].length : 1);
-
-    React.useEffect(() => {
-        let array;
-        if(getValues && (array = getValues(`client.${title}`)) !== undefined){
-        }
-    }, [getValues, title])
+    const [count, setCount] = React.useState(state?.details?.client?.[title]?.length ? state?.details?.client?.[title]?.length : 1);
 
     const increaseCount = (event) => {
         event.preventDefault();
