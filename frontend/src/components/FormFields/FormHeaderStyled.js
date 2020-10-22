@@ -16,10 +16,13 @@ export const Title = styled.div`
     }
 `;
 
+export const PageTitle = styled(Title)`
+    margin-top: .5rem;
+`;
+
 export const message = styled.p`
     margin: 0;
     padding: 0;
-    /* text-align: left; */
 
     @media only screen and (max-device-width : 640px) {
         font-size: 12pt;

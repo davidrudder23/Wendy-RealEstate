@@ -36,7 +36,7 @@ const Mortgage = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader="Mortgage Information" />
                 <S.FieldWrapper error={errors['mortgage']?.typeOfMortgage}>
                     <S.FieldTitle>What Type of Mortgage</S.FieldTitle>
                     <DropDownList

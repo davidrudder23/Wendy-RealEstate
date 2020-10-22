@@ -30,7 +30,7 @@ const Client = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader={`${clientType}'s Information`}/>
                 <GeneralClientInformation title={clientType} getValues={getValues} errors={errors} register={register} action={action} state={state} />
                 <br />
                 <Back />

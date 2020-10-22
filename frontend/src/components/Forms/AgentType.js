@@ -26,7 +26,7 @@ const AgentType = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader="Agent Type" />
                 <S.FieldWrapper error={errors.agentType}>
                     <S.FieldTitle>Please Select who you will be representing.</S.FieldTitle>
                     <RadioSelector

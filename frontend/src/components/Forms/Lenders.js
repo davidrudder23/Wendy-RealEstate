@@ -84,7 +84,7 @@ const Lenders = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader={`Lender Information`} />
                 <S.FieldWrapper>
                     <S.FieldTitle>Lender Information</S.FieldTitle>
                     <S.MultiContainer>

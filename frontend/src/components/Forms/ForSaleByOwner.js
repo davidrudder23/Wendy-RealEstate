@@ -25,7 +25,7 @@ const ForSaleByOwner = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader="For Sale By Owner" />
                 <S.FieldWrapper>
                     <S.FieldTitle>For Sale Buy Owner
                         <Slider
@@ -38,7 +38,7 @@ const ForSaleByOwner = () => {
                 </S.FieldWrapper>
                 {isFSBO ?
                 <S.FieldWrapper>
-                    <S.FieldTitle>Buyer's Information</S.FieldTitle>
+                    <S.FieldTitle>Seller's Information</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
                             getValues={getValues}
@@ -77,6 +77,7 @@ const ForSaleByOwner = () => {
                     </S.MultiContainer>
                 </S.FieldWrapper>
                 : null}
+                {/* TODO: Migrate this to use Attorney.js */}
                 {isFSBO ?
                     <S.FieldWrapper>
                         <S.FieldTitle>Attorney Information (This Attorney will be holding Escrow )</S.FieldTitle>

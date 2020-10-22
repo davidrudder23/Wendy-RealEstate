@@ -78,7 +78,7 @@ const AdditionalInformation = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader="Additional Information"/>
                 <S.FieldWrapper>
                     <S.FieldTitle>Are you with the Heart of the Home Team? <Slider isChecked={withTracyGagne} setIsChecked={setWithTracyGagne} /></S.FieldTitle>
                 </S.FieldWrapper>

@@ -30,7 +30,7 @@ const Property = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader="Property Information" />
                 <PropertyInfo agentType={agentType} getValues={getValues} errors={errors} register={register} />
                 <S.FieldWrapper error={errors["property"]?.propertyType}>
                     <S.FieldTitle>Property Type</S.FieldTitle>

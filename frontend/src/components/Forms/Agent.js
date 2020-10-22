@@ -141,7 +141,7 @@ const Agent = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader />
+                <FormHeader pageHeader={`${represents}'s Broker and Agent`} />
                 <Broker
                     title={`${represents}'s`}
                     getValues={getValues}
