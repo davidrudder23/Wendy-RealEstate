@@ -56,7 +56,7 @@ const ListingBroker = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <Broker
-                    // TODO: Does the listing broker always represent the seller?
+                    title={"Listing"}
                     represents={AGENT_TYPES.SELLERS}
                     getValues={getValues}
                     register={register}

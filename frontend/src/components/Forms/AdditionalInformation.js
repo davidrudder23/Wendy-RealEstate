@@ -80,10 +80,10 @@ const AdditionalInformation = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
                 <S.FieldWrapper>
-                    <S.FieldTitle>Are you with the Tracy Gagne Team? <Slider isChecked={withTracyGagne} setIsChecked={setWithTracyGagne} /></S.FieldTitle>
+                    <S.FieldTitle>Are you with the Heart of the Home Team? <Slider isChecked={withTracyGagne} setIsChecked={setWithTracyGagne} /></S.FieldTitle>
                 </S.FieldWrapper>
                 {withTracyGagne ? <S.FieldWrapper>
-                    <S.FieldTitle>Team lead or Sphere Not split with eXp only with the Tracy Gagne Team</S.FieldTitle>
+                    <S.FieldTitle>Team lead or Sphere Not split with eXp only with the Heart of the Home Team.</S.FieldTitle>
                     <RadioSelector 
                     register={register}
                     array={["75/25", "100"]} 

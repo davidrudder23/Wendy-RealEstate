@@ -4,7 +4,7 @@ import AutoComplete from "../FormFields/AutoComplete";
 import useLoadGoogleSheetInfo from "../../hooks/useLoadGoogleSheetInfo";
 import Address from "../FormFields/Address";
 
-const Broker = React.memo(({ getValues, errors, register, represents, ...props}) => {
+const Broker = React.memo(({ getValues, errors, register, represents, title, ...props}) => {
     const handleSheetData = (brokerSheet, componentIsMounted) => {
         if(componentIsMounted){
         const companyName = [];
@@ -54,7 +54,7 @@ const Broker = React.memo(({ getValues, errors, register, represents, ...props})
 
     return (
         <S.FieldWrapper error={generalError}>
-            <S.FieldTitle>Broker Information</S.FieldTitle>
+            <S.FieldTitle>{title ? title : ""} Broker Information</S.FieldTitle>
             <S.MultiContainer>
                 <AutoComplete
                     name={`broker.${represents}.company`}

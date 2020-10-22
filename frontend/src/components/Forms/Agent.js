@@ -142,6 +142,13 @@ const Agent = () => {
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader />
+                <Broker
+                    title={`${represents}'s`}
+                    getValues={getValues}
+                    errors={errors}
+                    register={register}
+                    represents={represents}
+                />
                 <S.FieldWrapper >
                     <S.FieldTitle>{represents}'s Agent</S.FieldTitle>
                     <S.MultiContainer>
@@ -227,15 +234,8 @@ const Agent = () => {
                         />
                         </S.AddressWrapper>
                     </S.MultiContainer>
-                    
                     {loadFieldsBasedOnAgent()}
                 </S.FieldWrapper>
-                <Broker
-                    getValues={getValues}
-                    errors={errors}
-                    register={register}
-                    represents={represents}
-                />
                 <Back />
                 <Next />
             </form>
