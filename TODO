@@ -1,5 +1,3 @@
-TODO: Migrate FSBO attorney page to its own page and use attorney.js to allow for data autofill
-TODO: Allow FSBO to have multiple fields for seller information
 TODO: Convert ListingBroker agent section to google agent sheet
 TODO: Ensure all validation is functioning correctly
 TODO: Give three drop boxes to select from list of attorneys for introduction and recommendation.
