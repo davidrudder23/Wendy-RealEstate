@@ -1,4 +1,8 @@
+TODO: Migrate FSBO attorney page to its own page and use attorney.js to allow for data autofill
+TODO: Allow FSBO to have multiple fields for seller information
+TODO: Convert ListingBroker agent section to google agent sheet
 TODO: Ensure all validation is functioning correctly
+TODO: Give three drop boxes to select from list of attorneys for introduction and recommendation.
 TODO: Create a controlled Inputfield that replicates AutoComplete without the additional functionality.
 TODO: Migrate any autocomplete field that doesnt have suggestions to new Controlled Inputfield
 TODO: Update .env to include wendy-realestate.json credentials path
