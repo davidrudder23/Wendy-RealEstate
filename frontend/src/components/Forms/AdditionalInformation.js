@@ -25,49 +25,49 @@ const AdditionalInformation = () => {
     }
 
     const renderHasReferral = () => {
-        if(hasReferral){
+        if (hasReferral) {
             return (
                 <S.FieldWrapper>
                     <S.FieldTitle>Referral Information</S.FieldTitle>
                     <S.MultiContainer>
-                        <InputField 
-                        name="referral.Agent"
-                        label="Agent that Referred Client"
-                        getValues={getValues}
-                        register={register}
-                        required={true}
+                        <InputField
+                            name="referral.Agent"
+                            label="Agent that Referred Client"
+                            getValues={getValues}
+                            register={register}
+                            required={true}
                         />
                         <InputField
-                        name="referral.broker"
-                        label="Agent that Referred Client"
-                        getValues={getValues}
-                        register={register}
-                        required={true}
+                            name="referral.broker"
+                            label="Agent that Referred Client"
+                            getValues={getValues}
+                            register={register}
+                            required={true}
                         />
                     </S.MultiContainer>
                     <S.MultiContainer>
-                    <InputField
-                        name="referral.email"
-                        label="Referring Agent Email Address"
-                        getValues={getValues}
-                        register={register}
-                        required={true}
+                        <InputField
+                            name="referral.email"
+                            label="Referring Agent Email Address"
+                            getValues={getValues}
+                            register={register}
+                            required={true}
                         />
                         <InputField
-                        name="referral.emailVerification"
-                        label="Email Address Verification"
-                        getValues={getValues}
-                        register={register}
-                        required={true}
+                            name="referral.emailVerification"
+                            label="Email Address Verification"
+                            getValues={getValues}
+                            register={register}
+                            required={true}
                         />
                     </S.MultiContainer>
                     <div>
-                    <InputField
-                        name="referral.amount"
-                        label="Amount"
-                        getValues={getValues}
-                        register={register}
-                        required={true}
+                        <InputField
+                            name="referral.amount"
+                            label="Amount"
+                            getValues={getValues}
+                            register={register}
+                            required={true}
                         />
                     </div>
                 </S.FieldWrapper>
@@ -78,31 +78,39 @@ const AdditionalInformation = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormHeader pageHeader="Additional Information"/>
+                <FormHeader pageHeader="Additional Information" />
                 <S.FieldWrapper>
-                    <S.FieldTitle>Are you with the Heart of the Home Team? <Slider isChecked={withTracyGagne} setIsChecked={setWithTracyGagne} /></S.FieldTitle>
+                    <Slider
+                        title="Are you with the Heart of the Home Team?"
+                        isChecked={withTracyGagne}
+                        setIsChecked={setWithTracyGagne}
+                    />
                 </S.FieldWrapper>
                 {withTracyGagne ? <S.FieldWrapper>
                     <S.FieldTitle>Team lead or Sphere Not split with eXp only with the Heart of the Home Team.</S.FieldTitle>
-                    <RadioSelector 
-                    register={register}
-                    array={["75/25", "100"]} 
-                    name="additionalInformation.finalPaymentSplit"
-                    other={true}
-                    getValues={getValues}
-                    watch={watch}
+                    <RadioSelector
+                        register={register}
+                        array={["75/25", "100"]}
+                        name="additionalInformation.finalPaymentSplit"
+                        other={true}
+                        getValues={getValues}
+                        watch={watch}
                     />
                 </S.FieldWrapper> : null}
                 <S.FieldWrapper>
-                    <S.FieldTitle>Is there a referral to be paid for the transaction? 
-                        <Slider isChecked={hasReferral} setIsChecked={setHasReferral} />
+                    <S.FieldTitle>
+                        <Slider
+                            title="Is there a referral to be paid for the transaction?"
+                            isChecked={hasReferral}
+                            setIsChecked={setHasReferral}
+                        />
                     </S.FieldTitle>
                 </S.FieldWrapper>
                 {renderHasReferral()}
                 <S.FieldWrapper>
                     <S.FieldTitle>Is there any additional information I should know?</S.FieldTitle>
                     <div>
-                        <InputField 
+                        <InputField
                             register={register}
                             getValues={getValues}
                             name="additionalInformation.additionalNotes"

@@ -33,14 +33,13 @@ const ForSaleByOwner = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader pageHeader="For Sale By Owner" />
                 <S.FieldWrapper>
-                    <S.FieldTitle>For Sale Buy Owner
-                        <Slider
-                            isChecked={isFSBO}
-                            setIsChecked={setIsFSBO}
-                            register={register}
-                            name="FSBO.isForSaleByOwner"
-                            required={false} />
-                    </S.FieldTitle>
+                    <Slider
+                        title="For Sale Buy Owner"
+                        isChecked={isFSBO}
+                        setIsChecked={setIsFSBO}
+                        register={register}
+                        name="FSBO.isForSaleByOwner"
+                        required={false} />
                 </S.FieldWrapper>
                 {isFSBO ?
                     <React.Fragment>

@@ -114,29 +114,24 @@ const Attorney = () => {
             return (
                 <React.Fragment>
                     <S.FieldWrapper>
-                        <S.FieldTitle>
-                            Do you have an attorney?
-                            <Slider
-                                isChecked={hasAttorney}
-                                setIsChecked={sethasAttorney}
-                                name={`attorney.${represents}.hasAttorney`}
-                                register={register}
-                                required={false}
-                            />
-                        </S.FieldTitle>
+                        <Slider
+                            title="Do you have an Attorney?"
+                            isChecked={hasAttorney}
+                            setIsChecked={sethasAttorney}
+                            name={`attorney.${represents}.hasAttorney`}
+                            register={register}
+                            required={false}
+                        />
                     </S.FieldWrapper>
                     {hasAttorney ? null :
                         <S.FieldWrapper>
-                            <S.FieldTitle>
-                                Would you like a recommendation and introduction?
                             <Slider
-                                    isChecked={wantsRecommendation}
-                                    setIsChecked={setWantsRecommendation}
-                                    name={`attorney.${represents}.wantsRecommendationAndIntroduction`}
-                                    register={register}
-                                    required={false}
-                                />
-                            </S.FieldTitle>
+                                title="Would you like a recommendation and introduction?"
+                                isChecked={wantsRecommendation}
+                                setIsChecked={setWantsRecommendation}
+                                name={`attorney.${represents}.wantsRecommendationAndIntroduction`}
+                                register={register}
+                                required={false} />
                         </S.FieldWrapper>
                     }
                 </React.Fragment>
