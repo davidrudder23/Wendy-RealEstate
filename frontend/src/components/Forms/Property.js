@@ -102,15 +102,13 @@ const Property = () => {
                     />
                 </S.FieldWrapper>
                 <S.FieldWrapper error={errors["property"]?.inspectionWaved || errors["property"]?.inspectionDeadline}>
-                    <S.FieldTitle>Inspection Waved
-                            <Slider
-                            isChecked={inspectionWaved}
-                            setIsChecked={setInspectionWaved}
-                            name="property.isInspectionWaved"
-                            register={register}
-                            required={false}
-                        />
-                    </S.FieldTitle>
+                    <Slider
+                        title="Inspection Waved"
+                        isChecked={inspectionWaved}
+                        setIsChecked={setInspectionWaved}
+                        name="property.isInspectionWaved"
+                        register={register}
+                        required={false} />
                     {inspectionWaved ? null :
                         <CustomDatePicker
                             getValues={getValues}
@@ -139,15 +137,14 @@ const Property = () => {
                 */}
                 {agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ?
                     <S.FieldWrapper error={errors["property"]?.buyerHasSubmittedAdditionalOffer}>
-                        <S.FieldTitle>Has the buyer submitted an offer for another property?
                         <Slider
-                                isChecked={additionalOffer}
-                                setIsChecked={setAdditionalOffer}
-                                name="property.buyerHasSubmittedAdditionalOffer"
-                                register={register}
-                                required={false}
-                            />
-                        </S.FieldTitle>
+                            title="Has the buyer submitted an offer for another property?"
+                            isChecked={additionalOffer}
+                            setIsChecked={setAdditionalOffer}
+                            name="property.buyerHasSubmittedAdditionalOffer"
+                            register={register}
+                            required={false}
+                        />
                     </S.FieldWrapper> : null}
                 <Back />
                 <Next />
