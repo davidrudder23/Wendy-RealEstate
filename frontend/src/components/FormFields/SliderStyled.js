@@ -10,10 +10,8 @@ export const Container = styled.div`
 export const Label = styled.label`
     position: relative;
     display: inline-block;
-    width: 2.625rem;
-    height: 1.25rem;
-    /* line-height: 1.5rem; */
-
+    width: 2.825rem;
+    height: 1.3rem;
 `;
 
 export const Input = styled.input`
@@ -30,7 +28,7 @@ export const Span = styled.span`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${ props => props.checked ? "#16abf0" : "#c9c9c9"};
+    background-color: ${props => props.checked ? "#16abf0" : "#c9c9c9"};
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 30px;
@@ -47,19 +45,19 @@ export const Span = styled.span`
         -webkit-transition: .4s;
         transition: .4s;
         border-radius: 50%;
-        -webkit-transform: ${props => props.checked ? "translateX(21px)" : null };
-        -ms-transform: ${props => props.checked ? "translateX(21px)" : null };
-        transform: ${props => props.checked ? "translateX(21px)" : null };
+        -webkit-transform: ${props => props.checked ? "translateX(25px)" : null};
+        -ms-transform: ${props => props.checked ? "translateX(25px)" : null};
+        transform: ${props => props.checked ? "translateX(25px)" : null};
     }
 
     ::after {
         /* content: "" + ; */
         content: '${props => props.checked ? "YES" : "NO"}';
-        color: ${ props => props.checked ? "#ccc" : "#16abf0"};
+        color: ${props => props.checked ? "#ccc" : "#16abf0"};
         display: block;
         position: absolute;
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 55%;
         left: ${props => props.checked ? "30%" : "70%"};
         font-size: 10px;
         font-family: Arial, Helvetica, sans-serif;

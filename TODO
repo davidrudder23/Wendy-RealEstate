@@ -1,10 +1,8 @@
-TODO: Convert ListingBroker agent section to google agent sheet
 TODO: Give three drop boxes to select from list of attorneys for introduction and recommendation.
 TODO: Ensure all validation is functioning correctly
 TODO: Build pdf page with download and submit option
 TODO: Create a controlled Inputfield that replicates AutoComplete without the additional functionality.
 TODO: Migrate any autocomplete field that doesnt have suggestions to new Controlled Inputfield
-TODO: Change Tab display Icon and Name
 TODO: Server and Database
 TODO: add call to database
 TODO: Add Option to download PDF on final page

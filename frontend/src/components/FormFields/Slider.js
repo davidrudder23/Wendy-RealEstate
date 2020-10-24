@@ -17,7 +17,7 @@ const Slider = React.memo(({ isChecked, setIsChecked, name, register, title }) =
             <S.Container>
                 <S.Label>
                     <S.Input value={isChecked} type="checkbox" name={name} ref={register} />
-                    <S.Span checked={isChecked} />
+                    <S.Span checked={isChecked} onClick={handleOnClick} />
                 </S.Label>
             </S.Container>
         </FieldTitle>
