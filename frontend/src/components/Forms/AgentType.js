@@ -19,9 +19,9 @@ const AgentType = () => {
         }
     }
 
-    const handleTestingButton = () => {
-        push(handleDeploymentPath("/Testing"));
-    }
+    // const handleTestingButton = () => {
+    //     push(handleDeploymentPath("/Testing"));
+    // }
 
     return (
         <S.Container>
@@ -32,7 +32,7 @@ const AgentType = () => {
                     <RadioSelector
                         register={register}
                         name="agentType"
-                        array={Object.values(AGENT_TYPES)}
+                        array={[AGENT_TYPES.BUYERS, AGENT_TYPES.SELLERS]}
                     />
                 </S.FieldWrapper>
                 {/* <button onClick={handleTestingButton}>Testing</button> */}
