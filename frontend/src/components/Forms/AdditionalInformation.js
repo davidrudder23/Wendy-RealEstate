@@ -10,6 +10,7 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import { handleDeploymentPath } from "../../shared";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 
+// TODO: State for withTracyGagne and hasReferral do not persist
 const AdditionalInformation = () => {
     const { handleSubmit, action, push, register, getValues, watch } = useCustomFormHook();
     const [withTracyGagne, setWithTracyGagne] = useState(false)

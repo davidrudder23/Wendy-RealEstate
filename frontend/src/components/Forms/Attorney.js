@@ -12,13 +12,18 @@ import { handleDeploymentPath } from "../../shared";
 import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
 import AutoComplete from "../FormFields/AutoComplete";
 
-// TODO: If introduction give list of attorneys. ( cleint choose and send email to this attorney)
+// TODO: If introduction give list of attorneys. ( client choose and send email to this attorney)
 // I think a drop down list would be the best choice
+
 const Attorney = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(TestAttorneyValidation);
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(TestAttorneyValidation);
     const { represents, param1 } = useParams();
-    const [hasAttorney, sethasAttorney] = React.useState(true);
-    const [wantsRecommendation, setWantsRecommendation] = React.useState(false);
+    const [hasAttorney, sethasAttorney] = React.useState(
+        state?.details?.attorney?.[represents]?.hasAttorney === `true` ?
+            true : false);
+    const [wantsRecommendation, setWantsRecommendation] = React.useState(
+        state?.details?.attorney?.[represents]?.wantsRecommendationAndIntroduction === `true` ?
+            true : false);
 
     const handleSheetData = (agentSheet, componentIsMounted) => {
         if (componentIsMounted) {
