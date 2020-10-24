@@ -35,7 +35,7 @@ const AgentType = () => {
                         array={Object.values(AGENT_TYPES)}
                     />
                 </S.FieldWrapper>
-                <button onClick={handleTestingButton}>Testing</button>
+                {/* <button onClick={handleTestingButton}>Testing</button> */}
                 <Next />
             </form>
         </S.Container>

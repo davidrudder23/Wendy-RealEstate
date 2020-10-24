@@ -85,15 +85,14 @@ const Mortgage = () => {
                     </S.MultiContainer>
                 </S.FieldWrapper>
                 <S.FieldWrapper error={errors['mortgage']?.areConcessions || errors['mortgage']?.concessions}>
-                    <S.FieldTitle>Are there concessions?
-                        <Slider
-                            isChecked={isConcessions}
-                            setIsChecked={setIsConcessions}
-                            name="mortgage.areConcessions"
-                            required={false}
-                            register={register}
-                        />
-                    </S.FieldTitle>
+                    <Slider
+                        title="Are there concessions?"
+                        isChecked={isConcessions}
+                        setIsChecked={setIsConcessions}
+                        name="mortgage.areConcessions"
+                        required={false}
+                        register={register}
+                    />
                     {isConcessions ?
                         <div>
                             <InputField
