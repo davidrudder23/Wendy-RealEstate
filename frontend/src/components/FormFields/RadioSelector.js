@@ -29,7 +29,12 @@ const RadioSelector = React.memo(({ register, name, array, other=false, defaultV
             <S.Container>
                 {array.map((value) => (
                     <S.optionWrapper key={`input-${value}`}>
-                        <S.InputRadio name={name} type="radio" defaultValue={value} defaultChecked={value === defaultVal} ref={register} />
+                        <S.InputRadio 
+                        name={name} 
+                        type="radio" 
+                        defaultValue={value} 
+                        defaultChecked={value === defaultVal} 
+                        ref={register} />
                         <S.Label>
                             {value}
                         </S.Label>
