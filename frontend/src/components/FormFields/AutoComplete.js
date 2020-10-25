@@ -32,6 +32,8 @@ const AutoComplete = ({
   getValues,
   name,
   ...props }) => {
+    let refsArray = [];
+
     const ref = useOnclickOutside(() => {
       handleOnBlur();
     });
@@ -153,24 +155,34 @@ const AutoComplete = ({
       else if (e.keyCode === 38) {
         if (activeSuggestion === 0) {
           return;
+        }else{
+          refsArray[activeSuggestion-1].current.scrollIntoView({
+            block: 'start',
+            behavior: 'smooth',
+          })
+
+          setSuggestionState(state => {
+            return { ...state, activeSuggestion: activeSuggestion - 1} 
+          });
         }
-        setSuggestionState(state => {
-          return { ...state, activeSuggestion: activeSuggestion - 1} 
-        });
       }
       
 
       // User pressed the down arrow
       else if (e.keyCode === 40) {
       
-        if (activeSuggestion - 1 === filteredSuggestions.length) {
+        if (activeSuggestion + 1 === filteredSuggestions.length) {
           return;
+        }else{
+          refsArray[activeSuggestion+1].current.scrollIntoView({
+            block: 'start',
+            behavior: 'smooth',
+          })
+          
+          setSuggestionState(state => {
+            return { ...state, activeSuggestion: activeSuggestion + 1} 
+          });
         }
-      
-        
-        setSuggestionState(state => {
-          return { ...state, activeSuggestion: activeSuggestion + 1} 
-        });
       };
       e.stopPropagation();
     };
@@ -194,6 +206,7 @@ const AutoComplete = ({
     }
 
     const suggestionsListComponent = () => {
+      refsArray = [];
       const { showSuggestions, filteredSuggestions, activeSuggestion } = suggestionState;
 
       if (showSuggestions) {
@@ -210,9 +223,12 @@ const AutoComplete = ({
                     if (index === activeSuggestion) {
                       className = "suggestion-active";
                     }
-      
+                    
+                    const ref = React.createRef();
+                    refsArray.push(ref);
+
                     return (
-                      <li className={className} key={`${suggestion}.${index}`} onClick={handleSelect}>
+                      <li ref={ref} className={className} key={`${suggestion}.${index}`} onClick={handleSelect}>
                         {suggestion}
                       </li>
                     );

@@ -13,9 +13,6 @@ import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
 import AutoComplete from "../FormFields/AutoComplete";
 import AttorneyRecommendations from "./AttorneyRecommendations";
 
-// TODO: If introduction give list of attorneys. ( client choose and send email to this attorney)
-// I think a drop down list would be the best choice
-
 const Attorney = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(TestAttorneyValidation);
     const { represents, param1 } = useParams();
