@@ -23,7 +23,7 @@ const AutoComplete = ({
 
   /** Allows for onChange effect with params of (event) */
   onChange,
-  
+
   /** Can pass a function that is triggered on selection of an item in the list of suggestions. The possible params are (event , tuple) */
   onSelect,
   /** If you do not wish to pass a sorting method you can use the default one provided in onChange */
@@ -32,233 +32,227 @@ const AutoComplete = ({
   getValues,
   name,
   ...props }) => {
-    let refsArray = [];
+  const refToScroll = React.useRef();
 
-    const ref = useOnclickOutside(() => {
-      handleOnBlur();
-    });
-    
-    const [suggestionState, setSuggestionState] = React.useState({
-        // The active suggestion's index
-        activeSuggestion: 0,
-        // The suggestions that match the user's input
-        filteredSuggestions: [],
-        // Whether or no the suggestion list is shown
-        showSuggestions: false,
-        // What the user has entered
-        userInput: value ? value : "",
-    });
-    
-    React.useEffect(() => {
-      setSuggestionState(state => {
-        return {
-          ...state,
-          userInput: value
-        }
-      })
-    }, [value])
+  const ref = useOnclickOutside(() => {
+    handleOnBlur();
+  });
 
-    // This is required because AutoComplete is using InputField as a controlled component
-    React.useEffect(() => {
-      if(getValues && getValues(`${name}`)){
-        setSuggestionState({userInput: getValues(`${name}`)})
+  const [suggestionState, setSuggestionState] = React.useState({
+    // The active suggestion's index
+    activeSuggestion: 0,
+    // The suggestions that match the user's input
+    filteredSuggestions: [],
+    // Whether or no the suggestion list is shown
+    showSuggestions: false,
+    // What the user has entered
+    userInput: value ? value : "",
+  });
+
+  React.useEffect(() => {
+    setSuggestionState(state => {
+      return {
+        ...state,
+        userInput: value
       }
-    }, [name, getValues])
-    
-    const handleOnBlur = (e) => {
-      if(handleonblur){
-        handleonblur(e);
-      }
-      setSuggestionState(state => {
-        return {
+    })
+  }, [value])
+
+  // This is required because AutoComplete is using InputField as a controlled component
+  React.useEffect(() => {
+    if (getValues && getValues(`${name}`)) {
+      setSuggestionState({ userInput: getValues(`${name}`) })
+    }
+  }, [name, getValues])
+
+  const handleOnBlur = (e) => {
+    if (handleonblur) {
+      handleonblur(e);
+    }
+    setSuggestionState(state => {
+      return {
         ...state,
         activeSuggestion: 0,
         filteredSuggestions: [],
         showSuggestions: false,
-      }});
+      }
+    });
+  }
+
+
+  const handleOnChange = e => {
+    e.stopPropagation();
+    const userInput = e.target.value;
+
+    if (onChange) {
+      onChange(e);
     }
-    
-    
-    const handleOnChange = e => {
-      e.stopPropagation();
-      const userInput = e.target.value;
-      
-      if(onChange){
-        onChange(e);
-      }
-      e.persist();
+    e.persist();
 
-      // Filter our suggestions that don't contain the user's input
-      let filteredSuggestions;     
-      if(howToFilter){
-        filteredSuggestions = howToFilter(suggestions);        
-      } else {
-        filteredSuggestions = suggestions;
-      }
-      
-      console.log(suggestions)
-      if(useDefaultFilter && !howToFilter){
-        filteredSuggestions = suggestions.filter(suggestion => {
-          if(suggestion !== null){
-            return suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-          }
-          return false;
-        });
-      }
-      
-      setSuggestionState({
-        activeSuggestion: 0,
-        filteredSuggestions,
-        showSuggestions: true,
-        userInput: userInput,
+    // Filter our suggestions that don't contain the user's input
+    let filteredSuggestions;
+    if (howToFilter) {
+      filteredSuggestions = howToFilter(suggestions);
+    } else {
+      filteredSuggestions = suggestions;
+    }
+
+    console.log(suggestions)
+    if (useDefaultFilter && !howToFilter) {
+      filteredSuggestions = suggestions.filter(suggestion => {
+        if (suggestion !== null) {
+          return suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        }
+        return false;
       });
-      };
+    }
 
-    const handleSelect = (e) => {
+    setSuggestionState({
+      activeSuggestion: 0,
+      filteredSuggestions,
+      showSuggestions: true,
+      userInput: userInput,
+    });
+  };
+
+  const handleSelect = (e) => {
+    e.stopPropagation();
+    let text = e.currentTarget.innerText;
+
+    setSuggestionState({
+      activeSuggestion: 0,
+      filteredSuggestions: [],
+      showSuggestions: false,
+      userInput: text,
+    });
+
+    if (onSelect) {
+      onSelect(e, suggestions.indexOf(text));
+    }
+  };
+
+  const handleOnKeyDown = e => {
+    const { activeSuggestion, filteredSuggestions } = suggestionState;
+
+    // User pressed the enter key
+    if (e.keyCode === 13) {
+      e.preventDefault();
       e.stopPropagation();
-      let text = e.currentTarget.innerText;
-      
-      setSuggestionState({
-        activeSuggestion: 0,
-        filteredSuggestions: [],
-        showSuggestions: false,
-        userInput: text,
-      });
-
-      if(onSelect){
-        onSelect(e, suggestions.indexOf(text));
-      }
-    };
-
-    const handleOnKeyDown = e => {
-      const { activeSuggestion, filteredSuggestions } = suggestionState;
-
-      // User pressed the enter key
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        e.stopPropagation();
-        setSuggestionState(state => { 
-          return {
-            ...state,
-            activeSuggestion: 0,
-            showSuggestions: false,
-            userInput: filteredSuggestions[activeSuggestion]
-          }
-        });
-
-        if(onSelect){
-          onSelect(e, suggestions.indexOf(filteredSuggestions[activeSuggestion]))
-        }
-      }
-      
-      // User pressed the up arrow
-      else if (e.keyCode === 38) {
-        if (activeSuggestion === 0) {
-          return;
-        }else{
-          refsArray[activeSuggestion-1].current.scrollIntoView({
-            block: 'start',
-            behavior: 'smooth',
-          })
-
-          setSuggestionState(state => {
-            return { ...state, activeSuggestion: activeSuggestion - 1} 
-          });
-        }
-      }
-      
-
-      // User pressed the down arrow
-      else if (e.keyCode === 40) {
-      
-        if (activeSuggestion + 1 === filteredSuggestions.length) {
-          return;
-        }else{
-          refsArray[activeSuggestion+1].current.scrollIntoView({
-            block: 'start',
-            behavior: 'smooth',
-          })
-          
-          setSuggestionState(state => {
-            return { ...state, activeSuggestion: activeSuggestion + 1} 
-          });
-        }
-      };
-      e.stopPropagation();
-    };
-
-    const handleOnFocus = () => {
       setSuggestionState(state => {
         return {
+          ...state,
+          activeSuggestion: 0,
+          showSuggestions: false,
+          userInput: filteredSuggestions[activeSuggestion]
+        }
+      });
+
+      if (onSelect) {
+        onSelect(e, suggestions.indexOf(filteredSuggestions[activeSuggestion]))
+      }
+    }
+
+    // User pressed the up arrow
+    else if (e.keyCode === 38) {
+      if (activeSuggestion === 0) {
+        return;
+      } else {
+
+        refToScroll.current.scrollTop -= 33;
+
+        setSuggestionState(state => {
+          return { ...state, activeSuggestion: activeSuggestion - 1 }
+        });
+      }
+    }
+
+
+    // User pressed the down arrow
+    else if (e.keyCode === 40) {
+
+      if (activeSuggestion + 1 === filteredSuggestions.length) {
+        return;
+      } else {
+
+        refToScroll.current.scrollTop += 33;
+
+        setSuggestionState(state => {
+          return { ...state, activeSuggestion: activeSuggestion + 1 }
+        });
+      }
+    };
+    e.stopPropagation();
+  };
+
+  const handleOnFocus = () => {
+    setSuggestionState(state => {
+      return {
         ...state,
         activeSuggestion: 0,
         filteredSuggestions: suggestions,
         showSuggestions: true,
-      }});
-    }
+      }
+    });
+  }
 
-    const noSuggestions = () => {
-      return (
-        <div className="no-suggestions">
-          <em>No suggestions</em>
-        </div>
-      );
-    }
-
-    const suggestionsListComponent = () => {
-      refsArray = [];
-      const { showSuggestions, filteredSuggestions, activeSuggestion } = suggestionState;
-
-      if (showSuggestions) {
-        if (filteredSuggestions.length) {
-          if(!filteredSuggestions.some(suggestion => suggestion !== null)){
-            return noSuggestions();
-          }
-          return (
-            <ul className="suggestions">
-                  {filteredSuggestions.map((suggestion, index) => {
-                    if(suggestion) {
-                    let className;
-
-                    if (index === activeSuggestion) {
-                      className = "suggestion-active";
-                    }
-                    
-                    const ref = React.createRef();
-                    refsArray.push(ref);
-
-                    return (
-                      <li ref={ref} className={className} key={`${suggestion}.${index}`} onClick={handleSelect}>
-                        {suggestion}
-                      </li>
-                    );
-                  }else{
-                    return null
-                  };
-                  })}
-                </ul>
-              );
-          } else {
-            noSuggestions();
-          }
-        }    
-    }
-    
-
+  const noSuggestions = () => {
     return (
-        <S.AutoCompleteWrapper ref={ref}>
-          <InputField
-            value={suggestionState.userInput}
-            onChange={handleOnChange}
-            onKeyDown={handleOnKeyDown}
-            onFocus={handleOnFocus}
-            getValues={getValues}
-            name={name}
-            {...props}
-          />
-          {suggestionsListComponent()}
-      </S.AutoCompleteWrapper>
-    )
+      <div className="no-suggestions">
+        <em>No suggestions</em>
+      </div>
+    );
+  }
+
+  const suggestionsListComponent = () => {
+    const { showSuggestions, filteredSuggestions, activeSuggestion } = suggestionState;
+
+    if (showSuggestions) {
+      if (filteredSuggestions.length) {
+        if (!filteredSuggestions.some(suggestion => suggestion !== null)) {
+          return noSuggestions();
+        }
+        return (
+          <ul className="suggestions" ref={refToScroll}>
+            {filteredSuggestions.map((suggestion, index) => {
+              if (suggestion) {
+                let className;
+
+                if (index === activeSuggestion) {
+                  className = "suggestion-active";
+                }
+
+                return (
+                  <li ref={ref} className={className} key={`${suggestion}.${index}`} onClick={handleSelect}>
+                    {suggestion}
+                  </li>
+                );
+              } else {
+                return null
+              };
+            })}
+          </ul>
+        );
+      } else {
+        noSuggestions();
+      }
+    }
+  }
+
+
+  return (
+    <S.AutoCompleteWrapper ref={ref}>
+      <InputField
+        value={suggestionState.userInput}
+        onChange={handleOnChange}
+        onKeyDown={handleOnKeyDown}
+        onFocus={handleOnFocus}
+        getValues={getValues}
+        name={name}
+        {...props}
+      />
+      {suggestionsListComponent()}
+    </S.AutoCompleteWrapper>
+  )
 }
 
 export default AutoComplete
