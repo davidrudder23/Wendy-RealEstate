@@ -94,8 +94,14 @@ const AutoComplete = ({
         filteredSuggestions = suggestions;
       }
       
+      console.log(suggestions)
       if(useDefaultFilter && !howToFilter){
-        filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1);
+        filteredSuggestions = suggestions.filter(suggestion => {
+          if(suggestion !== null){
+            return suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+          }
+          return false;
+        });
       }
       
       setSuggestionState({

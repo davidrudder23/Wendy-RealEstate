@@ -11,6 +11,7 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
 import AutoComplete from "../FormFields/AutoComplete";
+import AttorneyRecommendations from "./AttorneyRecommendations";
 
 // TODO: If introduction give list of attorneys. ( client choose and send email to this attorney)
 // I think a drop down list would be the best choice
@@ -254,6 +255,15 @@ const Attorney = () => {
                 <FormHeader pageHeader={pageHeader} />
                 {askFilingClientIfTheyHaveAttorneyAndTheyWantRecommendationIfNot()}
                 {attorneyInformation()}
+                {wantsRecommendation && !hasAttorney ? <AttorneyRecommendations 
+                    errors={errors}
+                    register={register}
+                    getValues={getValues}
+                    represents={represents}
+                    attorneys={arrayData.Names}
+                    firms={arrayData.FirmNames}
+                    ready={ready}
+                /> : null}
                 <Back />
                 <Next />
             </form>
