@@ -10,14 +10,23 @@ import { Next, Back } from "../FormFields/SharedButtons";
 import { handleDeploymentPath } from "../../shared";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 
-// TODO: State for withTracyGagne and hasReferral do not persist
 const AdditionalInformation = () => {
-    const { handleSubmit, action, push, register, getValues, watch } = useCustomFormHook();
-    const [withTracyGagne, setWithTracyGagne] = useState(false)
-    const [hasReferral, setHasReferral] = useState(false);
+    const { handleSubmit, action, push, register, getValues, watch, state } = useCustomFormHook();
+    const [withTracyGagne, setWithTracyGagne] = useState(
+        state?.details?.additionalInformation?.withTracyGagne
+            ? true : false)
+    const [hasReferral, setHasReferral] = useState(
+        state?.details?.additionalInformation?.hasReferral
+            ? true : false);
 
     const onSubmit = data => {
-        action(data);
+        action({
+            ...data,
+            additionalInformation: {
+                withTracyGagne: withTracyGagne,
+                hasReferral: hasReferral
+            },
+        });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
