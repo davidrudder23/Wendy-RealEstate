@@ -13,20 +13,14 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 const AdditionalInformation = () => {
     const { handleSubmit, action, push, register, getValues, watch, state } = useCustomFormHook();
     const [withTracyGagne, setWithTracyGagne] = useState(
-        state?.details?.additionalInformation?.withTracyGagne
+        state?.details?.additionalInformation?.withTracyGagne === 'true'
             ? true : false)
     const [hasReferral, setHasReferral] = useState(
-        state?.details?.additionalInformation?.hasReferral
+        state?.details?.additionalInformation?.hasReferral === 'true'
             ? true : false);
 
     const onSubmit = data => {
-        action({
-            ...data,
-            additionalInformation: {
-                withTracyGagne: withTracyGagne,
-                hasReferral: hasReferral
-            },
-        });
+        action(data)
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
@@ -94,6 +88,8 @@ const AdditionalInformation = () => {
                         title="Are you with the Heart of the Home Team?"
                         isChecked={withTracyGagne}
                         setIsChecked={setWithTracyGagne}
+                        name="additionalInformation.withTracyGagne"
+                        register={register}
                     />
                 </S.FieldWrapper>
                 {withTracyGagne ? <S.FieldWrapper>
@@ -113,6 +109,8 @@ const AdditionalInformation = () => {
                             title="Is there a referral to be paid for the transaction?"
                             isChecked={hasReferral}
                             setIsChecked={setHasReferral}
+                            name="additionalInformation.hasReferral"
+                            register={register}
                         />
                     </S.FieldTitle>
                 </S.FieldWrapper>

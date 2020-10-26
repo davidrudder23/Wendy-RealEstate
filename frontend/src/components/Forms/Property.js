@@ -132,9 +132,11 @@ const Property = () => {
                             />
                         </div>
                     </S.FieldWrapper> : null}
-                {/* TODO: This is currently used to determine what type of email should be sent.
-                    Note: Refer to Wendy Email for Message differences.
-                */}
+                {
+                    /* TODO: This is currently used to determine what type of email should be sent.
+                        Note: Refer to Wendy Email for Message differences.
+                    */
+                }
                 {agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ?
                     <S.FieldWrapper error={errors["property"]?.buyerHasSubmittedAdditionalOffer}>
                         <Slider

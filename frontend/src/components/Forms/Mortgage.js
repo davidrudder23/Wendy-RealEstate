@@ -13,7 +13,7 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 
 const Mortgage = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(MortgageValidation);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(MortgageValidation);
 
     const onSubmit = data => {
         action(data);
@@ -30,8 +30,9 @@ const Mortgage = () => {
     }
 
     const [currMortgageType, setCurrMortgageType] = React.useState("");
-    //TODO: State doesn't persist on return
-    const [isConcessions, setIsConcessions] = React.useState(false);
+    const [isConcessions, setIsConcessions] = React.useState(
+        state?.details?.mortgage?.areConcessions === 'true'
+            ? true : false);
 
     return (
         <S.Container>
