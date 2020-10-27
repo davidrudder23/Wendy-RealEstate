@@ -35,7 +35,7 @@ const Tenant = ({getValues, state, register, errors, control}) => {
                         label={`Unit ${index + 1}`}
                         errors={errors?.property?.tenant?.[index]?.unit}
                         register={register}
-                        required={true}
+                        required={false}
                         getValues={getValues} />
                     <S.AddressWrapper>
                         <CustomDatePicker
@@ -44,7 +44,7 @@ const Tenant = ({getValues, state, register, errors, control}) => {
                             control={control}
                             name="property.dateHouseBuilt"
                             label={`Lease end date ${index + 1}`}
-                            required={true}
+                            required={false}
                             dateFormat="MM/yyyy"
                         />
                     </S.AddressWrapper>

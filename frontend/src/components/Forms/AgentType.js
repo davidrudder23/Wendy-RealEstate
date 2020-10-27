@@ -19,9 +19,9 @@ const AgentType = () => {
         }
     }
 
-    const handleTestingButton = () => {
-        push(handleDeploymentPath("/Testing"));
-    }
+    // const handleTestingButton = () => {
+    //     push(handleDeploymentPath("/Testing"));
+    // }
 
     return (
         <S.Container>
@@ -35,7 +35,7 @@ const AgentType = () => {
                         array={[AGENT_TYPES.BUYERS, AGENT_TYPES.SELLERS]}
                     />
                 </S.FieldWrapper>
-                <button onClick={handleTestingButton}>Testing</button>
+                {/* <button onClick={handleTestingButton}>Testing</button> */}
                 <Next />
             </form>
         </S.Container>

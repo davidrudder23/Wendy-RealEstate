@@ -45,9 +45,6 @@ const Property = () => {
                         isValue={currPropertyType}
                         setValue={setCurrentPropertyType} />
                 </S.FieldWrapper>
-                {/* TODO: Multi Family. Are there tenants 
-                apt1, staying, vaca date (NOT REQUIRED)
-                and if there are are they staying. Final vaca date*/}
                 {currPropertyType === "Condo" ?
                     <S.FieldWrapper error={errors["property"]?.condoManagementCompany}>
                         <S.FieldTitle>Who is the Condo Management Company</S.FieldTitle>
