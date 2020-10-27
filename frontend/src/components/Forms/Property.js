@@ -11,9 +11,10 @@ import { PropertyValidation } from "../../validation";
 import { PROPERTY_TYPES, AGENT_TYPES, handleDeploymentPath } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
+import Tenant from '../FormFields/Tenant';
 
 const Property = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(PropertyValidation);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(PropertyValidation);
     const [currPropertyType, setCurrentPropertyType] = React.useState("");
     const [additionalOffer, setAdditionalOffer] = React.useState(false);
     const [inspectionWaved, setInspectionWaved] = React.useState(false);
@@ -63,6 +64,14 @@ const Property = () => {
                     </S.FieldWrapper>
                     : null
                 }
+                {currPropertyType === PROPERTY_TYPES.MULTI_FAMILY ?
+                    <Tenant 
+                    getValues={getValues}
+                    errors={errors}
+                    register={register}
+                    state={state}
+                    control={control}
+                /> : null }
                 {agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ?
                     <S.FieldWrapper error={errors["property"]?.vacentOrOccupied}>
                         <S.FieldTitle>Is the house vacant or occupied?</S.FieldTitle>

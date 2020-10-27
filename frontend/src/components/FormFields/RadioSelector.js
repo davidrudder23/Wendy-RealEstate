@@ -24,7 +24,6 @@ const RadioSelector = React.memo(({ register, name, array, other = false, defaul
         e.persist();
     }
 
-    // TODO: Make Labels Clickable? Improves interaction for older/elderly users
     return (
         <React.Fragment>
             <S.Container>

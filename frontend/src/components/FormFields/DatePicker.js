@@ -18,7 +18,7 @@ const CustomDatePicker = ({ control, name, label, errors, required, className, s
                 {...rest}
                 render={(props) => {
                 return <DatePicker
-                    showYearPicker={showYearPicker}
+                    {...rest}
                     dateFormat={dateFormat}
                     defaultValue={null}
                     placeholderText={null}

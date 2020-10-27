@@ -3,7 +3,6 @@ import InputField from './InputField';
 import * as S from "./AutoCompleteStyled";
 import useOnclickOutside from "react-cool-onclickoutside";
 
-// TODO: Add auto scrolling to keep active item into focus
 const AutoComplete = ({
 
   /** A list of items to sort and display as suggestions */

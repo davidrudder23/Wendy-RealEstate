@@ -1,6 +1,6 @@
 import React from 'react';
 import InputField from "./InputField";
-import * as S from "./FormStyled"
+import * as S from "./FormStyled";
 import { ordinal_suffix_of } from "../../shared";
 import Address from "../FormFields/Address";
 
