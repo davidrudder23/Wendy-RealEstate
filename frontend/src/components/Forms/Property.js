@@ -12,12 +12,19 @@ import { PROPERTY_TYPES, AGENT_TYPES, handleDeploymentPath } from "../../shared"
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import Tenant from '../FormFields/Tenant';
+import { propertyDefaultValues } from "../../defaultValues";
 
 const Property = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(PropertyValidation);
-    const [currPropertyType, setCurrentPropertyType] = React.useState("");
-    const [additionalOffer, setAdditionalOffer] = React.useState(false);
-    const [inspectionWaved, setInspectionWaved] = React.useState(false);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state, watch} = useCustomFormHook(PropertyValidation, propertyDefaultValues);
+
+    let propertyType = watch(`property.propertyType`);
+    const [currPropertyType, setCurrentPropertyType] = React.useState(propertyType ? propertyType : "");
+    
+    let secondOffer = watch(`property.buyerHasSubmittedAdditionalOffer`);
+    const [additionalOffer, setAdditionalOffer] = React.useState(secondOffer ? secondOffer : false);
+
+    let inspectionWavedWatch = watch(`property.inspectionWaved`);
+    const [inspectionWaved, setInspectionWaved] = React.useState(inspectionWavedWatch ? inspectionWavedWatch : false);
 
     const onSubmit = data => {
         action(data);
@@ -43,7 +50,8 @@ const Property = () => {
                         options={Object.values(PROPERTY_TYPES)}
                         register={register}
                         isValue={currPropertyType}
-                        setValue={setCurrentPropertyType} />
+                        setValue={setCurrentPropertyType}
+                        />
                 </S.FieldWrapper>
                 {currPropertyType === "Condo" ?
                     <S.FieldWrapper error={errors["property"]?.condoManagementCompany}>

@@ -15,6 +15,7 @@ const ForSaleByOwner = () => {
         state?.details?.FSBO?.isForSaleByOwner === `true` ? true : false
     );
 
+    console.log(errors)
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {

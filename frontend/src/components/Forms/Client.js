@@ -7,13 +7,15 @@ import GeneralClientInformation from "../FormFields/GeneralClientInformation";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { ClientValidation } from "../../validation";
 import { AGENT_TYPES, handleDeploymentPath } from "../../shared";
+import { clientDefaultValues } from "../../defaultValues";
 
 const Client = () => {
-    const { register, handleSubmit, errors, action, state, push, getValues, agentType } = useCustomFormHook(ClientValidation);
+    const { register, handleSubmit, errors, action, state, push, getValues, agentType } = useCustomFormHook(ClientValidation, clientDefaultValues);
     const { clientType } = useParams();
     
     const onSubmit = data => {
         action(data);
+        console.log(data)
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.SELLERS) {

@@ -34,7 +34,7 @@ export const PropertyValidation = (agentType) => yup.object().shape({
         titleOrTownSewer: yup.string().required(REQUIRED),
         publicOrTownWater: yup.string().required(REQUIRED),
         inspectionDeadline: yup.string().required(REQUIRED),
-        buyerhasSubmittedAdditionalOffer: agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? yup.string().required(REQUIRED) : yup.string().notRequired(),
+        buyerhasSubmittedAdditionalOffer: agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.BOTH ? yup.string().notRequired() : yup.string().notRequired(),
         loxBoxCode: agentType === AGENT_TYPES.SELLERS || agentType === AGENT_TYPES.BOTH ? yup.number().required(REQUIRED).typeError(NUMBER_ERROR_MESSAGE) : yup.mixed().notRequired(),
 })});
 
@@ -73,18 +73,54 @@ export const AttorneyValidation = (agentType) => yup.object().shape({
 
 export const TestAttorneyValidation = (agentType) => yup.object().shape({
     attorney: yup.lazy(obj => yup.object(mapRules(obj, yup.object().shape({
-        name: yup.string().required(REQUIRED),
-        email: yup.string().required(REQUIRED),
-        emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
+        hasAttorney: yup.string().notRequired(),
+        name: yup.string()
+        .when(
+            "hasAttorney",
+            {
+                is: val => val === true,
+                then: yup.string().required(REQUIRED)
+            }
+        ),
+        email: yup.string()
+        .when(
+            "hasAttorney",
+            {
+                is: val => val === true,
+                then: yup.string().required(REQUIRED)
+            }
+        ),
+        emailVerification: yup.string()
+        .when(
+            "hasAttorney",
+            {
+                is: val => val === true,
+                then: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"),
+            }
+        ),
         firmName: yup.string().notRequired(NOT_REQUIRED),
         phoneNumber: yup.string().notRequired(NOT_REQUIRED),
-        hasAttorney: yup.string().notRequired(NOT_REQUIRED),
         wantsRecommendationAndIntroduction: yup.string().notRequired(NOT_REQUIRED),
+        recommended: yup.string()
+        .when(
+            "wantsRecommendationAndIntroduction",
+            {
+                is: val => val === true,
+                then: yup.array().of(
+                    yup.object().shape({
+                        name: yup.string().notRequired(),
+                        firmName: yup.string().notRequired()
+                    })
+                )
+            }
+        ) 
     }))))
 })
 
 export const FSBOValidation = (agentType) => yup.object().shape({
-    forSaleByOwner: yup.string().required(REQUIRED),
+    forSaleByOwner: yup.string().notRequired(),
+    
+    
     sellerFirstName: yup.string().notRequired(),
     sellerLastName: yup.string().notRequired(),
     sellerEmail: yup.string().notRequired(),

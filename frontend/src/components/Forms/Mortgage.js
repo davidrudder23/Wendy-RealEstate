@@ -11,9 +11,11 @@ import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
+import { mortgageDefaultValues } from "../../defaultValues";
+
 
 const Mortgage = () => {
-    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(MortgageValidation);
+    const { register, control, handleSubmit, errors, action, push, getValues, agentType, state, watch } = useCustomFormHook(MortgageValidation, mortgageDefaultValues);
 
     const onSubmit = data => {
         action(data);
@@ -30,8 +32,10 @@ const Mortgage = () => {
     }
 
     const [currMortgageType, setCurrMortgageType] = React.useState("");
+    
+    let areConcessionsWatch = watch(`mortgage.areConcessions`)
     const [isConcessions, setIsConcessions] = React.useState(
-        state?.details?.mortgage?.areConcessions === 'true'
+        state?.details?.mortgage?.areConcessions === 'true' || areConcessionsWatch
             ? true : false);
 
     return (

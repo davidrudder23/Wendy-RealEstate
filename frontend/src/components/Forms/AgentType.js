@@ -9,7 +9,7 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 
 const AgentType = () => {
-    const { register, handleSubmit, errors, action, push } = useCustomFormHook(AgentTypeValidation);
+    const { register, handleSubmit, errors, action, push, watch} = useCustomFormHook(AgentTypeValidation);
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
@@ -33,6 +33,7 @@ const AgentType = () => {
                         register={register}
                         name="agentType"
                         array={[AGENT_TYPES.BUYERS, AGENT_TYPES.SELLERS]}
+                        watch={watch}
                     />
                 </S.FieldWrapper>
                 {/* <button onClick={handleTestingButton}>Testing</button> */}

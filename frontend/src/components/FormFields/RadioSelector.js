@@ -13,6 +13,7 @@ const RadioSelector = React.memo(({ register, name, array, other = false, defaul
     const [otherVal, setOtherVal] = React.useState({
         text: textFieldHasValue ? watchVal : ""
     })
+
     const [selectedVal, setSelectedValue] = React.useState("");
 
     const handleSetOtherVal = (e) => {
@@ -34,7 +35,7 @@ const RadioSelector = React.memo(({ register, name, array, other = false, defaul
                             name={name}
                             type="radio"
                             defaultValue={value}
-                            checked={value === selectedVal}
+                            checked={value === selectedVal }
                             ref={register} />
                         <S.Label onClick={() => setSelectedValue(value)}>
                             {value}

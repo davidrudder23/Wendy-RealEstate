@@ -9,8 +9,6 @@ const AttorneyRecommendations = ({ getValues, register, errors, represents, firm
         {name: "", firmName: ""},
     ])
 
-    console.log(recommendedAttorneys)
-
     const handleOnSelect = (e, suggestionIndex, arrayIndex) => {
         let newRecommendations = [...recommendedAttorneys];
         newRecommendations[arrayIndex] = {name: attorneys[suggestionIndex], firmName: firms[suggestionIndex]}

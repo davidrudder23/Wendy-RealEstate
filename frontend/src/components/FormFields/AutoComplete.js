@@ -96,7 +96,6 @@ const AutoComplete = ({
       filteredSuggestions = suggestions;
     }
 
-    console.log(suggestions)
     if (useDefaultFilter && !howToFilter) {
       filteredSuggestions = suggestions.filter(suggestion => {
         if (suggestion !== null) {

@@ -12,16 +12,19 @@ import { handleDeploymentPath } from "../../shared";
 import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
 import AutoComplete from "../FormFields/AutoComplete";
 import AttorneyRecommendations from "./AttorneyRecommendations";
+import { attorneyDefaultValues } from "../../defaultValues";
 
 const Attorney = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(TestAttorneyValidation);
+    let defaultValues = attorneyDefaultValues(false, true);
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state, watch } = useCustomFormHook(TestAttorneyValidation, defaultValues);
     const { represents, param1 } = useParams();
+    let hasAttorneyWatch = watch(`attorney.${represents}.hasAttorney`);
     const [hasAttorney, sethasAttorney] = React.useState(
-        state?.details?.attorney?.[represents]?.hasAttorney === `true` ?
-            true : false);
+        state?.details?.attorney?.[represents]?.hasAttorney === `true` || hasAttorneyWatch ? true : false);
+    
+    let wantsRecommendationWatch = watch(`attorney.${represents}.wantsRecommendationAndIntroduction`);
     const [wantsRecommendation, setWantsRecommendation] = React.useState(
-        state?.details?.attorney?.[represents]?.wantsRecommendationAndIntroduction === `true` ?
-            true : false);
+        state?.details?.attorney?.[represents]?.wantsRecommendationAndIntroduction === `true` || wantsRecommendationWatch ? true : false);
 
     const handleSheetData = (agentSheet, componentIsMounted) => {
         if (componentIsMounted) {
