@@ -164,7 +164,7 @@ export const LendersValidation = (agentType) => yup.object().shape({
         organization: yup.string().required(REQUIRED),
         name: yup.string().required(REQUIRED),
         companyName: yup.string().notRequired(REQUIRED),
-        phoneNumber: yup.string().required(REQUIRED).matches(PHONE_REG_EXP, 'This is not a valid phone number.'),
+        phoneNumber: yup.string().notRequired(),
         email: yup.string().email(VALID_EMAIL).required(REQUIRED),
         emailVerification: yup.string().email(VALID_EMAIL).required(REQUIRED).oneOf([yup.ref('email'), null], "Email Addresses Must Match"), 
     }),
