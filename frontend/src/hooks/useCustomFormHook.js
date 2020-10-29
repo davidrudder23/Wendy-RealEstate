@@ -12,8 +12,8 @@ const useCustomFormHook =  (validationRules, defaultVals) => {
     const { register, handleSubmit, getValues, errors, control, watch, setValue, formState, reset } = useForm({
         mode: 'onBlur',
         reValidateMode: 'onBlur',
-        resolver: validationRules && process.env.REACT_APP_ENABLE_VALIDATION === 'true' ? yupResolver(validationRules(agentType)) : null,
-        defaultValues: process.env.REACT_APP_ENABLE_TESTING_VALUES && defaultVals ? defaultVals(agentType) : state.details
+        resolver: validationRules && process.env.REACT_APP_ENABLE_VALIDATION === `true` ? yupResolver(validationRules(agentType)) : null,
+        defaultValues: process.env.REACT_APP_ENABLE_TESTING_VALUES === `true` && defaultVals ? defaultVals(agentType) : state.details
     });
     
     return {

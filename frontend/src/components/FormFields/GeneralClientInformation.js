@@ -21,28 +21,20 @@ const GeneralClientInformation = ({ errors, register, getValues, title, state })
         event.stopPropagation();
         setCount(count => count - 1);
     }
-
+    
     const fieldCount = () => {
         let fields = [];
         for (let i = 0; i < count; i++) {
             if (i === MAX_BUYERS) break;
 
-            let error =
-                errors?.client?.[title]?.[i]?.firstName ||
-                errors?.client?.[title]?.[i]?.lastName ||
-                errors?.client?.[title]?.[i]?.email ||
-                errors?.client?.[title]?.[i]?.emailVerification ||
-                errors?.client?.[title]?.[i]?.phoneNumber ||
-                errors?.client?.[title]?.[i]?.fullAddress;
-
             fields.push(
-                <S.FieldWrapper key={i} error={error}>
+                <S.FieldWrapper key={i} error={errors.client?.[title]?.[i]}>
                     <S.FieldTitle>{ordinal_suffix_of(i + 1)} {title}</S.FieldTitle>
                     <S.MultiContainer>
                         <InputField
                             name={`client.${title}.${i}.firstName`}
                             label="First Name"
-                            errors={errors?.client?.[title]?.[i]?.firstName}
+                            errors={errors[`client`]?.[title]?.[i]?.firstName}
                             register={register}
                             required={true}
                             getValues={getValues} />

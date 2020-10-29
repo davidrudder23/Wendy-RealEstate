@@ -4,7 +4,7 @@ import InputField from "../FormFields/InputField";
 import Slider from "../FormFields/Slider";
 import * as S from "../FormFields/FormStyled";
 import FormHeader from "../FormFields/FormHeader";
-import { TestAttorneyValidation } from "../../validation";
+import { AttorneyValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
@@ -13,11 +13,12 @@ import useLoadGoogleSheetInfo from '../../hooks/useLoadGoogleSheetInfo';
 import AutoComplete from "../FormFields/AutoComplete";
 import AttorneyRecommendations from "./AttorneyRecommendations";
 import { attorneyDefaultValues } from "../../defaultValues";
+import { FSBODefaultValuesPage2 } from "../../defaultValues";
 
 const Attorney = () => {
-    let defaultValues = attorneyDefaultValues(false, true);
-    const { register, handleSubmit, errors, action, push, getValues, agentType, state, watch } = useCustomFormHook(TestAttorneyValidation, defaultValues);
     const { represents, param1 } = useParams();
+    let defaultValues = param1 === "FSBO" ? FSBODefaultValuesPage2(false, true) : attorneyDefaultValues(false, true);
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state, watch } = useCustomFormHook(AttorneyValidation, defaultValues);
     let hasAttorneyWatch = watch(`attorney.${represents}.hasAttorney`);
     const [hasAttorney, sethasAttorney] = React.useState(
         state?.details?.attorney?.[represents]?.hasAttorney === `true` || hasAttorneyWatch ? true : false);

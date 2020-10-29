@@ -8,9 +8,10 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 import Broker from "./Broker";
 import Agents from "../FormFields/Agents";
+import { ListingBrokerDefaultValues } from "../../defaultValues";
 
 const ListingBroker = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation);
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation, ListingBrokerDefaultValues);
 
     const onSubmit = data => {
         action(data);
@@ -29,7 +30,6 @@ const ListingBroker = () => {
             }
         }
     }
-
 
     return (
         <S.Container>

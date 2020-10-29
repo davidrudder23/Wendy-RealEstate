@@ -121,7 +121,7 @@ const Agents = ({ register, errors, getValues, represents, agentType, title }) =
     }
 
     return (
-        <S.FieldWrapper >
+        <S.FieldWrapper error={errors.agent}>
             <S.FieldTitle>{title} Agent</S.FieldTitle>
             <S.MultiContainer>
                 <AutoComplete

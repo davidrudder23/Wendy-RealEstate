@@ -72,36 +72,65 @@ export const attorneyDefaultValues = (hasAttorney, wantsRecommendationAndIntrodu
     if(agentType === AGENT_TYPES.BUYERS){
             return {
             attorney: {
-                Buyer: {
-                    hasAttorney: hasAttorney,
-                    wantsRecommendationAndIntroduction: wantsRecommendationAndIntroduction,
-                    name: "George Colon",
-                    firmName: "George's Firm",
-                    email: "gcolon021@gmail.com",
-                    emailVerification: "gcolon021@gmail.com",
-                    phoneNumber: "4133560363",
-                    recommended: [{
-                        name: "George",
-                        firmName: "George's Firm"
-                    },
-                    {
-                        name: "George",
-                        firmName: "George's Firm"
-                    },
-                    {
-                        name: "George",
-                        firmName: "George's Firm"
-                    }]
-                }
+                Buyer: {...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction)}
             }
         }}
     }
 }
 
+export const FSBODefaultValuesPage1 = (agentType) => {
+    if(agentType === AGENT_TYPES.BUYERS){
+        return {
+            client: {
+                Seller: [
+                    {...client(agentType)},
+                ]
+            }
+        }
+    }
+}
+
+export const FSBODefaultValuesPage2 = (hasAttorney, wantsRecommendationAndIntroduction) => {
+    return (agentType) => {
+        if(agentType === AGENT_TYPES.BUYERS){
+            return {
+                attorney: {
+                    Seller: {...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction)}
+                }
+            }
+    }}
+}
+
+export const ListingBrokerDefaultValues = (agentType) => {
+    if(agentType === AGENT_TYPES.BUYERS){
+        return { 
+            ...broker(AGENT_TYPES.SELLERS),
+            ...agent(AGENT_TYPES.SELLERS),
+        }
+    }
+}
+
+export const LenderDefaultValues = (agentType) => {
+    if(agentType === AGENT_TYPES.BUYERS){
+        return {
+            lender: {
+                phoneNumber: "413-356-0363",
+                email: "gcolon021@gmail.com",
+                emailVerification: "gcolon021@gmail.com",
+                name: "George",
+                organization: "George's Firm",
+
+            }
+        }
+    }
+}
+
+
+
 const agent = (agentType) => {
     return {
         agent: {
-            Buyer: {
+            [agentType]: {
                 name: "George Colon", 
                 MLSNumber: "cn226414", 
                 email: "georgecolon2020@gmail.com", 
@@ -115,10 +144,45 @@ const agent = (agentType) => {
 const broker = (agentType) => {
     return {
         broker: {
-            Buyer: {
+            [agentType]: {
                 company: "George's Broker",
                 address: "29 Draper Street, Springfield, MA, USA"
             }
         },      
+    }
+}
+
+const client = (agentType) => {
+    return {
+        firstName: "George",
+        lastName: "Colon",
+        email: "gcolon021@gmail.com",
+        emailVerification: "gcolon021@gmail.com",
+        phoneNumber: "4133560363",
+        address: "29 Draper street, Springfield, MA, USA",
+    }
+}
+
+const attorney = (agentType, hasAttorney, wantsRecommendationAndIntroduction) => {
+    return {
+        hasAttorney: hasAttorney,
+        wantsRecommendationAndIntroduction: wantsRecommendationAndIntroduction,
+        name: "George Colon",
+        firmName: "George's Firm",
+        email: "gcolon021@gmail.com",
+        emailVerification: "gcolon021@gmail.com",
+        phoneNumber: "4133560363",
+        recommended: [{
+            name: "George",
+            firmName: "George's Firm"
+        },
+        {
+            name: "George",
+            firmName: "George's Firm"
+        },
+        {
+            name: "George",
+            firmName: "George's Firm"
+        }]
     }
 }

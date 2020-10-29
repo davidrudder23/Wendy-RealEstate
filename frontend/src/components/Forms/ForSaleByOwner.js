@@ -2,20 +2,20 @@ import React from 'react';
 import FormHeader from "../FormFields/FormHeader";
 import * as S from "../FormFields/FormStyled";
 import Slider from "../FormFields/Slider";
-import { FSBOValidation } from "../../validation";
+import { FSBOClientValidation } from "../../validation";
 import { AGENT_TYPES } from "../../shared";
 import { Next, Back } from "../FormFields/SharedButtons";
 import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 import GeneralClientInformation from "../FormFields/GeneralClientInformation";
+import { FSBODefaultValuesPage1 } from "../../defaultValues";
 
 const ForSaleByOwner = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(FSBOValidation);
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(FSBOClientValidation, FSBODefaultValuesPage1);
     const [isFSBO, setIsFSBO] = React.useState(
         state?.details?.FSBO?.isForSaleByOwner === `true` ? true : false
     );
 
-    console.log(errors)
     const onSubmit = data => {
         action(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {

@@ -9,9 +9,10 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 import { handleDeploymentPath } from "../../shared";
 import useLoadGoogleSheetInfo from "../../hooks/useLoadGoogleSheetInfo";
 import AutoComplete from "../FormFields/AutoComplete";
+import { LenderDefaultValues } from "../../defaultValues";
 
 const Lenders = () => {
-    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(LendersValidation);
+    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(LendersValidation, LenderDefaultValues);
 
     const handleSheetData = (agentSheet, componentIsMounted) => {
         if(componentIsMounted){
@@ -71,7 +72,6 @@ const Lenders = () => {
 
     const onSubmit = data => {
         action(data);
-        console.log(data);
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
@@ -85,7 +85,7 @@ const Lenders = () => {
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormHeader pageHeader={`Lender Information`} />
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors.lender}>
                     <S.FieldTitle>Lender Information</S.FieldTitle>
                     <S.MultiContainer>
                         <AutoComplete
@@ -99,31 +99,33 @@ const Lenders = () => {
                                 }
                             })}
                             getValues={getValues}
-                            name="lender.Name"
+                            name="lender.name"
                             label="Full Name"
-                            errors={errors.lender?.Name}
+                            errors={errors?.lender?.name}
                             register={register}
                             required={true}
                             onSelect={handleOnSelect}
                             status={ready}
                         />
-                        <InputField
-                            value={values.Organization}
-                            onChange={(e) => {
-                                e.persist();
-                                setValues(state => {
-                                return {
-                                    ...state,
-                                    Organization: e?.target?.value
-                                }
-                            })}}
-                            getValues={getValues}
-                            name="lender.Organization"
-                            label="Organization Name"
-                            errors={errors.lender?.Organization}
-                            register={register}
-                            required={true}
-                        />
+                        <S.AddressWrapper>
+                            <AutoComplete
+                                value={values.Organization}
+                                onChange={(e) => {
+                                    e.persist();
+                                    setValues(state => {
+                                    return {
+                                        ...state,
+                                        Organization: e?.target?.value
+                                    }
+                                })}}
+                                getValues={getValues}
+                                name="lender.organization"
+                                label="Organization Name"
+                                errors={errors.lender?.organization}
+                                register={register}
+                                required={true}
+                            />
+                        </S.AddressWrapper>
                     </S.MultiContainer>
                     <S.MultiContainer>
                         <AutoComplete
@@ -145,23 +147,25 @@ const Lenders = () => {
                             onSelect={handleOnSelect}
                             status={ready}
                         />
-                        <InputField
-                            value={values.EmailVerification}
-                            onChange={(e) => {
-                                e.persist();
-                                setValues(state => {
-                                return {
-                                    ...state,
-                                    EmailVerification: e?.target?.value
-                                }
-                            })}}
-                            getValues={getValues}
-                            name="lender.emailVerification"
-                            label="Email Verification"
-                            errors={errors.lender?.emailVerification}
-                            register={register}
-                            required={true}
-                        />
+                        <S.AddressWrapper>
+                            <AutoComplete
+                                value={values.EmailVerification}
+                                onChange={(e) => {
+                                    e.persist();
+                                    setValues(state => {
+                                    return {
+                                        ...state,
+                                        EmailVerification: e?.target?.value
+                                    }
+                                })}}
+                                getValues={getValues}
+                                name="lender.emailVerification"
+                                label="Email Verification"
+                                errors={errors.lender?.emailVerification}
+                                register={register}
+                                required={true}
+                            />
+                        </S.AddressWrapper>
                     </S.MultiContainer>
                     <div>
                         <InputField
