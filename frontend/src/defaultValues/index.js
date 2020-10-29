@@ -6,34 +6,36 @@ import { PROPERTY_TYPES, AGENT_TYPES, MORTGAGE_TYPES } from "../shared";
 
 
 export const propertyDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
-    return {
-        property: {
-            propertyType: PROPERTY_TYPES.CONDO,
-            deedReference: "0000-000000",
-            mlsNumber: "0000000",
-            address: "29 Draper Street, Springfield, MA, USA",
-            condoManagementCompany: "George's Condo Company",
-            dateHouseBuilt: "2021",
-            titleOrTownSewer: "Title V",
-            publicOrTownWater: "Town Water",
-            buyerHasSubmittedAdditionalOffer: false,
-            inspectionDeadline: "10/28/2020",
-            mapReferences: "00000000",
-            vacentOrOccupied: "Vacant",
-            loxBoxCode: "0123"
-        }}
+    if (agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS) {
+        return {
+            property: {
+                propertyType: PROPERTY_TYPES.CONDO,
+                deedReference: "0000-000000",
+                mlsNumber: "0000000",
+                address: "29 Draper Street, Springfield, MA, USA",
+                condoManagementCompany: "George's Condo Company",
+                dateHouseBuilt: "2021",
+                titleOrTownSewer: "Title V",
+                publicOrTownWater: "Town Water",
+                buyerHasSubmittedAdditionalOffer: false,
+                inspectionDeadline: "10/28/2020",
+                mapReferences: "00000000",
+                vacentOrOccupied: "Vacant",
+                loxBoxCode: "0123",
+                buyerHasSubmittedAdditionalOffer: true
+            }
+        }
     }
 }
 
 export const mortgageDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
+    if (agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS) {
         return {
             mortgage: {
                 typeOfMortgage: MORTGAGE_TYPES.CONVENTIONAL,
                 purchasePrice: "200000",
                 firstDeposit: "20000",
-                secondDeposit: "",
+                secondDeposit: "10000",
                 areConcessions: true,
                 concessions: "Testing 1, 2",
                 houseClosingDate: "10/28/2020",
@@ -44,8 +46,8 @@ export const mortgageDefaultValues = (agentType) => {
 }
 
 export const clientDefaultValues = (clientType) => {
-        return (agentType) => {
-            return {
+    return (agentType) => {
+        return {
             client: {
                 [clientType]: [{
                     firstName: "George",
@@ -62,10 +64,10 @@ export const clientDefaultValues = (clientType) => {
 
 export const agentDefaultValues = (represents) => {
     return (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
-        return {
-            ...broker(represents),
-            ...agent(represents),        
+        if (agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS) {
+            return {
+                ...broker(represents),
+                ...agent(represents),
             }
         }
     }
@@ -73,26 +75,27 @@ export const agentDefaultValues = (represents) => {
 
 export const attorneyDefaultValues = (represents, hasAttorney, wantsRecommendationAndIntroduction) => {
     return (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
+        if (agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS) {
             return {
-            attorney: {
+                attorney: {
+                    [represents]: {
+                        ...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction),
+                    }
+                },
                 [represents]: {
-                ...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction),
+                    ...recommended_attorneys()
                 }
-            },
-            [represents]: {
-                ...recommended_attorneys()
             }
-        }}
+        }
     }
 }
 
 export const FSBODefaultValuesPage1 = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
+    if (agentType === AGENT_TYPES.BUYERS) {
         return {
             client: {
                 Seller: [
-                    {...client(agentType)},
+                    { ...client(agentType) },
                 ]
             }
         }
@@ -101,22 +104,23 @@ export const FSBODefaultValuesPage1 = (agentType) => {
 
 export const FSBODefaultValuesPage2 = (hasAttorney, wantsRecommendationAndIntroduction) => {
     return (agentType) => {
-        if(agentType === AGENT_TYPES.BUYERS){
+        if (agentType === AGENT_TYPES.BUYERS) {
             return {
                 attorney: {
                     Seller: {
-                    ...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction),
+                        ...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction),
                     }
                 },
                 Seller: {
                     ...recommended_attorneys()
                 }
             }
-    }}
+        }
+    }
 }
 
 export const ListingBrokerDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
+    if (agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS) {
         return {
             ...broker(AGENT_TYPES.SELLERS),
             ...agent(AGENT_TYPES.SELLERS),
@@ -125,7 +129,7 @@ export const ListingBrokerDefaultValues = (agentType) => {
 }
 
 export const LenderDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
+    if (agentType === AGENT_TYPES.BUYERS) {
         return {
             lender: {
                 phoneNumber: "413-356-0363",
@@ -145,12 +149,12 @@ const agent = (agentType) => {
     return {
         agent: {
             [agentType]: {
-                name: "George Colon", 
-                MLSNumber: "cn226414", 
-                email: "georgecolon2020@gmail.com", 
+                name: "George Colon",
+                MLSNumber: "cn226414",
+                email: "georgecolon2020@gmail.com",
                 emailVerification: "georgecolon2020@gmail.com",
                 phoneNumber: "413-317-0029",
-                agencyCompensationPerMLS: "0", 
+                agencyCompensationPerMLS: "0",
             }
         }
     }
@@ -163,7 +167,7 @@ const broker = (agentType) => {
                 company: "George's Broker",
                 address: "29 Draper Street, Springfield, MA, USA"
             }
-        },      
+        },
     }
 }
 

@@ -4,12 +4,12 @@ import * as T from "./TenantStyled";
 import InputField from './InputField';
 import CustomDatePicker from "./DatePicker";
 
-const Tenant = ({getValues, state, register, errors, control}) => {
+const Tenant = ({ getValues, state, register, errors, control }) => {
     const MAX_TEANTS = 10;
     const [count, setCount] = useState(
         state?.details?.property?.tenant?.length
-        ? state?.details?.property?.tenant?.length
-        : 2)
+            ? state?.details?.property?.tenant?.length
+            : 2)
 
     const increaseCount = (event) => {
         event.preventDefault();
@@ -42,7 +42,7 @@ const Tenant = ({getValues, state, register, errors, control}) => {
                             getValues={getValues}
                             showMonthYearPicker={true}
                             control={control}
-                            name="property.dateHouseBuilt"
+                            name={`property.tenant.${index}.endLeaseDate`}
                             label={`Lease end date ${index + 1}`}
                             required={false}
                             dateFormat="MM/yyyy"
