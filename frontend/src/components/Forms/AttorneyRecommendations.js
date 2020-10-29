@@ -28,9 +28,9 @@ const AttorneyRecommendations = ({ getValues, register, errors, represents, firm
                     }}
                     suggestions={attorneys}
                     getValues={getValues}
-                    name={`attorney.${represents}.recommended.${i}.name`}
+                    name={`${represents}.recommended_attorneys.${i}.name`}
                     label="Full Name"
-                    errors={errors?.attorney?.[represents]?.recommended?.[i]?.name}
+                    errors={errors?.[represents]?.recommended_attorneys?.[i]?.name}
                     required={true}
                     register={register}
                     onSelect={(e, suggestionIndex) => handleOnSelect(e, suggestionIndex, i)}
@@ -45,13 +45,13 @@ const AttorneyRecommendations = ({ getValues, register, errors, represents, firm
                         }}
                         suggestions={firms}
                         getValues={getValues}
-                        name={`attorney.${represents}.recommended.${i}.firmName`}
+                        name={`${represents}.recommended_attorneys.${i}.firmName`}
                         label="Attorney Firm Name"
-                        errors={errors?.attorney?.[represents]?.recommended?.[i]?.firmName}
+                        errors={errors?.[represents]?.recommended_attorneys?.[i]?.firmName}
                         required={false}
                         register={register}
-                        status={ready}
                         onSelect={(e, suggestionIndex) => handleOnSelect(e, suggestionIndex, i)}
+                        status={ready}
                     />
                 </S.AddressWrapper>
             </S.MultiContainer>

@@ -17,8 +17,9 @@ import { FSBODefaultValuesPage2 } from "../../defaultValues";
 
 const Attorney = () => {
     const { represents, param1 } = useParams();
-    let defaultValues = param1 === "FSBO" ? FSBODefaultValuesPage2(false, true) : attorneyDefaultValues(false, true);
+    let defaultValues = param1 === "FSBO" ? FSBODefaultValuesPage2(represents, false, true) : attorneyDefaultValues(represents, false, true);
     const { register, handleSubmit, errors, action, push, getValues, agentType, state, watch } = useCustomFormHook(AttorneyValidation, defaultValues);
+
     let hasAttorneyWatch = watch(`attorney.${represents}.hasAttorney`);
     const [hasAttorney, sethasAttorney] = React.useState(
         state?.details?.attorney?.[represents]?.hasAttorney === `true` || hasAttorneyWatch ? true : false);
@@ -115,9 +116,6 @@ const Attorney = () => {
     }
 
     const askFilingClientIfTheyHaveAttorneyAndTheyWantRecommendationIfNot = () => {
-        if ((agentType === AGENT_TYPES.SELLERS && represents === AGENT_TYPES.SELLERS) ||
-            (agentType === AGENT_TYPES.BUYERS && represents === AGENT_TYPES.BUYERS) ||
-            (param1 === 'FSBO')) {
             return (
                 <React.Fragment>
                     <S.FieldWrapper>
@@ -143,13 +141,12 @@ const Attorney = () => {
                     }
                 </React.Fragment>
             )
-        }
     }
 
     const attorneyInformation = () => {
         if (hasAttorney) {
             return (
-                <S.FieldWrapper>
+                <S.FieldWrapper error={errors?.attorney?.[represents]}>
                     <S.FieldTitle>{represents}'s Attorney Information</S.FieldTitle>
                     <S.MultiContainer>
                         <AutoComplete

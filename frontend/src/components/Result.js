@@ -7,6 +7,8 @@ const Result = props => {
   const { state } = useStateMachine(updateAction);
   const { goBack } = useHistory();
 
+  console.log(state)
+
   return (
     <div className="container">
       <h2>Result</h2>

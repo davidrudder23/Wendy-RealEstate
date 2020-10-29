@@ -6,7 +6,7 @@ import { PROPERTY_TYPES, AGENT_TYPES, MORTGAGE_TYPES } from "../shared";
 
 
 export const propertyDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
+    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
     return {
         property: {
             propertyType: PROPERTY_TYPES.CONDO,
@@ -19,12 +19,15 @@ export const propertyDefaultValues = (agentType) => {
             publicOrTownWater: "Town Water",
             buyerHasSubmittedAdditionalOffer: false,
             inspectionDeadline: "10/28/2020",
+            mapReferences: "00000000",
+            vacentOrOccupied: "Vacant",
+            loxBoxCode: "0123"
         }}
     }
 }
 
 export const mortgageDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
+    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
         return {
             mortgage: {
                 typeOfMortgage: MORTGAGE_TYPES.CONVENTIONAL,
@@ -35,17 +38,16 @@ export const mortgageDefaultValues = (agentType) => {
                 concessions: "Testing 1, 2",
                 houseClosingDate: "10/28/2020",
                 mortgageCommitmentDeadline: "10/28/2020",
-
             }
         }
     }
 }
 
-export const clientDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
-        return {
+export const clientDefaultValues = (clientType) => {
+        return (agentType) => {
+            return {
             client: {
-                Buyer: [{
+                [clientType]: [{
                     firstName: "George",
                     lastName: "Colon",
                     email: "gcolon021@gmail.com",
@@ -58,21 +60,28 @@ export const clientDefaultValues = (agentType) => {
     }
 }
 
-export const agentDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
+export const agentDefaultValues = (represents) => {
+    return (agentType) => {
+    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
         return {
-            ...broker(agentType),
-            ...agent(agentType),        
+            ...broker(represents),
+            ...agent(represents),        
+            }
         }
     }
 }
 
-export const attorneyDefaultValues = (hasAttorney, wantsRecommendationAndIntroduction) => {
+export const attorneyDefaultValues = (represents, hasAttorney, wantsRecommendationAndIntroduction) => {
     return (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
+    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
             return {
             attorney: {
-                Buyer: {...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction)}
+                [represents]: {
+                ...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction),
+                }
+            },
+            [represents]: {
+                ...recommended_attorneys()
             }
         }}
     }
@@ -95,15 +104,20 @@ export const FSBODefaultValuesPage2 = (hasAttorney, wantsRecommendationAndIntrod
         if(agentType === AGENT_TYPES.BUYERS){
             return {
                 attorney: {
-                    Seller: {...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction)}
+                    Seller: {
+                    ...attorney(agentType, hasAttorney, wantsRecommendationAndIntroduction),
+                    }
+                },
+                Seller: {
+                    ...recommended_attorneys()
                 }
             }
     }}
 }
 
 export const ListingBrokerDefaultValues = (agentType) => {
-    if(agentType === AGENT_TYPES.BUYERS){
-        return { 
+    if(agentType === AGENT_TYPES.BUYERS || agentType === AGENT_TYPES.SELLERS){
+        return {
             ...broker(AGENT_TYPES.SELLERS),
             ...agent(AGENT_TYPES.SELLERS),
         }
@@ -135,7 +149,8 @@ const agent = (agentType) => {
                 MLSNumber: "cn226414", 
                 email: "georgecolon2020@gmail.com", 
                 emailVerification: "georgecolon2020@gmail.com",
-                phoneNumber: "413-317-0029"
+                phoneNumber: "413-317-0029",
+                agencyCompensationPerMLS: "0", 
             }
         }
     }
@@ -172,7 +187,12 @@ const attorney = (agentType, hasAttorney, wantsRecommendationAndIntroduction) =>
         email: "gcolon021@gmail.com",
         emailVerification: "gcolon021@gmail.com",
         phoneNumber: "4133560363",
-        recommended: [{
+    }
+}
+
+const recommended_attorneys = () => {
+    return {
+        recommended_attorneys: [{
             name: "George",
             firmName: "George's Firm"
         },
@@ -183,6 +203,6 @@ const attorney = (agentType, hasAttorney, wantsRecommendationAndIntroduction) =>
         {
             name: "George",
             firmName: "George's Firm"
-        }]
+        }],
     }
 }

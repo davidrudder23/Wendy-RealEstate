@@ -95,7 +95,7 @@ const Agents = ({ register, errors, getValues, represents, agentType, title }) =
             />
         )
     }
-
+    console.log(errors)
     const loadFieldsBasedOnAgent = () => {
         if (AGENT_TYPES.BUYERS === agentType) {
             return (
@@ -109,9 +109,9 @@ const Agents = ({ register, errors, getValues, represents, agentType, title }) =
                     {loadAgentPhoneNumber()}
                     <InputField
                         getValues={getValues}
-                        name={`agent.${represents}.compensationPerMLS`}
+                        name={`agent.${represents}.agencyCompensationPerMLS`}
                         label="Agency Compensation per MLS"
-                        errors={errors?.agent?.[represents]?.compensationPerMLS}
+                        errors={errors?.agent?.[represents]?.agencyCompensationPerMLS}
                         register={register}
                         required={true}
                     />
