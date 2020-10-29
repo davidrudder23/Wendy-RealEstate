@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/Wendy-RealEstate/static/css/main.f8f5a137.chunk.css",
-    "main.js": "/Wendy-RealEstate/static/js/main.ea864048.chunk.js",
-    "main.js.map": "/Wendy-RealEstate/static/js/main.ea864048.chunk.js.map",
+    "main.js": "/Wendy-RealEstate/static/js/main.a51c58e3.chunk.js",
+    "main.js.map": "/Wendy-RealEstate/static/js/main.a51c58e3.chunk.js.map",
     "runtime-main.js": "/Wendy-RealEstate/static/js/runtime-main.79e7d5d7.js",
     "runtime-main.js.map": "/Wendy-RealEstate/static/js/runtime-main.79e7d5d7.js.map",
-    "static/css/2.bac53e54.chunk.css": "/Wendy-RealEstate/static/css/2.bac53e54.chunk.css",
-    "static/js/2.59917142.chunk.js": "/Wendy-RealEstate/static/js/2.59917142.chunk.js",
-    "static/js/2.59917142.chunk.js.map": "/Wendy-RealEstate/static/js/2.59917142.chunk.js.map",
+    "static/css/2.8d4cdce2.chunk.css": "/Wendy-RealEstate/static/css/2.8d4cdce2.chunk.css",
+    "static/js/2.9cbbdcca.chunk.js": "/Wendy-RealEstate/static/js/2.9cbbdcca.chunk.js",
+    "static/js/2.9cbbdcca.chunk.js.map": "/Wendy-RealEstate/static/js/2.9cbbdcca.chunk.js.map",
     "index.html": "/Wendy-RealEstate/index.html",
-    "precache-manifest.c25f1d0f1b86a057b08b7a6de588204f.js": "/Wendy-RealEstate/precache-manifest.c25f1d0f1b86a057b08b7a6de588204f.js",
+    "precache-manifest.337604ff82c30d56336dff207b4114c3.js": "/Wendy-RealEstate/precache-manifest.337604ff82c30d56336dff207b4114c3.js",
     "service-worker.js": "/Wendy-RealEstate/service-worker.js",
-    "static/css/2.bac53e54.chunk.css.map": "/Wendy-RealEstate/static/css/2.bac53e54.chunk.css.map",
+    "static/css/2.8d4cdce2.chunk.css.map": "/Wendy-RealEstate/static/css/2.8d4cdce2.chunk.css.map",
     "static/css/main.f8f5a137.chunk.css.map": "/Wendy-RealEstate/static/css/main.f8f5a137.chunk.css.map",
-    "static/js/2.59917142.chunk.js.LICENSE.txt": "/Wendy-RealEstate/static/js/2.59917142.chunk.js.LICENSE.txt"
+    "static/js/2.9cbbdcca.chunk.js.LICENSE.txt": "/Wendy-RealEstate/static/js/2.9cbbdcca.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.79e7d5d7.js",
-    "static/css/2.bac53e54.chunk.css",
-    "static/js/2.59917142.chunk.js",
+    "static/css/2.8d4cdce2.chunk.css",
+    "static/js/2.9cbbdcca.chunk.js",
     "static/css/main.f8f5a137.chunk.css",
-    "static/js/main.ea864048.chunk.js"
+    "static/js/main.a51c58e3.chunk.js"
   ]
 }
