@@ -21,7 +21,8 @@ const ForSaleByOwner = () => {
             client: {
                 ...data?.client,
                 ...state?.details?.client, 
-            }
+            },
+            ...data?.FSBO
         });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
