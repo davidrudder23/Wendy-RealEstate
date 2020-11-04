@@ -12,9 +12,20 @@ import { ListingBrokerDefaultValues } from "../../defaultValues";
 
 const ListingBroker = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation, ListingBrokerDefaultValues);
-
     const onSubmit = data => {
-        action(data);
+        action({
+            listingBroker: {
+                agent: {
+                    ...data?.agent?.[AGENT_TYPES.SELLERS],
+                    ...state?.details?.listingBroker?.agent
+                },
+                broker: {
+                    ...data?.broker?.[AGENT_TYPES.SELLERS],
+                    ...state?.details?.listingBroker?.broker
+                }
+            }
+        });
+
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {

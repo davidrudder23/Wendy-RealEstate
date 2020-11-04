@@ -13,10 +13,24 @@ import { agentDefaultValues } from "../../defaultValues";
 
 const Agent = () => {
     const { represents } = useParams();
-    const { register, handleSubmit, errors, action, push, getValues, agentType } = useCustomFormHook(AgentAndBrokerValidation, agentDefaultValues(represents));
+    const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(AgentAndBrokerValidation, agentDefaultValues(represents));
 
     const onSubmit = data => {
-        action(data);
+        action({
+            agent: {
+                [represents]: {
+                    agent: {
+                        ...data?.agent?.[represents],
+                        ...state?.details?.agent
+                    },
+                    broker: {
+                        ...data?.broker?.[represents],
+                        ...state?.details?.broker
+                    }
+                },
+                ...state?.details?.agent
+            }
+        });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {

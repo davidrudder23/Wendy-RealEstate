@@ -24,7 +24,7 @@ const AdditionalInformation = () => {
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else {
-            push(handleDeploymentPath("/result"));
+            push(handleDeploymentPath("/PDF"));
         }
     }
 
@@ -41,13 +41,15 @@ const AdditionalInformation = () => {
                             register={register}
                             required={true}
                         />
-                        <InputField
-                            name="referral.broker"
-                            label="Agent that Referred Client"
-                            getValues={getValues}
-                            register={register}
-                            required={true}
-                        />
+                        <S.AddressWrapper>
+                            <InputField
+                                name="referral.amount"
+                                label="Amount"
+                                getValues={getValues}
+                                register={register}
+                                required={true}
+                            />
+                        </S.AddressWrapper>
                     </S.MultiContainer>
                     <S.MultiContainer>
                         <InputField
@@ -65,15 +67,6 @@ const AdditionalInformation = () => {
                             required={true}
                         />
                     </S.MultiContainer>
-                    <div>
-                        <InputField
-                            name="referral.amount"
-                            label="Amount"
-                            getValues={getValues}
-                            register={register}
-                            required={true}
-                        />
-                    </div>
                 </S.FieldWrapper>
             )
         }

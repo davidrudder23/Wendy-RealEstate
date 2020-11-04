@@ -13,6 +13,7 @@ import AdditionalInformation from "../Forms/AdditionalInformation";
 import Testing from "../Forms/Testing";
 import Client from "../Forms/Client";
 import { handleDeploymentPath } from "../../shared";
+import FinalPDF from "../Forms/FinalPDF";
 
 const index = () => {
     return (
@@ -29,6 +30,7 @@ const index = () => {
             <Route path={handleDeploymentPath("/AdditionalInformation")} component={AdditionalInformation} />
             <Route path={handleDeploymentPath("/result")} component={Result} />
             <Route path={handleDeploymentPath("/Testing")} component={Testing} />
+            <Route path={handleDeploymentPath("/PDF")} component={FinalPDF} />
         </Router>
     )
 }

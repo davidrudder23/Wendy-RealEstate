@@ -17,7 +17,7 @@ import { FSBODefaultValuesPage2 } from "../../defaultValues";
 
 const Attorney = () => {
     const { represents, param1 } = useParams();
-    let defaultValues = param1 === "FSBO" ? FSBODefaultValuesPage2(represents, false, true) : attorneyDefaultValues(represents, false, true);
+    let defaultValues = param1 === "FSBO" ? FSBODefaultValuesPage2(represents, true, false) : attorneyDefaultValues(represents, true, false);
     const { register, handleSubmit, errors, action, push, getValues, agentType, state, watch } = useCustomFormHook(AttorneyValidation, defaultValues);
 
     let hasAttorneyWatch = watch(`attorney.${represents}.hasAttorney`);
@@ -95,7 +95,12 @@ const Attorney = () => {
     }
 
     const onSubmit = data => {
-        action(data);
+        action({
+            attorney: {
+                ...data?.attorney,
+                ...state?.details?.attorney
+            }
+        });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.SELLERS) {

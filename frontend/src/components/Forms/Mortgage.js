@@ -23,10 +23,10 @@ const Mortgage = () => {
             push(handleDeploymentPath("/result"));
         } else {
             if (agentType === AGENT_TYPES.SELLERS) {
-                push(handleDeploymentPath("/Client/Seller"));
+                push(handleDeploymentPath(`/Client/${AGENT_TYPES.SELLERS}`));
             }
             if (agentType === AGENT_TYPES.BUYERS) {
-                push(handleDeploymentPath("/Client/Buyer"))
+                push(handleDeploymentPath(`/Client/${AGENT_TYPES.BUYERS}`))
             }
         }
     }

@@ -17,7 +17,6 @@ export const propertyDefaultValues = (agentType) => {
                 dateHouseBuilt: "2021",
                 titleOrTownSewer: "Title V",
                 publicOrTownWater: "Town Water",
-                buyerHasSubmittedAdditionalOffer: false,
                 inspectionDeadline: "10/28/2020",
                 mapReferences: "00000000",
                 vacentOrOccupied: "Vacant",

@@ -17,7 +17,12 @@ const ForSaleByOwner = () => {
     );
 
     const onSubmit = data => {
-        action(data);
+        action({
+            client: {
+                ...data?.client,
+                ...state?.details?.client, 
+            }
+        });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
         } else if (agentType === AGENT_TYPES.BUYERS) {

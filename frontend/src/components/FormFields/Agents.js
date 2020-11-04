@@ -95,7 +95,7 @@ const Agents = ({ register, errors, getValues, represents, agentType, title }) =
             />
         )
     }
-    console.log(errors)
+    // console.log(errors)
     const loadFieldsBasedOnAgent = () => {
         if (AGENT_TYPES.BUYERS === agentType) {
             return (
