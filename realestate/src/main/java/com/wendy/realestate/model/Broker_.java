@@ -9,49 +9,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Builder;
+import lombok.Data;
+import lombok.extern.jackson.Jacksonized;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "company",
     "address"
 })
-public class Broker_ {
+@Jacksonized
+@Builder
+public @Data
+class Broker_ {
 
     @JsonProperty("company")
     private String company;
     @JsonProperty("address")
     private String address;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    @JsonProperty("company")
-    public String getCompany() {
-        return company;
-    }
-
-    @JsonProperty("company")
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    @JsonProperty("address")
-    public String getAddress() {
-        return address;
-    }
-
-    @JsonProperty("address")
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
+    private Map<String, Object> additionalProperties;
 }

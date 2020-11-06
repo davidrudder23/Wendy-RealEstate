@@ -1,5 +1,5 @@
 
-package com.domain;
+package com.wendy.realestate.model;
 
 import java.util.HashMap;
 import java.util.Map;
