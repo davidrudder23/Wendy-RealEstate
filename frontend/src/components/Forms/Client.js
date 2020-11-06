@@ -16,8 +16,10 @@ const Client = () => {
     const onSubmit = data => {
         action({
             client: {
-                ...data?.client,
-                ...state?.details?.client, 
+                ...state?.details?.client,
+                [clientType]: {
+                    list: [...data?.client?.[clientType]]
+                },
             }
         });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {

@@ -17,10 +17,13 @@ const ForSaleByOwner = () => {
     );
 
     const onSubmit = data => {
+        console.log(data.client)
         action({
             client: {
-                ...data?.client,
-                ...state?.details?.client, 
+                [AGENT_TYPES.SELLERS]: {
+                    list: [...data?.client?.[AGENT_TYPES.SELLERS]]
+                },
+                ...state?.details?.client,
             },
             ...data?.FSBO
         });

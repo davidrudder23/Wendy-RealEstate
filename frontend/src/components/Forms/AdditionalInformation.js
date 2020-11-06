@@ -13,10 +13,10 @@ import useCustomFormHook from "../../hooks/useCustomFormHook";
 const AdditionalInformation = () => {
     const { handleSubmit, action, push, register, getValues, watch, state } = useCustomFormHook();
     const [withTracyGagne, setWithTracyGagne] = useState(
-        state?.details?.additionalInformation?.withTracyGagne === 'true'
+        state?.details?.additionalInformation?.withTracyGagne === `true`
             ? true : false)
     const [hasReferral, setHasReferral] = useState(
-        state?.details?.additionalInformation?.hasReferral === 'true'
+        state?.details?.additionalInformation?.hasReferral === `true`
             ? true : false);
 
     const onSubmit = data => {
@@ -83,6 +83,7 @@ const AdditionalInformation = () => {
                         setIsChecked={setWithTracyGagne}
                         name="additionalInformation.withTracyGagne"
                         register={register}
+                        required={false}
                     />
                 </S.FieldWrapper>
                 {withTracyGagne ? <S.FieldWrapper>
@@ -104,6 +105,7 @@ const AdditionalInformation = () => {
                             setIsChecked={setHasReferral}
                             name="additionalInformation.hasReferral"
                             register={register}
+                            required={false}
                         />
                     </S.FieldTitle>
                 </S.FieldWrapper>

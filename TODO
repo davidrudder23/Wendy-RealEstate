@@ -1,9 +1,9 @@
-TODO: Build pdf page with download
-TODO: Add Option to download PDF on final page
-TODO: Final submit option
+TODO: Server and Database
+TODO: add call to database
+TODO: Loading Emblem on final submit
+TODO: Final Submit Page
 TODO: Error on attorney page
 TODO: Create a controlled Inputfield that replicates AutoComplete without the additional functionality.
 TODO: Migrate any autocomplete field that doesnt have suggestions to new Controlled Inputfield
-TODO: Server and Database
-TODO: add call to database
 TODO: Validate deadlines against each other
+TODO: Add eXp Emblem to website and website tab

@@ -14,16 +14,18 @@ const ListingBroker = () => {
     const { register, handleSubmit, errors, action, push, getValues, agentType, state } = useCustomFormHook(ListingBrokerValidation, ListingBrokerDefaultValues);
     const onSubmit = data => {
         action({
-            listingBroker: {
-                agent: {
-                    ...data?.agent?.[AGENT_TYPES.SELLERS],
-                    ...state?.details?.listingBroker?.agent
-                },
-                broker: {
-                    ...data?.broker?.[AGENT_TYPES.SELLERS],
-                    ...state?.details?.listingBroker?.broker
+            client: {
+                ...state?.details?.client,
+                [AGENT_TYPES.SELLERS]: {
+                    ...state?.details?.client?.[AGENT_TYPES.SELLERS],
+                    agent: {
+                        ...data?.agent?.[AGENT_TYPES.SELLERS],
+                    },
+                    broker: {
+                        ...data?.broker?.[AGENT_TYPES.SELLERS],
+                    }
                 }
-            }
+            },
         });
 
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {

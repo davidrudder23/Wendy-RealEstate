@@ -96,9 +96,23 @@ const Attorney = () => {
 
     const onSubmit = data => {
         action({
-            attorney: {
-                ...data?.attorney,
-                ...state?.details?.attorney
+            client: {
+                ...state?.details?.client,
+                [represents]: {
+                    ...state?.details?.client?.[represents],
+                    recommendedAttorneys: data?.[represents]?.recommended_attorneys ? data?.[represents]?.recommended_attorneys : [],
+                    attorney: {
+                        name: data?.attorney?.[represents]?.name,
+                        firmName: data?.attorney?.[represents]?.firmName,
+                        email: data?.attorney?.[represents]?.email,
+                        emailVerification: data?.attorney?.[represents]?.emailVerification,
+                        phoneNumber: data?.attorney?.[represents]?.phoneNumber,
+                    },
+                    attorneyChoices: {
+                        hasAttorney: data?.attorney?.[represents]?.hasAttorney,
+                        wantsRecommendationAndIntroduction: data?.attorney?.[represents]?.wantsRecommendationAndIntroduction
+                    }
+                }
             }
         });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {

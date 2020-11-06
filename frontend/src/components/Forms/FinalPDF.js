@@ -11,6 +11,8 @@ const FinalPDF = () => {
     const ref = React.createRef();
     const date = new Date();
     
+    console.log(state)
+
     const handleSubmit = () => {
         push(handleDeploymentPath("/result"));
     }
@@ -75,33 +77,33 @@ const FinalPDF = () => {
                                     <S.Title>Broker Information</S.Title>
                                     <S.Row style={{marginTop: ".25rem"}}>
                                         <S.LargeBox style={{borderLeft: ".5px solid #000"}}>
-                                            <b>Listing Agency: </b>{state?.details?.listingBroker?.broker?.company}<br/>
-                                            <b>Address: </b>{state?.details?.listingBroker?.broker?.address}
+                                            <b>Listing Agency: </b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.broker?.company}<br/>
+                                            <b>Address: </b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.broker?.address}
                                         </S.LargeBox>
                                         <S.LargeBox>
-                                            <b>Selling Agency:</b>{state?.details?.agent?.[AGENT_TYPES.BUYERS]?.broker?.company}<br/>
-                                            <b>Address:</b>{state?.details?.agent?.[AGENT_TYPES.BUYERS]?.broker?.address}
+                                            <b>Selling Agency:</b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.broker?.company}<br/>
+                                            <b>Address:</b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.broker?.address}
                                         </S.LargeBox>
                                     </S.Row>
                                     <S.Row>
                                         <S.Column style={{flexGrow: 2}}>
                                             <S.Title>Listing Agent</S.Title>
                                             <S.LargeBox style={{borderLeft: ".5px solid #000"}}>
-                                                <b>Listing Agent: </b>{state?.details?.listingBroker?.agent?.name}<br/>
-                                                <b>MLS ID: </b>{state?.details?.listingBroker?.agent?.MLSNumber}<br/>
+                                                <b>Listing Agent: </b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.agent?.name}<br/>
+                                                <b>MLS ID: </b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.agent?.MLSNumber}<br/>
                                                 <b>License #: </b><br/>
-                                                <b>Email: </b>{state?.details?.listingBroker?.agent?.email}<br/>
-                                                <b>Cell Phone: </b>{state?.details?.listingBroker?.agent?.phoneNumber}
+                                                <b>Email: </b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.agent?.email}<br/>
+                                                <b>Cell Phone: </b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.agent?.phoneNumber}
                                             </S.LargeBox>
                                         </S.Column>
                                         <S.Column style={{flexGrow: 2}}>
                                             <S.Title>Buyer's Agent</S.Title>
                                             <S.LargeBox>
-                                                <b>Buyer's Agent: </b>{state?.details?.agent?.[AGENT_TYPES.BUYERS]?.agent?.name}<br/>
-                                                <b>Email: </b>{state?.details?.agent?.[AGENT_TYPES.BUYERS]?.agent?.email}<br/>
-                                                <b>Cell Phone: </b>{state?.details?.agent?.[AGENT_TYPES.BUYERS]?.agent?.phoneNumber}<br/>
+                                                <b>Buyer's Agent: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.agent?.name}<br/>
+                                                <b>Email: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.agent?.email}<br/>
+                                                <b>Cell Phone: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.agent?.phoneNumber}<br/>
                                                 <b>License #: </b><br/>
-                                                <b>MLS ID: </b>{state?.details?.agent?.[AGENT_TYPES.BUYERS]?.agent?.MLSNumber}
+                                                <b>MLS ID: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.agent?.MLSNumber}
                                             </S.LargeBox>
                                         </S.Column>
                                     </S.Row>
@@ -113,11 +115,11 @@ const FinalPDF = () => {
                                         {/* Sellers Information */}
                                         <S.Column style={{flexGrow: 2}}>
                                             <S.Title style={{color: "red"}}>Seller's Information</S.Title>
-                                            {state?.details?.client?.[AGENT_TYPES.SELLERS] ? 
-                                            state?.details?.client?.[AGENT_TYPES.SELLERS]?.map((seller, index) => {
+                                            {state?.details?.client?.[AGENT_TYPES.SELLERS]?.list ? 
+                                                state?.details?.client?.[AGENT_TYPES.SELLERS]?.list.map((seller, index) => {
                                                 return (
                                                 <S.LargeBox style={{borderLeft: ".5px solid #000"}} key={`${AGENT_TYPES.SELLERS}[${index}]`}>
-                                                    <b>Name: </b>{seller.name}<br/>
+                                                    <b>Name: </b>{seller.firstName + " " + seller.lastName}<br/>
                                                     <b>Address: </b>{seller.address}<br/>
                                                     <b>Phone #: </b>{seller.phoneNumber}<br/>
                                                     <b>Email: </b>{seller.email}
@@ -137,8 +139,8 @@ const FinalPDF = () => {
                                         {/* Buyers Information */}
                                         <S.Column style={{flexGrow: 2}}>
                                             <S.Title style={{color: "blue"}}>Buyer's Information</S.Title>
-                                            {state?.details?.client?.[AGENT_TYPES.BUYERS] ? 
-                                            state?.details?.client?.[AGENT_TYPES.BUYERS]?.map((buyer, index) => {
+                                            {state?.details?.client?.[AGENT_TYPES.BUYERS]?.list ? 
+                                                state?.details?.client?.[AGENT_TYPES.BUYERS]?.list.map((buyer, index) => {
                                                 return (
                                                 <S.LargeBox key={`${AGENT_TYPES.BUYERS}[${index}]`} >
                                                     <b>Name: </b>{buyer.firstName + " " + buyer.lastName}<br/>
@@ -167,7 +169,7 @@ const FinalPDF = () => {
                                         <S.Column style={{flexGrow: 2}}>
                                             <S.Title style={{color: "red"}}>Seller's Attorney</S.Title>
                                             <S.LargeBox style={{borderLeft: ".5px solid #000"}}>
-                                            <b>Attorney Name:</b>{state?.details?.attorney?.[AGENT_TYPES.SELLERS]?.name}<br/>
+                                                <b>Attorney Name:</b>{state?.details?.client?.[AGENT_TYPES.SELLERS]?.attorney?.name}<br/>
                                                 <b>Phone Number:</b>{state?.details?.attorney?.[AGENT_TYPES.SELLERS]?.phoneNumber}<br/>
                                                 <b>Firm Name:</b>{state?.details?.attorney?.[AGENT_TYPES.SELLERS]?.firmName}<br/>
                                                 <b>Email:</b>{state?.details?.attorney?.[AGENT_TYPES.SELLERS]?.email}<br/>
@@ -177,10 +179,10 @@ const FinalPDF = () => {
                                         <S.Column style={{flexGrow: 2}}>
                                             <S.Title style={{color: "blue"}}>Buyer's Attorney</S.Title>
                                             <S.LargeBox>
-                                                <b>Attorney Name:</b>{state?.details?.attorney?.[AGENT_TYPES.BUYERS]?.name}<br/>
-                                                <b>Phone Number:</b>{state?.details?.attorney?.[AGENT_TYPES.BUYERS]?.phoneNumber}<br/>
-                                                <b>Firm Name:</b>{state?.details?.attorney?.[AGENT_TYPES.BUYERS]?.firmName}<br/>
-                                                <b>Email:</b>{state?.details?.attorney?.[AGENT_TYPES.BUYERS]?.email}<br/>
+                                                <b>Attorney Name: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.attorney?.name}<br/>
+                                                <b>Phone Number: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.attorney?.phoneNumber}<br/>
+                                                <b>Firm Name: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.attorney?.firmName}<br/>
+                                                <b>Email: </b>{state?.details?.client?.[AGENT_TYPES.BUYERS]?.attorney?.email}<br/>
                                                 <b>Contact:</b>
                                             </S.LargeBox>
                                         </S.Column>
@@ -192,20 +194,20 @@ const FinalPDF = () => {
                                     <S.Column style={{flexGrow: 2}}>
                                         <S.Title>Lender Information</S.Title>
                                         <S.LargeBox style={{borderLeft: ".5px solid #000"}}>
-                                            <b>Lender Company:</b>{state?.details?.lender?.organization}<br/>
-                                            <b>Officer:</b>{state?.details?.lender?.name}<br/>
-                                            <b>Phone Number:</b>{state?.details?.lender?.phoneNumber}<br/>
-                                            <b>Email:</b>{state?.details?.lender?.email}<br/>
+                                            <b>Lender Company: </b>{state?.details?.lender?.organization}<br/>
+                                            <b>Officer: </b>{state?.details?.lender?.name}<br/>
+                                            <b>Phone Number: </b>{state?.details?.lender?.phoneNumber}<br/>
+                                            <b>Email: </b>{state?.details?.lender?.email}<br/>
                                         </S.LargeBox>
                                     </S.Column>
                                     <S.Column style={{flexGrow: 2}}>
                                         <S.Title>Referral Information</S.Title>
                                         <S.LargeBox>
-                                            <b>Is there a Referral:</b>{state?.details?.referral ? "Yes" : "No"}<br/>
-                                            <b>Referral Amount:</b>{state?.details?.referral?.amount}<br/>
-                                            <b>Officer:</b>{state?.details?.referral?.Agent}<br/>
-                                            <b>Email:</b>{state?.details?.referral?.email}<br/>
-                                            <b>Phone Number:</b>
+                                            <b>Is there a Referral: </b>{state?.details?.referral ? "Yes" : "No"}<br/>
+                                            <b>Referral Amount: </b>{state?.details?.referral?.amount}<br/>
+                                            <b>Officer: </b>{state?.details?.referral?.Agent}<br/>
+                                            <b>Email: </b>{state?.details?.referral?.email}<br/>
+                                            <b>Phone Number: </b>
                                         </S.LargeBox>
                                     </S.Column>
                                 </S.Row>

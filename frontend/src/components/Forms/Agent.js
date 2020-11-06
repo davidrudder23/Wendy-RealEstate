@@ -17,19 +17,18 @@ const Agent = () => {
 
     const onSubmit = data => {
         action({
-            agent: {
+            client: {
+                ...state?.details?.client,
                 [represents]: {
+                    ...state?.details?.client?.[represents],
                     agent: {
                         ...data?.agent?.[represents],
-                        ...state?.details?.agent
                     },
                     broker: {
                         ...data?.broker?.[represents],
-                        ...state?.details?.broker
                     }
-                },
-                ...state?.details?.agent
-            }
+                }
+            },
         });
         if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_ENABLE_REDIRECT === "false") {
             push(handleDeploymentPath("/result"));
