@@ -123,6 +123,7 @@ const Property = () => {
                         name="property.isInspectionWaved"
                         register={register}
                         required={false} />
+                        {/* TODO: Fix should not be required if inspectionWaved */}
                     {inspectionWaved ? null :
                         <CustomDatePicker
                             getValues={getValues}

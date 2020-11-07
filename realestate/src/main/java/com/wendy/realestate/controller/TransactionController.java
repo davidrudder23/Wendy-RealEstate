@@ -1,24 +1,41 @@
 package com.wendy.realestate.controller;
 
 import com.wendy.realestate.model.Details;
-import com.wendy.realestate.model.Details_;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.wendy.realestate.service.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController {
 
-    @RequestMapping("/Buyers")
-    public String buyersTransaction(){
-        return "buyersTransaction";
+    @Autowired
+    private EmailService emailService;
+
+    @GetMapping
+    public String getTransaction(){
+        return "transaction";
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/Buyers")
-    public void newBuyersTransaction(@RequestBody Details test){
-        System.out.println(test.getDetails().getAgentType());
+    @PostMapping
+    public int postTransaction(@RequestBody Details details) {
+
+        try {
+            emailService.sendMessageWithAttachment(
+                    "gcolon021@gmail.com",
+                    "wendy realestate email test",
+                    "hello world!",
+                    ""
+            );
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return 200;
     }
 
 }
